@@ -6,14 +6,15 @@
 
 まず部品の購入方法ですが、コロナ渦前は秋葉原のお店にいって買っていました。
 * 秋月
-@<href>{https://akiduki.com}
+@<href>{https://akizukidenshi.com/catalog/}
 * 千石
-@<href>{}
+@<href>{https://www.sengoku.co.jp/}
 * SwithcScience
-@<href>{}
+@<href>{https://www.switch-science.com/}
 * Amazon.co.jp
-@<href>{}
+@<href>{https://www.amazon.co.jp/}
 * aitendo
+@<href>{https://www.aitendo.com/}
 
 
 == 本誌で利用するもの
