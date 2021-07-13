@@ -1,7 +1,8 @@
 PREDEF:
   - preface.re
 CHAPS:
-
+  - preparation.re
+  - environment.re
 APPENDIX:
 
 POSTDEF:
