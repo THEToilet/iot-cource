@@ -1,6 +1,20 @@
 = APIを使おう！
 
 == Weather APIを使う
+//image[1][1]{
+//}
+//image[2][2]{
+//}
+//image[3][3]{
+//}
+//image[4][4]{
+//}
+
+ Weather API
+ https://www.weatherapi.com/
+
+Call
+https://api.weatherapi.com/v1/current.json?key={key}&q=Saitama&aqi=no
 
 ResponeseCode
     200
@@ -71,6 +85,7 @@ ResponeseCode
 
 === APIとは？
 
-=== サーバクライアント
+===[column] サーバクライアント
+サーバ？クライアント？とは何
 
 === WebサーバからのLチカ
