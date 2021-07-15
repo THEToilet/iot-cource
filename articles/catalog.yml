@@ -3,7 +3,10 @@ PREDEF:
 CHAPS:
   - preparation.re
   - environment.re
+  - electronic.re
+  - sensor.re
+  - serverclient.re
 APPENDIX:
-
+  - troubleshooting.re
 POSTDEF:
   - contributors.re
