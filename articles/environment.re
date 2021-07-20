@@ -5,6 +5,13 @@
 Windows環境を想定しているので、Mac環境の方は少しやり方が違うかもしれません。
 
 == ESP32とは
+ESP32ってなに？？？
+Espressif Systems社が開発したSoC(System on a Chip)シリーズの名前
+環境開発環境として
+ * Arduino IDE 
+ * ESP-IDF
+ * MicroPython
+などがありますが、今回はArduino IDEを用いて開発を進めていきたいと思います。
 
 == Arduino IDEのインストール
 //image[1][1]{
@@ -38,6 +45,10 @@ Windows環境を想定しているので、Mac環境の方は少しやり方が�
 
 == 動作確認
 ここで動作確認をするために定番のHelloWorldを行いましょう 
+
+=== ブレッドボード
+まずESP32をブレッドボードにさしましょう
+
 //image[14][14]{
 //}
 //image[15][15]{
@@ -74,3 +85,6 @@ void loop() {
   delay(3000); 
 }
 //} 
+
+===[column] シリアル通信とは
+ArduinoIDEはシリアルモニタを備えていて、Arduinoとコミュニケーションすることができます。
