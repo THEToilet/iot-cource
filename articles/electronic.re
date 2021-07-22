@@ -32,6 +32,8 @@
 
 == Lチカしよう！
 === プログラムでLチカ
+//image[led2][led2]{
+//}
 //list[Ltic][Ltic]{
 void setup() {
   pinMode(13, OUTPUT);
@@ -45,6 +47,8 @@ void loop() {
 //}
 
 === タクトスイッチでLチカ
+//image[switch2][switch2]{
+//}
 
 ===[column] チャタリング
 
