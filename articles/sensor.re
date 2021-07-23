@@ -7,6 +7,20 @@
 
 === I2Cとは
 
+	4本の線を接続するだけでセンサーや表示デバイスを手軽に利用できる
+　　I2C（Inter Integrated Circuit）
+　　IC間で通信することを目的に、フィリップ社が開発したシリアル通信方式
+　　　データのやり取りをするSDA（シリアルデータ）と、
+　　　IC間でタイミングを合わせるのに利用するSCL（シリアルクロック）
+　　　2本の線をつなげることで、互いにデータのやり取りえをするようになっている
+　　　　GNDと電源にもつなげるので4本必要
+　　　I2Cは各種デバイスを制御するマスターと、マスターからの命令によって制御されるスレーブに分かれる
+　　　マスターはマイコンに当たる
+　　デバイスを制御する場合に、対象デバイスを指定する必要がある
+　　　各I2CデバイスにはI2Cアドレスが割り当てられている
+　　　　アドレスは16進数表記で0x03から0x77までの117個のアドレスが利用できる
+　　　　大体は製品出荷時にアドレスが割り当てられている
+
 ==== 温湿度センサー
 
 温度範囲 0~50℃
@@ -30,6 +44,34 @@ https://randomnerdtutorials.com/esp32-dht11-dht22-temperature-humidity-sensor-ar
 //image[oled][oled]{
 //}
 //image[10][10]{
+//}
+//list[oled][oled]{
+#include <Wire.h>
+  #include <string>
+  #include "SSD1306.h" //ディスプレイ用ライブラリを読み込み
+  using namespace std;
+  
+  SSD1306 display(0x3c, 21, 22); //SSD1306インスタンスの作成（I2Cアドレス,SDA,SCL）
+  
+  int i = 0;
+  void setup()
+  {
+  
+    display.init();                          //ディスプレイを初期化
+    display.setFont(ArialMT_Plain_16);       //フォントを設定
+    display.drawString(0, 0, "Hello World"); //(0,0)の位置にHello Worldを表示
+    display.display();                       //指定された情報を描画
+  }
+  
+  void loop()
+  {
+    i++;
+    display.setPixel(i, i + 10);
+    if (i == 100)
+    {
+      i = 0;
+    }
+    display.displ
 //}
 
 

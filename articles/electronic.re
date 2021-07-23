@@ -83,12 +83,12 @@ void loop()
 {
   if (digitalRead(2) == LOW)
   {
-    delay(200);
+    delay(100);
     Serial.println("ON!");
   }
   if (digitalRead(2) == HIGH)
   {
-    delay(200);
+    delay(100);
     Serial.println("OFF!");
   }
 }
@@ -97,7 +97,6 @@ void loop()
 スイッチは金属板の接触によって、電流を通したり、通さなかったりしますが、
 これを行う際、複数回のオンオフが発生してしまいます。この対策としては、
 プログラム側で、delayをはさむことが挙げられます。
-===[/column]
 
 === 応用問題
 二つのLEDとスイッチを使用して、
