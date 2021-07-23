@@ -5,12 +5,16 @@
 Windows環境を想定しているので、Mac環境の方は少しやり方が違うかもしれません。
 
 == ESP32とは
+
 ESP32ってなに？？？
+
 Espressif Systems社が開発したSoC(System on a Chip)シリーズの名前
 環境開発環境として
+
  * Arduino IDE 
  * ESP-IDF
  * MicroPython
+
 などがありますが、今回はArduino IDEを用いて開発を進めていきたいと思います。
 
 == Arduino IDEのインストール
@@ -41,9 +45,14 @@ Espressif Systems社が開発したSoC(System on a Chip)シリーズの名前
 //image[13][13]{
 //}
 
+@<href>{https://github.com/espressif/arduino-esp32/blob/master/docs/arduino-ide/boards_manager.md}
+
 == ESP32用ボードマネージャーのインストール
 
+@<href>{https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json}
+
 == 動作確認
+
 ここで動作確認をするために定番のHelloWorldを行いましょう 
 
 === ブレッドボード

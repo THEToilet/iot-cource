@@ -1,6 +1,7 @@
 = APIを使おう！
 
 == Weather APIを使う
+
 //image[1][1]{
 //}
 //image[2][2]{
@@ -12,14 +13,15 @@
 //image[5][5]{
 //}
 
- Weather API
- https://www.weatherapi.com/
+Weather API
+@<href>{https://www.weatherapi.com/}
 
 Call
-https://api.weatherapi.com/v1/current.json?key={key}&q=Saitama&aqi=no
+@<href>{https://api.weatherapi.com/v1/current.json?key=[key]&q=Saitama&aqi=no}
 
 ResponeseCode
-    200
+200
+
 //list[ResponesHeader][ResponesHeader]{
 {
     "Transfer-Encoding": "chunked",
@@ -90,6 +92,20 @@ ResponeseCode
 そこで、公開されているライブラリであるarduinoJSONを利用します。
 
 ==== ライブラリのインストール
+
+ [** arduinoJSON]
+ JSONドキュメントを作る時にキャパシティを計算する必要がある
+ ArduinoJson Assistant
+ https://arduinojson.org/v6/assistant/
+
+//image[6][6]{
+//}
+//image[7][7]{
+//}
+//image[8][8]{
+//}
+//image[9][9]{
+//}
 
 //list[world][最初のプログラム]{
 // String input;

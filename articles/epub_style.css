@@ -107,13 +107,15 @@ table {
 table tr th {
     background-color: #eee;
     border:1px #aaa solid;
-    font-size: 0.75em;
+/*    font-size: 0.75em;*/
+    font-size: 0.70em;
     font-weight: normal;
 }
 table tr td {
     padding: 0.3em;
     border:1px #aaa solid;
-    font-size: 0.75em;
+ /*   font-size: 0.75em;*/
+    font-size: 0.70em;
 }
 p.tablecaption, table caption {
     margin: 0;

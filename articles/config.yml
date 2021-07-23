@@ -123,11 +123,11 @@ toc: true
 # mytoc: true
 
 # 表紙にするファイル。ファイル名を指定すると表紙として入る (PDFMaker向けにはLaTeXソース断片、EPUBMaker向けにはHTMLファイル)
-# cover: null
+cover: null
 #
 # 表紙に配置し、書籍の影絵にも利用する画像ファイル。省略した場合はnull (画像を使わない)。画像ディレクトリ内に置いてもディレクトリ名は不要(例: cover.jpg)
 # PDFMaker 固有の表紙設定は pdfmaker セクション内で上書き可能
-coverimage: cover.jpg
+#coverimage: cover.jpg
 #
 # 表紙の後に大扉ページを作成するか。省略した場合はtrue (作成する)
 # titlepage: true
@@ -346,13 +346,13 @@ epubmaker:
   # epubmaker:階層を使うものはここまで
 
 # LaTeX用のスタイルファイル(styディレクトリ以下に置くこと)
-texstyle: ["reviewmacro"]
+#texstyle: ["reviewmacro"]
 #texstyle: ["tatsumacro"]
 #
 # LaTeX用のdocumentclassを指定する
 # オプションについてはsty/README.mdを参照
 # デフォルトは印刷用。電子配布版を作るには media=ebook とする
-texdocumentclass: ["review-jsbook", "media=ebook"]
+texdocumentclass: ["review-jsbook", "media=ebook,oneside,14pt"]
 #tatsumacro利用の場合はこちら
 #texdocumentclass: ["jsbook", "oneside,14pt,uplatex"]
 
