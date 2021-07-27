@@ -1,6 +1,6 @@
 = 取得データをWebに公開しよう！
 
-//image[6][6]{
+//image[6][今回の目標画面]{
 //}
 
 == センサーを使おう
@@ -34,44 +34,44 @@ ArduinoIDEを使用したDHT11 / DHT22温度および湿度センサーを備え
 https://randomnerdtutorials.com/esp32-dht11-dht22-temperature-humidity-sensor-arduino-ide/
 //image[dht11][dht11]{
 //}
-
-//image[8][8]{
+//image[9][DHT11用ライブラリのインストール]{
 //}
-//image[9][9]{
+
+//image[8][依存ライブラリのインストール]{
 //}
 ==== LCD
 
 //image[oled][oled]{
 //}
-//image[10][10]{
+//image[10][SSD1306用ライブラリのインストール]{
 //}
 //list[oled][oled]{
 #include <Wire.h>
-  #include <string>
-  #include "SSD1306.h" //ディスプレイ用ライブラリを読み込み
-  using namespace std;
-  
-  SSD1306 display(0x3c, 21, 22); //SSD1306インスタンスの作成（I2Cアドレス,SDA,SCL）
-  
-  int i = 0;
-  void setup()
+#include <string>
+#include "SSD1306.h" //ディスプレイ用ライブラリを読み込み
+using namespace std;
+
+SSD1306 display(0x3c, 21, 22); //SSD1306インスタンスの作成（I2Cアドレス,SDA,SCL）
+
+int i = 0;
+void setup()
+{
+
+  display.init();                          //ディスプレイを初期化
+  display.setFont(ArialMT_Plain_16);       //フォントを設定
+  display.drawString(0, 0, "Hello World"); //(0,0)の位置にHello Worldを表示
+  display.display();                       //指定された情報を描画
+}
+
+void loop()
+{
+  i++;
+  display.setPixel(i, i + 10);
+  if (i == 100)
   {
-  
-    display.init();                          //ディスプレイを初期化
-    display.setFont(ArialMT_Plain_16);       //フォントを設定
-    display.drawString(0, 0, "Hello World"); //(0,0)の位置にHello Worldを表示
-    display.display();                       //指定された情報を描画
+    i = 0;
   }
-  
-  void loop()
-  {
-    i++;
-    display.setPixel(i, i + 10);
-    if (i == 100)
-    {
-      i = 0;
-    }
-    display.displ
+  display.displ
 //}
 
 
@@ -176,18 +176,18 @@ SSID（Service Set Identifier）とはIEEE802.11（Wi-Fi　無線LANの通信規
 
 AmbientはIoTデータの可視化サービスです。
 https://ambidata.io/
-//image[1][1]{
+//image[1][ambientのトップページ]{
 //}
-//image[2][2]{
+//image[2][ユーザ登録]{
 //}
-//image[3][3]{
+//image[3][登録完了メール]{
 //}
-//image[4][4]{
+//image[4][ログイン画面]{
 //}
 チャネルを作成します。
-//image[5][5]{
+//image[5][チャネル作成完了画面]{
 //}
-//image[7][7]{
+//image[7][ambient用ライブラリのインストール]{
 //}
 
 ==== ライブラリのインストール

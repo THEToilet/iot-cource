@@ -18,31 +18,33 @@ Espressif Systems社が開発したSoC(System on a Chip)シリーズの名前
 などがありますが、今回はArduino IDEを用いて開発を進めていきたいと思います。
 
 == Arduino IDEのインストール
-//image[1][1]{
+//image[1][ArduinoIDEのダウンロード画面]{
 //}
-//image[2][2]{
+//image[2][寄付金の金額選択画面]{
 //}
-//image[3][3]{
+//image[3][ブラウザで見るMicorosoftStore]{
 //}
-//image[4][4]{
+//image[4][Windowsで開いたMicrosoftStore]{
 //}
-//image[5][5]{
+//image[5][サインインの確認画面]{
 //}
-//image[6][6]{
+//image[6][ダウンロードのキュー画面]{
 //}
-//image[7][7]{
+//image[7][ArduinoIDEの検索]{
 //}
-//image[8][8]{
+//image[8][セキュリティの確認画面]{
 //}
-//image[9][9]{
+//image[9][デフォルトのスケッチ画面]{
 //}
-//image[10][10]{
+//image[10][ESP32をArduinoIDEで使うための設定]{
 //}
-//image[11][11]{
+//image[11][ESP32用のボードマネージャ情報]{
 //}
-//image[12][12]{
+//image[12][環境設定を選択]{
 //}
-//image[13][13]{
+//image[13][環境設定の画面]{
+//}
+//image[14][追加ボードマネージャーのURLに貼り付ける]{
 //}
 
 @<href>{https://github.com/espressif/arduino-esp32/blob/master/docs/arduino-ide/boards_manager.md}
@@ -58,31 +60,29 @@ Espressif Systems社が開発したSoC(System on a Chip)シリーズの名前
 === ブレッドボード
 まずESP32をブレッドボードにさしましょう
 
-//image[14][14]{
+//image[15][ライブラリの管理の選択]{
 //}
-//image[15][15]{
+//image[16][ESP32用ライブラリのインストール]{
 //}
-//image[16][17]{
+//image[18][デバイスマネージャーの検索]{
 //}
-//image[18][18]{
+//image[19][ESP32の接続ポートを調べる]{
 //}
-//image[19][19]{
+//image[20][新規ファイルの作成]{
 //}
-//image[20][20]{
+//image[21][新規ファイルの名前決定]{
 //}
-//image[21][21]{
+//image[22][新規ファイル作成完了画面]{
 //}
-//image[22][22]{
+//image[23][helloworldのプログラムを記述]{
 //}
-//image[23][23]{
+//image[24][ESP32にプログラムを書き込む]{
 //}
-//image[24][24]{
+//image[25][コンソール画面]{
 //}
-//image[25][25]{
+//image[26][シリアルモニタの選択]{
 //}
-//image[26][26]{
-//}
-//image[27][27]{
+//image[27][helloworldの表示成功]{
 //}
 //list[helloworld][最初のプログラム]{
 void setup() { 

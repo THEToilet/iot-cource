@@ -2,15 +2,15 @@
 
 == Weather APIを使う
 
-//image[1][1]{
+//image[1][WeatherAPIのトップページ]{
 //}
-//image[2][2]{
+//image[2][登録画面]{
 //}
-//image[3][3]{
+//image[3][ログイン画面]{
 //}
-//image[4][4]{
+//image[4][マイページ]{
 //}
-//image[5][5]{
+//image[5][APIの試行ページ]{
 //}
 
 Weather API
@@ -98,13 +98,13 @@ ResponeseCode
  ArduinoJson Assistant
  https://arduinojson.org/v6/assistant/
 
-//image[6][6]{
+//image[6][ArudinoAssistantのトップページ]{
 //}
-//image[7][7]{
+//image[7][JSONの大きさ設定]{
 //}
-//image[8][8]{
+//image[8][JSONのサイズ確認画面]{
 //}
-//image[9][9]{
+//image[9][ArduinoJson用ライブラリのインストール]{
 //}
 
 //list[world][最初のプログラム]{
