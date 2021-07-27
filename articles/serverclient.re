@@ -1,4 +1,6 @@
-= APIを使おう！
+= WebAPIを使おう
+
+=== WebAPIとは？
 
 == Weather APIを使う
 
@@ -160,9 +162,9 @@ ResponeseCode
   float current_gust_mph = current["gust_mph"]; // 13.9
   float current_gust_kph = current["gust_kph"]; // 22.3
 //} 
-=== APIとは？
 
-===[column] サーバクライアント
+==[column] コラム: サーバクライアント
 サーバ？クライアント？とは何
+==[/column] 
 
-=== WebサーバからのLチカ
+== 応用問題: WebサーバからのLチカ

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" type="text/css" href="epub_style.css" />
+<link rel="next" title="著者紹介" href="contributors.html" /><link rel="prev" title="応用編" href="pratical.html" />  <meta name="generator" content="Re:VIEW" />
+  <title>トラブルシューティング | はじめてのIoT講座</title>
+</head>
+<body>
+  <div class="book">
+    <nav class="side-content">
+      <h1>はじめてのIoT講座</h1>
+      <ul class="book-toc">
+<li><a href="index.html">TOP</a></li>
+<li><a href="preface.html">はじめに</a></li>
+<li><a href="preparation.html">第1章　電子部品の準備</a></li>
+<li><a href="environment.html">第2章　環境構築</a></li>
+<li><a href="electronic.html">第3章　電子部品を使ってみよう</a></li>
+<li><a href="sensor.html">第4章　取得データをWebに公開しよう！</a></li>
+<li><a href="serverclient.html">第5章　APIを使おう！</a></li>
+<li><a href="pratical.html">第6章　応用編</a></li>
+<li><a href="troubleshooting.html">付録A　トラブルシューティング</a></li>
+<li><a href="contributors.html">著者紹介</a></li>
+</ul>
+      <p class="review-signature">powered by <a href="http://reviewml.org/">Re:VIEW</a></p>
+    </nav>
+    <div class="book-body">
+      <header>
+      </header>
+      <div class="book-page">
+        <h1><a id="hA"></a><span class="secno">付録A　</span>トラブルシューティング</h1>
+
+<h2><a id="hA-1"></a><span class="secno">A.1　</span>シリアルモニタで文字化けがする</h2>
+<div id="id_1" class="image">
+<img src="images/troubleshooting/1.png" alt="1" />
+<p class="caption">
+図A.1: 1
+</p>
+</div>
+<div id="id_2" class="image">
+<img src="images/troubleshooting/2.png" alt="2" />
+<p class="caption">
+図A.2: 2
+</p>
+</div>
+<p>Upload speedが間違っている可能性がある</p>
+
+<h2><a id="hA-2"></a><span class="secno">A.2　</span>プログラムが書き込めない</h2>
+<p>シリアルポートが間違っているかもしれない</p>
+
+<h2><a id="hA-3"></a><span class="secno">A.3　</span>プログラムを書き込んだが動作に反映されない</h2>
+<div id="id_3" class="image">
+<img src="images/troubleshooting/3.png" alt="3" />
+<p class="caption">
+図A.3: 3
+</p>
+</div>
+<p>プログラムの保存を忘れているCtrl+Sで保存してから読み込む</p>
+
+<h2><a id="hA-4"></a><span class="secno">A.4　</span>error: redefinion</h2>
+<div class="cmd-code">
+<pre class="cmd">c:\Users\donki\Documents\Arduino\helloworld\DHT11.ino: In function &#39;void setup()&#39;:
+  DHT11:30:6: error: redefinition of &#39;void setup()&#39;
+   void setup() {
+        ^
+  c:\Users\donki\Documents\Arduino\helloworld\helloworld.ino:1:6: note: &#39;void setup()&#39; previously defined here
+   void setup() {
+        ^
+  c:\Users\donki\Documents\Arduino\helloworld\DHT11.ino: In function &#39;void loop()&#39;:
+  DHT11:37:6: error: redefinition of &#39;void loop()&#39;
+  void loop() {
+        ^
+  c:\Users\donki\Documents\Arduino\helloworld\helloworld.ino:5:6: note: &#39;void loop()&#39; previously defined here
+   void loop() {
+        ^
+  exit status 1
+</pre>
+</div>
+<ul>
+<li>解決法Arduinoコンパイルエラー(redefinition)同じフォルダ内にsetup()とloop()が重複している際に出るエラーArduinoはコンパイルをファルダ単位で行うため、このようなエラーが出る</li>
+</ul>
+      </div>
+      <nav class="book-navi book-prev">
+                <a href="pratical.html">
+          <div class="book-cursor"><span class="cursor-prev">◀</span></div>
+        </a>
+              </nav>
+      <nav class="book-navi book-next">
+                <a href="contributors.html">
+          <div class="book-cursor"><span class="cursor-next">▶</span></div>
+        </a>
+              </nav>
+    </div>
+  </div>
+  <footer>
+      </footer>
+</body>
+</html>

@@ -352,6 +352,7 @@ epubmaker:
 # LaTeX用のdocumentclassを指定する
 # オプションについてはsty/README.mdを参照
 # デフォルトは印刷用。電子配布版を作るには media=ebook とする
+#texdocumentclass: ["review-jsbook", "media=ebook,oneside,14pt"]
 texdocumentclass: ["review-jsbook", "media=ebook,oneside,14pt"]
 #tatsumacro利用の場合はこちら
 #texdocumentclass: ["jsbook", "oneside,14pt,uplatex"]

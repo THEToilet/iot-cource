@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" type="text/css" href="epub_style.css" />
+<link rel="next" title="取得データをWebに公開しよう！" href="sensor.html" /><link rel="prev" title="環境構築" href="environment.html" />  <meta name="generator" content="Re:VIEW" />
+  <title>電子部品を使ってみよう | はじめてのIoT講座</title>
+</head>
+<body>
+  <div class="book">
+    <nav class="side-content">
+      <h1>はじめてのIoT講座</h1>
+      <ul class="book-toc">
+<li><a href="index.html">TOP</a></li>
+<li><a href="preface.html">はじめに</a></li>
+<li><a href="preparation.html">第1章　電子部品の準備</a></li>
+<li><a href="environment.html">第2章　環境構築</a></li>
+<li><a href="electronic.html">第3章　電子部品を使ってみよう</a></li>
+<li><a href="sensor.html">第4章　取得データをWebに公開しよう！</a></li>
+<li><a href="serverclient.html">第5章　APIを使おう！</a></li>
+<li><a href="pratical.html">第6章　応用編</a></li>
+<li><a href="troubleshooting.html">付録A　トラブルシューティング</a></li>
+<li><a href="contributors.html">著者紹介</a></li>
+</ul>
+      <p class="review-signature">powered by <a href="http://reviewml.org/">Re:VIEW</a></p>
+    </nav>
+    <div class="book-body">
+      <header>
+      </header>
+      <div class="book-page">
+        <h1><a id="h3"></a><span class="secno">第3章　</span>電子部品を使ってみよう</h1>
+
+<h2><a id="h3-1"></a><span class="secno">3.1　</span>部品説明</h2>
+<p>ここでは、サンプルを作成するに際に使用する電子部品の説明を行います。</p>
+
+<h3><a id="h3-1-1"></a>LED</h3>
+<ul>
+<li>アノード</li>
+</ul>
+<p>極性は端子の長いほうをアノードと呼び電源の＋に接続する</p>
+<ul>
+<li>カソード</li>
+</ul>
+<p>端子の短いほうをカソードと呼ぶカソード側は中の金属板が大きい　　* 点灯のために必要な情報** 順電圧（vf）** 順電流（lf）　　ラズパイで利用する場合は順電圧が2v程度，順電流が20mA程度</p>
+
+<h3><a id="h3-1-2"></a>ジャンプワイヤ</h3>
+<p>オスメス</p>
+
+<h3><a id="h3-1-3"></a>抵抗</h3>
+<p>抵抗見分け方</p>
+
+<h3><a id="h3-1-4"></a>タクトスイッチ</h3>
+<ul>
+<li>プルアップとプルダウン</li>
+</ul>
+<p>スイッチを利用すれば2つの値を切り替えられる回路を作れます。しかし，スイッチがオフの場合では，出力する端子が解放状態（何も接続されてない状態）になるこの場合周囲の雑音を拾ってしまい，値が安定しない状態になるそこで，プルダウンやプルアップを使って安定させる方法としてはGNDやVdd（電源）に接続しておく方法こうしておくことでスイッチがオフ状態のとき，出力端子に接続されている抵抗を介して値を安定させるスイッチOFF時に0vに安定させる方法をプルダウン電圧がかかった状態に安定させる方法をプルアップと呼ぶ</p>
+<div id="pullupdown" class="image">
+<img src="images/electronic/pullupdown.png" alt="pullupdown" />
+<p class="caption">
+図3.1: pullupdown
+</p>
+</div>
+
+<h2><a id="h3-2"></a><span class="secno">3.2　</span>Lチカしよう！</h2>
+<p>Lチカとは、ハードにおける、プログラムのHelloWolrdです。LEDをチカチカさせるだけですが、実際にLEDを光らせることができるとわくわくします。</p>
+
+<h3><a id="h3-2-1"></a>プログラムでLチカ</h3>
+<p>Lチカですが、ESP32を使用することで、容易に実現できます。ArduinoIDEから新規作成を選択し、新たなファイルを作成して以下のプログラムを貼り付けてください。</p>
+<div id="led2" class="image">
+<img src="images/electronic/led2.png" alt="led2" />
+<p class="caption">
+図3.2: led2
+</p>
+</div>
+<div id="Ltic" class="caption-code">
+<p class="caption">リスト3.1: Ltic</p>
+<pre class="list">void setup() {
+  pinMode(13, OUTPUT);
+}
+void loop() {
+  digitalWrite(13, HIGH);
+  delay(100);
+  digitalWrite(13, LOW);
+  delay(100);
+}
+</pre>
+</div>
+
+<h3><a id="h3-2-2"></a>タクトスイッチでLチカ</h3>
+<p>せっかくなので、スイッチを使用して、LEDを光らせましょう同様に以下の画像を参考に電子回路を組み、プログラムを参考にして、ESP32に書き込んでください。</p>
+<div id="switch2" class="image">
+<img src="images/electronic/switch2.png" alt="switch2" />
+<p class="caption">
+図3.3: switch2
+</p>
+</div>
+<div id="switch" class="caption-code">
+<p class="caption">リスト3.2: switch</p>
+<pre class="list">void setup()
+{
+  Serial.begin(115200);
+  pinMode(2, INPUT_PULLUP);
+}
+
+void loop()
+{
+  if (digitalRead(2) == LOW)
+  {
+    delay(100);
+    Serial.println(&quot;ON!&quot;);
+  }
+  if (digitalRead(2) == HIGH)
+  {
+    delay(100);
+    Serial.println(&quot;OFF!&quot;);
+  }
+}
+</pre>
+</div>
+<div class="column">
+
+<h3><a id="column-1"></a>チャタリング</h3>
+<p>スイッチは金属板の接触によって、電流を通したり、通さなかったりしますが、これを行う際、複数回のオンオフが発生してしまいます。この対策としては、プログラム側で、delayをはさむことが挙げられます。</p>
+</div>
+
+<h3><a id="h3-2-3"></a>応用問題</h3>
+<p>二つのLEDとスイッチを使用して、二つのLEDの状態を以下のように変更してください</p>
+      </div>
+      <nav class="book-navi book-prev">
+                <a href="environment.html">
+          <div class="book-cursor"><span class="cursor-prev">◀</span></div>
+        </a>
+              </nav>
+      <nav class="book-navi book-next">
+                <a href="sensor.html">
+          <div class="book-cursor"><span class="cursor-next">▶</span></div>
+        </a>
+              </nav>
+    </div>
+  </div>
+  <footer>
+      </footer>
+</body>
+</html>

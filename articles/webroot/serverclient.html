@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" type="text/css" href="epub_style.css" />
+<link rel="next" title="応用編" href="pratical.html" /><link rel="prev" title="取得データをWebに公開しよう！" href="sensor.html" />  <meta name="generator" content="Re:VIEW" />
+  <title>APIを使おう！ | はじめてのIoT講座</title>
+</head>
+<body>
+  <div class="book">
+    <nav class="side-content">
+      <h1>はじめてのIoT講座</h1>
+      <ul class="book-toc">
+<li><a href="index.html">TOP</a></li>
+<li><a href="preface.html">はじめに</a></li>
+<li><a href="preparation.html">第1章　電子部品の準備</a></li>
+<li><a href="environment.html">第2章　環境構築</a></li>
+<li><a href="electronic.html">第3章　電子部品を使ってみよう</a></li>
+<li><a href="sensor.html">第4章　取得データをWebに公開しよう！</a></li>
+<li><a href="serverclient.html">第5章　APIを使おう！</a></li>
+<li><a href="pratical.html">第6章　応用編</a></li>
+<li><a href="troubleshooting.html">付録A　トラブルシューティング</a></li>
+<li><a href="contributors.html">著者紹介</a></li>
+</ul>
+      <p class="review-signature">powered by <a href="http://reviewml.org/">Re:VIEW</a></p>
+    </nav>
+    <div class="book-body">
+      <header>
+      </header>
+      <div class="book-page">
+        <h1><a id="h5"></a><span class="secno">第5章　</span>APIを使おう！</h1>
+
+<h2><a id="h5-1"></a><span class="secno">5.1　</span>Weather APIを使う</h2>
+<div id="id_1" class="image">
+<img src="images/serverclient/1.png" alt="WeatherAPIのトップページ" />
+<p class="caption">
+図5.1: WeatherAPIのトップページ
+</p>
+</div>
+<div id="id_2" class="image">
+<img src="images/serverclient/2.png" alt="登録画面" />
+<p class="caption">
+図5.2: 登録画面
+</p>
+</div>
+<div id="id_3" class="image">
+<img src="images/serverclient/3.png" alt="ログイン画面" />
+<p class="caption">
+図5.3: ログイン画面
+</p>
+</div>
+<div id="id_4" class="image">
+<img src="images/serverclient/4.png" alt="マイページ" />
+<p class="caption">
+図5.4: マイページ
+</p>
+</div>
+<div id="id_5" class="image">
+<img src="images/serverclient/5.png" alt="APIの試行ページ" />
+<p class="caption">
+図5.5: APIの試行ページ
+</p>
+</div>
+<p>Weather API<a href="https://www.weatherapi.com/" class="link">https://www.weatherapi.com/</a></p>
+<p>Call<a href="https://api.weatherapi.com/v1/current.json?key=[key]&amp;q=Saitama&amp;aqi=no" class="link">https://api.weatherapi.com/v1/current.json?key=[key]&amp;q=Saitama&amp;aqi=no</a></p>
+<p>ResponeseCode200</p>
+<div id="ResponesHeader" class="caption-code">
+<p class="caption">リスト5.1: ResponesHeader</p>
+<pre class="list">{
+    &quot;Transfer-Encoding&quot;: &quot;chunked&quot;,
+    &quot;Connection&quot;: &quot;keep-alive&quot;,
+    &quot;Vary&quot;: &quot;Accept-Encoding&quot;,
+    &quot;CDN-PullZone&quot;: &quot;93447&quot;,
+    &quot;CDN-Uid&quot;: &quot;8fa3a04a-75d9-4707-8056-b7b33c8ac7fe&quot;,
+    &quot;CDN-RequestCountryCode&quot;: &quot;FI&quot;,
+    &quot;CDN-EdgeStorageId&quot;: &quot;615&quot;,
+    &quot;CDN-CachedAt&quot;: &quot;2021-07-12 14:05:36&quot;,
+    &quot;CDN-RequestPullSuccess&quot;: &quot;True&quot;,
+    &quot;CDN-RequestPullCode&quot;: &quot;200&quot;,
+    &quot;CDN-RequestId&quot;: &quot;a45be49d32c7a76559a3f3920d337f53&quot;,
+    &quot;CDN-Cache&quot;: &quot;MISS&quot;,
+    &quot;Cache-Control&quot;: &quot;public, max-age=180&quot;,
+    &quot;Content-Type&quot;: &quot;application/json&quot;,
+    &quot;Date&quot;: &quot;Mon, 12 Jul 2021 12:05:36 GMT&quot;,
+    &quot;Server&quot;: &quot;BunnyCDN-FI1-615&quot;
+}
+</pre>
+</div>
+<div id="ResponseBody" class="caption-code">
+<p class="caption">リスト5.2: ResponseBody</p>
+<pre class="list">{
+      &quot;location&quot;: {
+          &quot;name&quot;: &quot;Saitama&quot;,
+          &quot;region&quot;: &quot;Saitama&quot;,
+          &quot;country&quot;: &quot;Japan&quot;,
+          &quot;lat&quot;: 35.91,
+          &quot;lon&quot;: 139.66,
+          &quot;tz_id&quot;: &quot;Asia/Tokyo&quot;,
+          &quot;localtime_epoch&quot;: 1626091536,
+          &quot;localtime&quot;: &quot;2021-07-12 21:05&quot;
+      },
+      &quot;current&quot;: {
+          &quot;last_updated_epoch&quot;: 1626087600,
+          &quot;last_updated&quot;: &quot;2021-07-12 20:00&quot;,
+          &quot;temp_c&quot;: 29.4,
+          &quot;temp_f&quot;: 84.9,
+          &quot;is_day&quot;: 0,
+          &quot;condition&quot;: {
+              &quot;text&quot;: &quot;Partly cloudy&quot;,
+              &quot;icon&quot;: &quot;//cdn.weatherapi.com/weather/64x64/night/116.png&quot;,
+              &quot;code&quot;: 1003
+          },
+          &quot;wind_mph&quot;: 7.6,
+          &quot;wind_kph&quot;: 12.2,
+          &quot;wind_degree&quot;: 162,
+          &quot;wind_dir&quot;: &quot;SSE&quot;,
+          &quot;pressure_mb&quot;: 1010.0,
+          &quot;pressure_in&quot;: 30.3,
+          &quot;precip_mm&quot;: 0.0,
+          &quot;precip_in&quot;: 0.0,
+          &quot;humidity&quot;: 61,
+          &quot;cloud&quot;: 47,
+          &quot;feelslike_c&quot;: 32.1,
+          &quot;feelslike_f&quot;: 89.8,
+          &quot;vis_km&quot;: 10.0,
+          &quot;vis_miles&quot;: 6.0,
+          &quot;uv&quot;: 7.0,
+          &quot;gust_mph&quot;: 9.2,
+          &quot;gust_kph&quot;: 14.8
+    }
+}
+</pre>
+</div>
+<p>この形式をJSON（JavaScript Object Node）と言います。これらの形式が、WeatherAPIから帰ってくるため、ESP32側で使えるようにしなければなりませんそこで、公開されているライブラリであるarduinoJSONを利用します。</p>
+
+<h4><a id="h5-1-0-1"></a>ライブラリのインストール</h4>
+<p>[** arduinoJSON]JSONドキュメントを作る時にキャパシティを計算する必要があるArduinoJson Assistanthttps://arduinojson.org/v6/assistant/</p>
+<div id="id_6" class="image">
+<img src="images/serverclient/6.png" alt="ArudinoAssistantのトップページ" />
+<p class="caption">
+図5.6: ArudinoAssistantのトップページ
+</p>
+</div>
+<div id="id_7" class="image">
+<img src="images/serverclient/7.png" alt="JSONの大きさ設定" />
+<p class="caption">
+図5.7: JSONの大きさ設定
+</p>
+</div>
+<div id="id_8" class="image">
+<img src="images/serverclient/8.png" alt="JSONのサイズ確認画面" />
+<p class="caption">
+図5.8: JSONのサイズ確認画面
+</p>
+</div>
+<div id="id_9" class="image">
+<img src="images/serverclient/9.png" alt="ArduinoJson用ライブラリのインストール" />
+<p class="caption">
+図5.9: ArduinoJson用ライブラリのインストール
+</p>
+</div>
+<div id="world" class="caption-code">
+<p class="caption">リスト5.3: 最初のプログラム</p>
+<pre class="list">// String input;
+
+  StaticJsonDocument&lt;1536&gt; doc;
+
+  DeserializationError error = deserializeJson(doc, input);
+
+  if (error) {
+    Serial.print(F(&quot;deserializeJson() failed: &quot;));
+    Serial.println(error.f_str());
+    return;
+  }
+
+  JsonObject location = doc[&quot;location&quot;];
+  const char* location_name = location[&quot;name&quot;]; // &quot;Saitama&quot;
+  const char* location_region = location[&quot;region&quot;]; // &quot;Saitama&quot;
+  const char* location_country = location[&quot;country&quot;]; // &quot;Japan&quot;
+  float location_lat = location[&quot;lat&quot;]; // 35.91
+  float location_lon = location[&quot;lon&quot;]; // 139.66
+  const char* location_tz_id = location[&quot;tz_id&quot;]; // &quot;Asia/Tokyo&quot;
+  long location_localtime_epoch = location[&quot;localtime_epoch&quot;]; // 1626533912
+  const char* location_localtime = location[&quot;localtime&quot;]; // &quot;2021-07-17 23:58&quot;
+
+  JsonObject current = doc[&quot;current&quot;];
+  long current_last_updated_epoch = current[&quot;last_updated_epoch&quot;]; // 1626533100
+  const char* current_last_updated = current[&quot;last_updated&quot;]; // &quot;2021-07-17 23:45&quot;
+  float current_temp_c = current[&quot;temp_c&quot;]; // 23.3
+  float current_temp_f = current[&quot;temp_f&quot;]; // 73.9
+  int current_is_day = current[&quot;is_day&quot;]; // 0
+
+  JsonObject current_condition = current[&quot;condition&quot;];
+  const char* current_condition_text = current_condition[&quot;text&quot;]; // &quot;Clear&quot;
+  const char* current_condition_icon = current_condition[&quot;icon&quot;];
+  int current_condition_code = current_condition[&quot;code&quot;]; // 1000
+
+  float current_wind_mph = current[&quot;wind_mph&quot;]; // 3.8
+  float current_wind_kph = current[&quot;wind_kph&quot;]; // 6.1
+  int current_wind_degree = current[&quot;wind_degree&quot;]; // 250
+  const char* current_wind_dir = current[&quot;wind_dir&quot;]; // &quot;WSW&quot;
+  int current_pressure_mb = current[&quot;pressure_mb&quot;]; // 1019
+  float current_pressure_in = current[&quot;pressure_in&quot;]; // 30.6
+  int current_precip_mm = current[&quot;precip_mm&quot;]; // 0
+  int current_precip_in = current[&quot;precip_in&quot;]; // 0
+  int current_humidity = current[&quot;humidity&quot;]; // 88
+  int current_cloud = current[&quot;cloud&quot;]; // 0
+  float current_feelslike_c = current[&quot;feelslike_c&quot;]; // 24.9
+  float current_feelslike_f = current[&quot;feelslike_f&quot;]; // 76.9
+  int current_vis_km = current[&quot;vis_km&quot;]; // 16
+  int current_vis_miles = current[&quot;vis_miles&quot;]; // 9
+  int current_uv = current[&quot;uv&quot;]; // 1
+  float current_gust_mph = current[&quot;gust_mph&quot;]; // 13.9
+  float current_gust_kph = current[&quot;gust_kph&quot;]; // 22.3
+</pre>
+</div>
+
+<h3><a id="h5-1-1"></a>APIとは？</h3>
+<div class="column">
+
+<h3><a id="column-1"></a>サーバクライアント</h3>
+<p>サーバ？クライアント？とは何</p>
+</div>
+
+<h3><a id="h5-1-2"></a>WebサーバからのLチカ</h3>
+      </div>
+      <nav class="book-navi book-prev">
+                <a href="sensor.html">
+          <div class="book-cursor"><span class="cursor-prev">◀</span></div>
+        </a>
+              </nav>
+      <nav class="book-navi book-next">
+                <a href="pratical.html">
+          <div class="book-cursor"><span class="cursor-next">▶</span></div>
+        </a>
+              </nav>
+    </div>
+  </div>
+  <footer>
+      </footer>
+</body>
+</html>

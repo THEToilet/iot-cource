@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" type="text/css" href="epub_style.css" />
+<link rel="next" title="環境構築" href="environment.html" /><link rel="prev" title="はじめに" href="preface.html" />  <meta name="generator" content="Re:VIEW" />
+  <title>電子部品の準備 | はじめてのIoT講座</title>
+</head>
+<body>
+  <div class="book">
+    <nav class="side-content">
+      <h1>はじめてのIoT講座</h1>
+      <ul class="book-toc">
+<li><a href="index.html">TOP</a></li>
+<li><a href="preface.html">はじめに</a></li>
+<li><a href="preparation.html">第1章　電子部品の準備</a></li>
+<li><a href="environment.html">第2章　環境構築</a></li>
+<li><a href="electronic.html">第3章　電子部品を使ってみよう</a></li>
+<li><a href="sensor.html">第4章　取得データをWebに公開しよう！</a></li>
+<li><a href="serverclient.html">第5章　APIを使おう！</a></li>
+<li><a href="pratical.html">第6章　応用編</a></li>
+<li><a href="troubleshooting.html">付録A　トラブルシューティング</a></li>
+<li><a href="contributors.html">著者紹介</a></li>
+</ul>
+      <p class="review-signature">powered by <a href="http://reviewml.org/">Re:VIEW</a></p>
+    </nav>
+    <div class="book-body">
+      <header>
+      </header>
+      <div class="book-page">
+        <h1><a id="h1"></a><span class="secno">第1章　</span>電子部品の準備</h1>
+<p>本章では本誌のサンプルを進めるにあたって必要な電子部品および、その購入方法について紹介します。</p>
+
+<h2><a id="h1-1"></a><span class="secno">1.1　</span>電子部品の購入の方法</h2>
+<p>電子部品の販売店が近くにあれば直接商品を見ながら購入するのが一番ですが、お店が近くになかったり、コロナ渦の問題などで直接行くことが難しい場合は、通販での購入をおすすめします。下記の5つは電子部品を通販で購入できるサイトです。特に秋月電子通商、千石電商そしてaitendoは秋葉原に店舗があるので、機会があれば行くことをおすすめします。</p>
+<ul>
+<li>秋月電子通商<ul>
+<li><a href="https://akizukidenshi.com/catalog/" class="link">https://akizukidenshi.com/catalog/</a></li>
+</ul>
+</li>
+<li>千石電商<ul>
+<li><a href="https://www.sengoku.co.jp/" class="link">https://www.sengoku.co.jp/</a></li>
+</ul>
+</li>
+<li>スイッチサイエンス<ul>
+<li><a href="https://www.switch-science.com/" class="link">https://www.switch-science.com/</a></li>
+</ul>
+</li>
+<li>Amazon<ul>
+<li><a href="https://www.amazon.co.jp/" class="link">https://www.amazon.co.jp/</a></li>
+</ul>
+</li>
+<li>aitendo<ul>
+<li><a href="https://www.aitendo.com/" class="link">https://www.aitendo.com/</a></li>
+</ul>
+</li>
+</ul>
+
+<h2><a id="h1-2"></a><span class="secno">1.2　</span>本誌で利用する電子部品</h2>
+<p>筆者が本誌に使用するサンプルを作成するにあたって購入した商品を紹介します。本誌のサンプルを進めるにあたって必要になるため、参考にしてください。</p>
+<div id="material" class="table">
+<p class="caption">表1.1: 必要な材料</p>
+<table>
+<tr><th>品名</th><th>個数</th><th>参考価格</th><th>詳細情報</th></tr>
+<tr><td>ESP32DevKitC</td><td>1個</td><td>1230円</td><td></td></tr>
+<tr><td>microUSB Type-B</td><td>1本</td><td>約300円</td><td></td></tr>
+<tr><td>ブレッドボード</td><td>2個</td><td>280円×2</td><td></td></tr>
+<tr><td>LED</td><td>1袋</td><td>150円</td><td></td></tr>
+<tr><td>ジャンプワイヤセット（オス・オス）</td><td>1セット</td><td>220円</td><td></td></tr>
+<tr><td>抵抗100Ω＆10kΩ</td><td>100Ω: 1袋<br />10kΩ: 1袋</td><td>100円×2</td><td></td></tr>
+<tr><td>タクトスイッチ</td><td>1個</td><td>10円</td><td></td></tr>
+<tr><td>温湿度センサ</td><td>1個</td><td>300円</td><td></td></tr>
+<tr><td>ディスプレイ</td><td>1個</td><td>580円</td><td></td></tr>
+<tr><td>計</td><td></td><td>約3550円</td><td></td></tr>
+</table>
+</div>
+
+<h3><a id="h1-2-1"></a>おすすめ製品</h3>
+<p>今回筆者はすべて秋月の通販にて電子部品を購入をしましたが、同じ製品であればどの店舗で購入しても差し支えありません。しかし、本誌は以下の製品で動作確認をしているため基本的には以下の製品を購入することをおすすめします。</p>
+
+<h4><a id="h1-2-1-1"></a>ESP32DevKitC</h4>
+<p>ＥＳＰ３２－ＤｅｖＫｉｔＣ－３２Ｅ　ＥＳＰ３２－ＷＲＯＯＭ－３２Ｅ開発ボード　４ＭＢ</p>
+<p><a href="https://akizukidenshi.com/catalog/g/gM-15673/" class="link">https://akizukidenshi.com/catalog/g/gM-15673/</a></p>
+
+<h4><a id="h1-2-1-2"></a>ブレッドボード</h4>
+<p>ブレッドボード　６穴版　ＥＩＣ－３９０１</p>
+<p><a href="https://akizukidenshi.com/catalog/g/gP-12366/" class="link">https://akizukidenshi.com/catalog/g/gP-12366/</a></p>
+<p><strong>備考</strong>: ESP32DevKitCは幅が広いため、6穴のブレッドボードを使うことをおすすめします。</p>
+
+<h4><a id="h1-2-1-3"></a>LED</h4>
+<p>５ｍｍ赤色ＬＥＤ　６２５ｎｍ　７ｃｄ６０度　（１０個入）</p>
+<p><a href="https://akizukidenshi.com/catalog/g/gI-01318/" class="link">https://akizukidenshi.com/catalog/g/gI-01318/</a></p>
+
+<h4><a id="h1-2-1-4"></a>ジャンプワイヤセット（オス・オス）</h4>
+<p>ブレッドボード・ジャンパーワイヤ（オス－オス）セット　各種　合計６０本以上</p>
+<p><a href="https://akizukidenshi.com/catalog/g/gC-05159/" class="link">https://akizukidenshi.com/catalog/g/gC-05159/</a></p>
+
+<h4><a id="h1-2-1-5"></a>抵抗</h4>
+<p>カーボン抵抗（炭素皮膜抵抗）　１／４Ｗ１０ｋΩ　（１００本入）</p>
+<p><a href="https://akizukidenshi.com/catalog/g/gR-25103/" class="link">https://akizukidenshi.com/catalog/g/gR-25103/</a></p>
+<p>カーボン抵抗（炭素皮膜抵抗）　１／４Ｗ１００Ω　（１００本入）</p>
+<p><a href="https://akizukidenshi.com/catalog/g/gR-25101/" class="link">https://akizukidenshi.com/catalog/g/gR-25101/</a></p>
+<p><strong>備考</strong>: 上記の抵抗は100本単位からしか購入できません。実際に使用するのはどちらの抵抗値とも3本以下なので必ずしも100本買う必要はありません。</p>
+
+<h4><a id="h1-2-1-6"></a>タクトスイッチ</h4>
+<p>タクトスイッチ（緑色）</p>
+<p><a href="https://akizukidenshi.com/catalog/g/gP-03651/" class="link">https://akizukidenshi.com/catalog/g/gP-03651/</a></p>
+<p><strong>備考</strong>: 色の選択は自由です。</p>
+
+<h4><a id="h1-2-1-7"></a>温湿度センサ</h4>
+<p>温湿度センサ　モジュール　ＤＨＴ１１</p>
+<p><a href="https://akizukidenshi.com/catalog/g/gM-07003/" class="link">https://akizukidenshi.com/catalog/g/gM-07003/</a></p>
+
+<h4><a id="h1-2-1-8"></a>ディスプレイ</h4>
+<p>０．９６インチ　１２８×６４ドット有機ＥＬディスプレイ（ＯＬＥＤ）　白色</p>
+<p><a href="https://akizukidenshi.com/catalog/g/gP-12031/" class="link">https://akizukidenshi.com/catalog/g/gP-12031/</a></p>
+      </div>
+      <nav class="book-navi book-prev">
+                <a href="preface.html">
+          <div class="book-cursor"><span class="cursor-prev">◀</span></div>
+        </a>
+              </nav>
+      <nav class="book-navi book-next">
+                <a href="environment.html">
+          <div class="book-cursor"><span class="cursor-next">▶</span></div>
+        </a>
+              </nav>
+    </div>
+  </div>
+  <footer>
+      </footer>
+</body>
+</html>

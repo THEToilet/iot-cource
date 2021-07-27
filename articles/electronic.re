@@ -77,6 +77,7 @@ void setup()
 {
   Serial.begin(115200);
   pinMode(2, INPUT_PULLUP);
+  pinMode(13, OUTPUT);
 }
 
 void loop()
@@ -84,20 +85,26 @@ void loop()
   if (digitalRead(2) == LOW)
   {
     delay(100);
+    digitalWrite(13, HIGH);
+    delay(100);
     Serial.println("ON!");
   }
   if (digitalRead(2) == HIGH)
   {
     delay(100);
+    digitalWrite(13, LOW);
+    delay(100);
     Serial.println("OFF!");
   }
 }
 //}
-===[column] チャタリング
+
+==[column] コラム: チャタリング
 スイッチは金属板の接触によって、電流を通したり、通さなかったりしますが、
 これを行う際、複数回のオンオフが発生してしまいます。この対策としては、
 プログラム側で、delayをはさむことが挙げられます。
+==[/column]
 
-=== 応用問題
+== 応用問題: 状態遷移
 二つのLEDとスイッチを使用して、
 二つのLEDの状態を以下のように変更してください

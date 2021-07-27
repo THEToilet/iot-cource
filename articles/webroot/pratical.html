@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" type="text/css" href="epub_style.css" />
+<link rel="next" title="トラブルシューティング" href="troubleshooting.html" /><link rel="prev" title="APIを使おう！" href="serverclient.html" />  <meta name="generator" content="Re:VIEW" />
+  <title>応用編 | はじめてのIoT講座</title>
+</head>
+<body>
+  <div class="book">
+    <nav class="side-content">
+      <h1>はじめてのIoT講座</h1>
+      <ul class="book-toc">
+<li><a href="index.html">TOP</a></li>
+<li><a href="preface.html">はじめに</a></li>
+<li><a href="preparation.html">第1章　電子部品の準備</a></li>
+<li><a href="environment.html">第2章　環境構築</a></li>
+<li><a href="electronic.html">第3章　電子部品を使ってみよう</a></li>
+<li><a href="sensor.html">第4章　取得データをWebに公開しよう！</a></li>
+<li><a href="serverclient.html">第5章　APIを使おう！</a></li>
+<li><a href="pratical.html">第6章　応用編</a></li>
+<li><a href="troubleshooting.html">付録A　トラブルシューティング</a></li>
+<li><a href="contributors.html">著者紹介</a></li>
+</ul>
+      <p class="review-signature">powered by <a href="http://reviewml.org/">Re:VIEW</a></p>
+    </nav>
+    <div class="book-body">
+      <header>
+      </header>
+      <div class="book-page">
+        <h1><a id="h6"></a><span class="secno">第6章　</span>応用編</h1>
+
+<h2><a id="h6-1"></a><span class="secno">6.1　</span>外部からエアコンの電源を操作する</h2>
+
+<h2><a id="h6-2"></a><span class="secno">6.2　</span>2台のESP32を使ってピンポンする</h2>
+<p>サーバクライアントInterface 2018 9よりWi-FIネットワークはアクセス・ポイント（AP）を中心としたネットワークアクセスポイントは多くの場合、インターネットなどの他のネットワークに接続しており、その場合はルータとも呼ばれるアクセス・ポイントに接続する端末をステーション（STA）というESP32をAPモードするには&gt; WiFi.softAP(ssid, password);STAモードでアクセスポイントに接続するには&gt; WiFi.begin(ssid, password);</p>
+<p>WiFiのアクセスポイントがなくてもESP32が2府あれば、片方をアクセスポイントにして通信できる</p>
+
+<h2><a id="h6-3"></a><span class="secno">6.3　</span>VScodeからESP32にスケッチを書き込む</h2>
+<div id="id_1" class="image">
+<img src="images/pratical/1.png" alt="1" />
+<p class="caption">
+図6.1: 1
+</p>
+</div>
+<p>コマンドパレットctrl chift P</p>
+<div id="id_2" class="image">
+<img src="images/pratical/2.png" alt="2" />
+<p class="caption">
+図6.2: 2
+</p>
+</div>
+<p>arduino serial</p>
+<div id="id_3" class="image">
+<img src="images/pratical/3.png" alt="3" />
+<p class="caption">
+図6.3: 3
+</p>
+</div>
+<p>/mnt/c/Users/Document/Arduino</p>
+<div id="id_4" class="image">
+<img src="images/pratical/4.png" alt="4" />
+<p class="caption">
+図6.4: 4
+</p>
+</div>
+<p>serial port 選択</p>
+<div id="id_5" class="image">
+<img src="images/pratical/5.png" alt="5" />
+<p class="caption">
+図6.5: 5
+</p>
+</div>
+<p>ボード選択</p>
+<div id="id_6" class="image">
+<img src="images/pratical/6.png" alt="6" />
+<p class="caption">
+図6.6: 6
+</p>
+</div>
+<div id="id_7" class="image">
+<img src="images/pratical/7.png" alt="7" />
+<p class="caption">
+図6.7: 7
+</p>
+</div>
+<div id="id_8" class="image">
+<img src="images/pratical/8.png" alt="8" />
+<p class="caption">
+図6.8: 8
+</p>
+</div>
+<div id="json" class="caption-code">
+<p class="caption">リスト6.1: json</p>
+<pre class="list">  &quot;arduino.additionalUrls&quot;: [
+          &quot;https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json&quot;
+      ],
+</pre>
+</div>
+<div id="id_9" class="image">
+<img src="images/pratical/9.png" alt="9" />
+<p class="caption">
+図6.9: 9
+</p>
+</div>
+<div id="id_10" class="image">
+<img src="images/pratical/10.png" alt="10" />
+<p class="caption">
+図6.10: 10
+</p>
+</div>
+<p>arduino bord maneger</p>
+<div id="id_11" class="image">
+<img src="images/pratical/11.png" alt="11" />
+<p class="caption">
+図6.11: 11
+</p>
+</div>
+<div id="id_12" class="image">
+<img src="images/pratical/12.png" alt="12" />
+<p class="caption">
+図6.12: 12
+</p>
+</div>
+<div id="id_13" class="image">
+<img src="images/pratical/13.png" alt="13" />
+<p class="caption">
+図6.13: 13
+</p>
+</div>
+<p>Arduino IDEのほうを動かしているとうまくいかない</p>
+<p>インクルードパスの設定c_cpp_properties.jsonctrl shift Pselect sketchでビルドしたいファイルを選択https://garretlab.web.fc2.com/arduino/introduction/vscode/</p>
+<div id="id_14" class="image">
+<img src="images/pratical/14.png" alt="14" />
+<p class="caption">
+図6.14: 14
+</p>
+</div>
+      </div>
+      <nav class="book-navi book-prev">
+                <a href="serverclient.html">
+          <div class="book-cursor"><span class="cursor-prev">◀</span></div>
+        </a>
+              </nav>
+      <nav class="book-navi book-next">
+                <a href="troubleshooting.html">
+          <div class="book-cursor"><span class="cursor-next">▶</span></div>
+        </a>
+              </nav>
+    </div>
+  </div>
+  <footer>
+      </footer>
+</body>
+</html>

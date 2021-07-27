@@ -23,20 +23,21 @@ Ctrl+Sで保存してから読み込む
 
 //cmd{
 c:\Users\donki\Documents\Arduino\helloworld\DHT11.ino: In function 'void setup()':
-  DHT11:30:6: error: redefinition of 'void setup()'
-   void setup() {
-        ^
-  c:\Users\donki\Documents\Arduino\helloworld\helloworld.ino:1:6: note: 'void setup()' previously defined here
-   void setup() {
-        ^
-  c:\Users\donki\Documents\Arduino\helloworld\DHT11.ino: In function 'void loop()':
-  DHT11:37:6: error: redefinition of 'void loop()'
-  void loop() {
-        ^
-  c:\Users\donki\Documents\Arduino\helloworld\helloworld.ino:5:6: note: 'void loop()' previously defined here
-   void loop() {
-        ^
-  exit status 1 
+DHT11:30:6: error: redefinition of 'void setup()'
+ void setup() {
+      ^
+c:\Users\donki\Documents\Arduino\helloworld\helloworld.ino:1:6: note: 'void setup()'
+ previously defined here
+ void setup() {
+      ^
+c:\Users\donki\Documents\Arduino\helloworld\DHT11.ino: In function 'void loop()':
+DHT11:37:6: error: redefinition of 'void loop()'
+void loop() {
+      ^
+c:\Users\donki\Documents\Arduino\helloworld\helloworld.ino:5:6: note: 'void loop()' previously defined here
+ void loop() {
+      ^
+exit status 1 
 //}
 
  * 解決法

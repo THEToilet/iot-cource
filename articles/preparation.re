@@ -13,9 +13,9 @@
  ** @<href>{https://akizukidenshi.com/catalog/}
  * 千石電商
  ** @<href>{https://www.sengoku.co.jp/}
- * SWITCHSCIENCE
+ * スイッチサイエンス
  ** @<href>{https://www.switch-science.com/}
- * Amazon.co.jp
+ * Amazon
  ** @<href>{https://www.amazon.co.jp/}
  * aitendo
  ** @<href>{https://www.aitendo.com/}
@@ -23,8 +23,8 @@
 
 == 本誌で利用する電子部品
 
-筆者が本誌に使用するサンプルを作成するにあたって購入した商品を紹介します。
-本誌のサンプルを勧めるにあたって必要になるため、参考にしてください。
+筆者が本誌に使用するサンプルを作成するにあたって購入した商品を紹介します（@<table>{material}）。
+本誌のサンプルを進めるにあたって必要になるため、参考にしてください。
 
 //table[material][必要な材料]{
 品名	個数	参考価格	詳細情報

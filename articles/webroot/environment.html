@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" type="text/css" href="epub_style.css" />
+<link rel="next" title="電子部品を使ってみよう" href="electronic.html" /><link rel="prev" title="電子部品の準備" href="preparation.html" />  <meta name="generator" content="Re:VIEW" />
+  <title>環境構築 | はじめてのIoT講座</title>
+</head>
+<body>
+  <div class="book">
+    <nav class="side-content">
+      <h1>はじめてのIoT講座</h1>
+      <ul class="book-toc">
+<li><a href="index.html">TOP</a></li>
+<li><a href="preface.html">はじめに</a></li>
+<li><a href="preparation.html">第1章　電子部品の準備</a></li>
+<li><a href="environment.html">第2章　環境構築</a></li>
+<li><a href="electronic.html">第3章　電子部品を使ってみよう</a></li>
+<li><a href="sensor.html">第4章　取得データをWebに公開しよう！</a></li>
+<li><a href="serverclient.html">第5章　APIを使おう！</a></li>
+<li><a href="pratical.html">第6章　応用編</a></li>
+<li><a href="troubleshooting.html">付録A　トラブルシューティング</a></li>
+<li><a href="contributors.html">著者紹介</a></li>
+</ul>
+      <p class="review-signature">powered by <a href="http://reviewml.org/">Re:VIEW</a></p>
+    </nav>
+    <div class="book-body">
+      <header>
+      </header>
+      <div class="book-page">
+        <h1><a id="h2"></a><span class="secno">第2章　</span>環境構築</h1>
+<p>この章ではESP32を利用するために必要な環境構築手順を説明します。</p>
+<p>本誌は、Windows環境を想定しているので、Mac環境の方は少々が違う点がある可能性があります。</p>
+
+<h2><a id="h2-1"></a><span class="secno">2.1　</span>ESP32とは</h2>
+<p>ESP32とはEspressif Systems社が開発したSoC(System on a Chip)シリーズの名前です。ESP32という名前の使われ方には様々あり、今回使用するESP32を使いやすくしたESP32DevKitCも通称としてESP32と呼ばれることもあります。本誌ではESP32DevKitCをESP32とします。</p>
+
+<h2><a id="h2-2"></a><span class="secno">2.2　</span>ESP32の開発環境</h2>
+<p>ESP32の開発環境としては主に以下の3つがあげられます。</p>
+<ul>
+<li>Arduino IDE<ul>
+<li>Arduinoというマイコンを開発するために作られたIDE</li>
+</ul>
+</li>
+<li>ESP-IDF<ul>
+<li>ESP32純正IDE</li>
+</ul>
+</li>
+<li>MicroPython<ul>
+<li>Pythonで書ける</li>
+</ul>
+</li>
+</ul>
+<p>今回は利用者が多く情報ネット上に多く見られるがArduino IDEを用いて開発を進めていきたいと思います。</p>
+
+<h2><a id="h2-3"></a><span class="secno">2.3　</span>Arduino IDEのインストール</h2>
+<p>Arduino IDEをインストールするために以下のリンクにアクセスしてください</p>
+<p><a href="https://www.arduino.cc/en/software" class="link">https://www.arduino.cc/en/software</a><br />ダウンロード画面（<span class="imgref"><a href="./environment.html#id_1">図2.1</a></span>）ではご自身のPC環境にあったダウンロードリンクを選択してください。ここからの手順では、Windows10でのダウンロードを想定しています。</p>
+<div id="id_1" class="image">
+<img src="images/environment/1.png" alt="ArduinoIDEのダウンロード画面" />
+<p class="caption">
+図2.1: ArduinoIDEのダウンロード画面
+</p>
+</div>
+<p>ダウンロードリンクにアクセスすると、寄付金の金額選択画面に遷移します（<span class="imgref"><a href="./environment.html#id_2">図2.2</a></span>）。可能であれば寄付もできますが、<strong>JUST DOWNLOD</strong>を選択することで次の画面に遷移します。</p>
+<div id="id_2" class="image">
+<img src="images/environment/2.png" alt="寄付金の金額選択画面" />
+<p class="caption">
+図2.2: 寄付金の金額選択画面
+</p>
+</div>
+<p><strong>JUST DOWNLOD</strong>を選択するとブラウザ内でMicorsoftStoreの画面に遷移します（<span class="imgref"><a href="./environment.html#id_3">図2.3</a></span>）。つぎは<strong>入手</strong>を選択すると、ブラウザのポップアップにでWindows側でMicrosoftStoreを開く許可を求められるので許可をしてください。</p>
+<div id="id_3" class="image">
+<img src="images/environment/3.png" alt="ブラウザで見るMicorosoftStore" />
+<p class="caption">
+図2.3: ブラウザで見るMicorosoftStore
+</p>
+</div>
+<p>Windows上のMicrosoftStoreです（<span class="imgref"><a href="./environment.html#id_4">図2.4</a></span>）。再度、<strong>入手</strong>を選択してください。</p>
+<div id="id_4" class="image">
+<img src="images/environment/4.png" alt="Windowsで開いたMicrosoftStore" />
+<p class="caption">
+図2.4: Windowsで開いたMicrosoftStore
+</p>
+</div>
+<p>サインインについて尋ねられますが（<span class="imgref"><a href="./environment.html#id_5">図2.5</a></span>）、<strong>必要ありません</strong>を選択した場合もダウンロードは開始されます。</p>
+<div id="id_5" class="image">
+<img src="images/environment/5.png" alt="サインインの確認画面" />
+<p class="caption">
+図2.5: サインインの確認画面
+</p>
+</div>
+<p><span class="imgref"><a href="./environment.html#id_6">図2.6</a></span>ではArduino IDEのダウンロード状況を確認できます。</p>
+<div id="id_6" class="image">
+<img src="images/environment/6.png" alt="ダウンロードのキュー画面" />
+<p class="caption">
+図2.6: ダウンロードのキュー画面
+</p>
+</div>
+<p>ダウンロードが完了した後、検索窓にてArduino IDEを検索し開いてください（<span class="imgref"><a href="./environment.html#id_7">図2.7</a></span>）。</p>
+<div id="id_7" class="image">
+<img src="images/environment/7.png" alt="ArduinoIDEの検索" />
+<p class="caption">
+図2.7: ArduinoIDEの検索
+</p>
+</div>
+<p>この際、セキュリティについての許可を求められるので（<span class="imgref"><a href="./environment.html#id_8">図2.8</a></span>）<strong>アクセスを許可する</strong>を選択すると、ブラウザのポップアップにでWindows側でMicrosoftStoreを開く許可を求められるので許可をしてください。</p>
+<div id="id_8" class="image">
+<img src="images/environment/8.png" alt="セキュリティの確認画面" />
+<p class="caption">
+図2.8: セキュリティの確認画面
+</p>
+</div>
+<p>Arduino IDEが起動すると、デフォルトの画面が表示されます（<span class="imgref"><a href="./environment.html#id_9">図2.9</a></span>）。</p>
+<div id="id_9" class="image">
+<img src="images/environment/9.png" alt="デフォルトのスケッチ画面" />
+<p class="caption">
+図2.9: デフォルトのスケッチ画面
+</p>
+</div>
+
+<h2><a id="h2-4"></a><span class="secno">2.4　</span>ESP32用ボードマネージャーのインストール</h2>
+<p>Arduino IDEにてESP32を使うために必要なボードマネージャーのインストールの流れを紹介します。<br /><span class="imgref"><a href="./environment.html#id_10">図2.10</a></span>はESP32のボードマネージャーを追加するための手順であり、以下のリンクに記載されています。<a href="https://github.com/espressif/arduino-esp32/blob/master/docs/arduino-ide/boards_manager.md" class="link">https://github.com/espressif/arduino-esp32/blob/master/docs/arduino-ide/boards_manager.md</a><br /></p>
+<div id="id_10" class="image">
+<img src="images/environment/10.png" alt="ESP32をArduinoIDEで使うための設定" />
+<p class="caption">
+図2.10: ESP32をArduinoIDEで使うための設定
+</p>
+</div>
+<p>手順に従い以下のリンクをコピーしてください。以下のリンクには、<span class="imgref"><a href="./environment.html#id_11">図2.11</a></span>のような情報が記載されています。</p>
+<div id="esp32-board-link" class="caption-code">
+<p class="caption">リスト2.1: ボードマネージャーのリンク</p>
+<pre class="list">https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json
+</pre>
+</div>
+<div id="id_11" class="image">
+<img src="images/environment/11.png" alt="ESP32用のボードマネージャ情報" />
+<p class="caption">
+図2.11: ESP32用のボードマネージャ情報
+</p>
+</div>
+<p>Arduino IDE側では、ファイル＞環境設定を選択してください（<span class="imgref"><a href="./environment.html#id_12">図2.12</a></span>）。</p>
+<div id="id_12" class="image">
+<img src="images/environment/12.png" alt="環境設定を選択" />
+<p class="caption">
+図2.12: 環境設定を選択
+</p>
+</div>
+<p>環境設定の画面が表示されていることを確認してください（<span class="imgref"><a href="./environment.html#id_13">図2.13</a></span>）。</p>
+<div id="id_13" class="image">
+<img src="images/environment/13.png" alt="環境設定の画面" />
+<p class="caption">
+図2.13: 環境設定の画面
+</p>
+</div>
+<p>次に先ほどコピーした<span class="listref"><a href="./environment.html#esp32-board-link">リスト2.1</a></span>を<strong>追加ボードマネージャーのURL</strong>の欄にペーストしてください（<span class="imgref"><a href="./environment.html#id_14">図2.14</a></span>）。</p>
+<div id="id_14" class="image">
+<img src="images/environment/14.png" alt="追加ボードマネージャーのURLに貼り付ける" />
+<p class="caption">
+図2.14: 追加ボードマネージャーのURLに貼り付ける
+</p>
+</div>
+<p>その後、<strong>OK</strong>を選択してください。</p>
+
+<h2><a id="h2-5"></a><span class="secno">2.5　</span>ESP32用ライブラリのインストール</h2>
+<div id="id_15" class="image">
+<img src="images/environment/15.png" alt="ライブラリの管理の選択" />
+<p class="caption">
+図2.15: ライブラリの管理の選択
+</p>
+</div>
+<div id="id_16" class="image">
+<img src="images/environment/16.png" alt="ESP32用ライブラリのインストール" />
+<p class="caption">
+図2.16: ESP32用ライブラリのインストール
+</p>
+</div>
+
+<h2><a id="h2-6"></a><span class="secno">2.6　</span>Hello ESP32!!</h2>
+<p>ここで動作確認をするためにプログラミングでは定番のHello WorldをESP32でもやってみましょう。</p>
+
+<h3><a id="h2-6-1"></a>プログラムの記述</h3>
+<div id="id_20" class="image">
+<img src="images/environment/20.png" alt="新規ファイルの作成" />
+<p class="caption">
+図2.17: 新規ファイルの作成
+</p>
+</div>
+<div id="id_21" class="image">
+<img src="images/environment/21.png" alt="新規ファイルの名前決定" />
+<p class="caption">
+図2.18: 新規ファイルの名前決定
+</p>
+</div>
+<div id="id_22" class="image">
+<img src="images/environment/22.png" alt="新規ファイル作成完了画面" />
+<p class="caption">
+図2.19: 新規ファイル作成完了画面
+</p>
+</div>
+<div id="helloworld" class="caption-code">
+<p class="caption">リスト2.2: 最初のプログラム</p>
+<pre class="list">void setup() {
+  Serial.begin(115200);
+}
+
+void loop() {
+  Serial.println(&quot;Hello,World&quot;);
+  delay(3000);
+}
+</pre>
+</div>
+<div id="id_23" class="image">
+<img src="images/environment/23.png" alt="helloworldのプログラムを記述" />
+<p class="caption">
+図2.20: helloworldのプログラムを記述
+</p>
+</div>
+
+<h4><a id="h2-6-1-1"></a>プログラムの説明</h4>
+<ul>
+<li>setup()</li>
+</ul>
+<ul>
+<li>loop()</li>
+</ul>
+
+<h3><a id="h2-6-2"></a>ブレッドボード</h3>
+<p>これからの動作確認のためにESP32をブレッドボードにさしましょう。そこで、まずブレッドボードの説明をします。</p>
+
+<h3><a id="h2-6-3"></a>PCとの接続</h3>
+<div id="id_18" class="image">
+<img src="images/environment/18.png" alt="デバイスマネージャーの検索" />
+<p class="caption">
+図2.21: デバイスマネージャーの検索
+</p>
+</div>
+<div id="id_19" class="image">
+<img src="images/environment/19.png" alt="ESP32の接続ポートを調べる" />
+<p class="caption">
+図2.22: ESP32の接続ポートを調べる
+</p>
+</div>
+
+<h3><a id="h2-6-4"></a>プログラムの書き込み</h3>
+<div id="id_24" class="image">
+<img src="images/environment/24.png" alt="ESP32にプログラムを書き込む" />
+<p class="caption">
+図2.23: ESP32にプログラムを書き込む
+</p>
+</div>
+<div id="id_25" class="image">
+<img src="images/environment/25.png" alt="コンソール画面" />
+<p class="caption">
+図2.24: コンソール画面
+</p>
+</div>
+
+<h3><a id="h2-6-5"></a>動作確認</h3>
+<div id="id_26" class="image">
+<img src="images/environment/26.png" alt="シリアルモニタの選択" />
+<p class="caption">
+図2.25: シリアルモニタの選択
+</p>
+</div>
+<div id="id_27" class="image">
+<img src="images/environment/27.png" alt="helloworldの表示成功" />
+<p class="caption">
+図2.26: helloworldの表示成功
+</p>
+</div>
+<div class="column">
+
+<h3><a id="column-1"></a>シリアル通信とは</h3>
+<p>ArduinoIDEはシリアルモニタを備えていて、Arduinoとコミュニケーションすることができます。</p>
+</div>
+      </div>
+      <nav class="book-navi book-prev">
+                <a href="preparation.html">
+          <div class="book-cursor"><span class="cursor-prev">◀</span></div>
+        </a>
+              </nav>
+      <nav class="book-navi book-next">
+                <a href="electronic.html">
+          <div class="book-cursor"><span class="cursor-next">▶</span></div>
+        </a>
+              </nav>
+    </div>
+  </div>
+  <footer>
+      </footer>
+</body>
+</html>
