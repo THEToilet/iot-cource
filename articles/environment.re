@@ -40,18 +40,17 @@ Arduino IDEをインストールするために以下のリンクにアクセス
 @<strong>{JUST DOWNLOD}を選択するとブラウザ内でMicorsoftStoreの画面に遷移します（@<img>{3}）。
 つぎは@<strong>{入手}を選択すると、ブラウザのポップアップにでWindows側でMicrosoftStoreを開く許可を求められるので許可をしてください。
 
-//image[3][ブラウザで見るMicorosoftStore][scale=0.8]{
-unko
+//image[3][ブラウザで見るMicorosoftStore][scale=0.6]{
 //}
 
 Windows上のMicrosoftStoreです（@<img>{4}）。再度、@<strong>{入手}を選択してください。
 
-//image[4][Windowsで開いたMicrosoftStore][scale=0.8]{
+//image[4][Windowsで開いたMicrosoftStore][scale=0.6]{
 //}
 
 サインインについて尋ねられますが（@<img>{5}）、@<strong>{必要ありません}を選択した場合もダウンロードは開始されます。
 
-//image[5][サインインの確認画面][scale=0.8]{
+//image[5][サインインの確認画面][scale=0.6]{
 //}
 
 @<img>{6}ではArduino IDEのダウンロード状況を確認できます。
@@ -61,17 +60,17 @@ Windows上のMicrosoftStoreです（@<img>{4}）。再度、@<strong>{入手}を
 
 ダウンロードが完了した後、検索窓にてArduino IDEを検索し開いてください（@<img>{7}）。
 
-//image[7][ArduinoIDEの検索][scale=0.8]{
+//image[7][ArduinoIDEの検索][scale=0.6]{
 //}
 
 この際、セキュリティについての許可を求められるので（@<img>{8}）@<strong>{アクセスを許可する}を選択すると、ブラウザのポップアップにでWindows側でMicrosoftStoreを開く許可を求められるので許可をしてください。
 
-//image[8][セキュリティの確認画面][scale=0.8]{
+//image[8][セキュリティの確認画面][scale=0.6]{
 //}
 
 Arduino IDEが起動すると、デフォルトの画面が表示されます（@<img>{9}）。
 
-//image[9][デフォルトのスケッチ画面][scale=0.8]{
+//image[9][デフォルトのスケッチ画面][scale=0.5]{
 //}
 
 == ESP32用ボードマネージャーのインストール
@@ -82,7 +81,7 @@ Arduino IDEにてESP32を使うために必要なボードマネージャーの�
 //}
 手順に従い以下のリンクをコピーしてください。以下のリンクには、@<img>{11}のような情報が記載されています。
 //list[esp32-board-link][ボードマネージャーのリンク]{
-@<href>{https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json}
+https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json
 //}
 //image[11][ESP32用のボードマネージャ情報][scale=0.8]{
 //}
