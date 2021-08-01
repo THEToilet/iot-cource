@@ -44,9 +44,9 @@ serial port 選択
 //image[8][8]{
 //}
 //list[json][json]{
-  "arduino.additionalUrls": [
-          "https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json"
-      ],
+"arduino.additionalUrls": [
+  "https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json"
+],
 //}
 //image[9][9]{
 //}
