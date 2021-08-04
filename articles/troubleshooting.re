@@ -45,3 +45,17 @@ exit status 1
  Arduinoコンパイルエラー(redefinition)
  同じフォルダ内にsetup()とloop()が重複している際に出るエラー
  Arduinoはコンパイルをファルダ単位で行うため、このようなエラーが出る
+
+== 接続ポートにESP32が反映されない
+デバイスマネージャーにESP32の接続ポートが表示されない場合はデバイスドライバをインストールする必要があります。
+以下のリンクにアクセスしてください。
+@<href>{https://jp.silabs.com/developers/usb-to-uart-bridge-vcp-drivers}
+
+//image[7][3]{
+//}
+//image[4][3]{
+//}
+//image[5][3]{
+//}
+//image[6][3]{
+//}

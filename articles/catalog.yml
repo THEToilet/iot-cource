@@ -3,10 +3,10 @@ PREDEF:
 CHAPS:
   - preparation.re
   - environment.re
-  - electronic.re
-  - sensor.re
-  - serverclient.re
-  - pratical.re
+#  - electronic.re
+#  - sensor.re
+#  - serverclient.re
+#  - pratical.re
 APPENDIX:
   - troubleshooting.re
 POSTDEF:
