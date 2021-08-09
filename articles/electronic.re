@@ -168,7 +168,8 @@ void setup()
 
 void loop()
 {
-  if (digitalRead(2) == LOW)  // PULL UPを用いているので電圧が低いと、スイッチが押されていると判定する
+  if (digitalRead(2) == LOW)  // PULL UPを用いているので電圧が低いと、
+                              // スイッチが押されていると判定する
   {
     delay(100);  // チャタリング防止のため0.1s停止
     digitalWrite(13, HIGH);  // GPIO13に電流を流しLEDを光らせる

@@ -41,52 +41,64 @@
 
 //list[dht11][dht11]{
 #include "DHT.h"
+#define DHTPIN 4  // センサのデータを読み取るGPIOの番号を指定する
 
-#define DHTPIN 4     // Digital pin connected to the DHT sensor
+// DHTライブラリはDHT22/DHT11に対応しているので
+// 使用するセンサを指定する　
+#define DHTTYPE DHT11
 
-#define DHTTYPE DHT11   // DHT 11
-  
-DHT dht(DHTPIN, DHTTYPE);
-  
+DHT dht11(DHTPIN, DHTTYPE);  // DHT11のインスタンスを作成する
+
 void setup() {
   Serial.begin(115200);
-  Serial.println(F("DHTxx test!"));
-  dht.begin();
+  dht11.begin();  // DHT11を始動させる
 }
 
 void loop() {
-  // センサーが値を読むまで待機
+  // DHT11のサンプリング間隔が2秒なので
+  // センサが値を読むまで2秒待機
   delay(2000);
 
-  float h = dht.readHumidity();
-  // Read temperature as Celsius (the default)
-  float t = dht.readTemperature();
+  float humidity = dht11.readHumidity();  // 湿度取得
+  float temperature = dht11.readTemperature();  // 温度取得（デフォルトでは摂氏=℃）
 
-  // Check if any reads failed and exit early (to try again).
-  if (isnan(h) || isnan(t)) {
-    Serial.println(F("Failed to read from DHT sensor!"));
+  // NaN（Not a Number）つまり数字を読み取れなかった場合再取得する
+  // returnした場合loop()の最初に戻る
+  if (isnan(humidity) || isnan(temperature)) {
+    Serial.println("値が読み取れませんでした");
     return;
   }
 
-  // 体感温度
-  // Compute heat index in Celsius (isFahreheit = false)
-  float hic = dht.computeHeatIndex(t, h, false);
+  // 体感温度（湿度を含めた体感の温度指数）を計算する
+  float apparent_temperature = dht11.computeHeatIndex(temperature, humidity);
 
-  Serial.print(F("Humidity: "));
-  Serial.print(h);
-  Serial.print(F("%  Temperature: "));
-  Serial.print(t);
-  Serial.print(F("°C "));
-  Serial.print(F(" Heat index: "));
-  Serial.print(hic);
-  Serial.print(F("°C "));
+  Serial.print("温度: "); Serial.print(temperature); Serial.print("℃ ");
+  Serial.print("湿度: "); Serial.print(humidity); Serial.print("% ");
+  Serial.print("体感温度: "); Serial.print(apparent_temperature); Serial.println("℃");
 }
 //}
 
 //list[tmp][tmp]{
-Humidity: 56.00%  Temperature: 24.50°C 76.10°F  Heat index: 24.47°C 76.04°F
-Humidity: 56.00%  Temperature: 24.50°C 76.10°F  Heat index: 24.47°C 76.04°F
-Humidity: 56.00%  Temperature: 24.50°C 76.10°F  Heat index: 24.47°C 76.04°F
+温度: 24.00℃ 湿度: 59.00% 体感温度: 18.87℃
+温度: 23.80℃ 湿度: 58.00% 体感温度: 18.61℃
+温度: 23.80℃ 湿度: 59.00% 体感温度: 18.65℃
+温度: 23.80℃ 湿度: 59.00% 体感温度: 18.65℃
+温度: 23.80℃ 湿度: 59.00% 体感温度: 18.65℃
+温度: 23.80℃ 湿度: 59.00% 体感温度: 18.65℃
+温度: 23.80℃ 湿度: 61.00% 体感温度: 18.75℃
+値が読み取れませんでした
+値が読み取れませんでした
+値が読み取れませんでした
+温度: 24.50℃ 湿度: 83.00% 体感温度: 20.55℃
+温度: 24.60℃ 湿度: 75.00% 体感温度: 20.28℃
+温度: 24.70℃ 湿度: 71.00% 体感温度: 20.21℃
+温度: 24.80℃ 湿度: 67.00% 体感温度: 20.13℃
+温度: 24.80℃ 湿度: 64.00% 体感温度: 19.99℃
+温度: 24.80℃ 湿度: 62.00% 体感温度: 19.89℃
+温度: 24.80℃ 湿度: 61.00% 体感温度: 19.85℃
+温度: 24.90℃ 湿度: 59.00% 体感温度: 19.86℃
+温度: 24.80℃ 湿度: 58.00% 体感温度: 19.71℃
+
 //}
 
 == Webに公開しよう
@@ -124,57 +136,92 @@ https://ambidata.io/
 ==== コーディング
 
 //list[amibient][amibient]{
-#include "Ambient.h"
 #include <WiFi.h>
 #include "DHT.h"
+#include "Ambient.h"
+#define DHTPIN 4  // センサのデータを読み取るGPIOの番号を指定する
 
-#define DHTPIN 4
-#define PERIOD 30
+// DHTライブラリはDHT22/DHT11に対応しているので
+// 使用するセンサを指定する　
+#define DHTTYPE DHT11
 
-WiFiClient client;
-Ambient ambient;
-#define DHTTYPE DHT11 // DHT 11
+// Ambient用変数
+unsigned int channel_id = 40076;
+const char *write_key = "b94c1123733aec95";
 
-unsigned int channelId = 39400;            // AmbientのチャネルID(数字)
-const char *writeKey = "624168ad3f97c4b9"; // ライトキー
+// WiFi接続用変数
+const char *ssid = "elecom-b2809f-g";
+const char *password = "fapd4rpfac3u";
 
-DHT dht(DHTPIN, DHTTYPE);
-void setup()
-{
+DHT dht11(DHTPIN, DHTTYPE);  // DHT11のインスタンスを作成する
+Ambient ambient;  // Ambientのインスタンスを作成する
+WiFiClient wifi_client;  // Ambientに接続するためのクライアントを用意
+
+void setup() {
   Serial.begin(115200);
-  WiFi.begin("elecom-b2809f-g", "fapd4rpfac3u"); //  Wi-Fiの初期化
+  WiFi.begin(ssid, password);  // Wi-Fi接続開始
 
-  while (WiFi.status() != WL_CONNECTED)
-  { //  Wi-Fiアクセスポイントへの接続待ち
+  while (WiFi.status() != WL_CONNECTED) // Wi-Fiアクセスポイントへ接続するまで待機
+  {
+    Serial.println("Waiting for Wi-Fi connection....");
     delay(500);
   }
-  dht.begin();
-  ambient.begin(channelId, writeKey, &client); //  チャネルIDとライトキーを指定してAmbientの初期化
+  Serial.println("Connected to Wi-Fi");
+  dht11.begin();  // DHT11を始動させる
+  ambient.begin(channel_id, write_key, &wifi_client);
 }
 
-void loop()
-{
-  // Wait a few seconds between measurements.
-  delay(2000);
+void loop() {
+  // DHT11のサンプリング間隔は2秒ですが
+  // Amibentのデータ送信間隔は最低でも5秒間隔を開ける
+  // 必要があるので5秒待機
+  delay(30000);
 
-  float h = dht.readHumidity();
-  // Read temperature as Celsius (the default)
-  float t = dht.readTemperature();
+  float humidity = dht11.readHumidity();  // 湿度取得
+  float temperature = dht11.readTemperature();  // 温度取得（デフォルトでは摂氏=℃）
 
-  if (isnan(h) || isnan(t))
-  {
-    Serial.println(F("Failed to read from DHT sensor!"));
+  // NaN（Not a Number）つまり数字を読み取れなかった場合再取得する
+  // returnした場合loop()の最初に戻る
+  if (isnan(humidity) || isnan(temperature)) {
+    Serial.println("値が読み取れませんでした");
     return;
   }
 
-  // Compute heat index in Celsius (isFahreheit = false)
-  float hic = dht.computeHeatIndex(t, h, false);
-  ambient.set(1, h);
-  ambient.set(2, t);
-  ambient.set(3, hic);
+  // 体感温度（湿度を含めた体感の温度指数）を計算する
+  float apparent_temperature = dht11.computeHeatIndex(temperature, humidity);
 
-  ambient.send(); //  Ambientにデーターを送信
+  Serial.print("温度: "); Serial.print(temperature); Serial.print("℃ ");
+  Serial.print("湿度: "); Serial.print(humidity); Serial.print("% ");
+  Serial.print("体感温度: "); Serial.print(apparent_temperature); Serial.println("℃");
 
-  delay(PERIOD * 1000);
+  ambient.set(1, temperature);  // チャート1に温度データ登録
+  ambient.set(2, humidity);  // チャート2に湿度データ登録
+  ambient.set(3, apparent_temperature);  // チャート3に体感温度データ登録
+
+  ambient.send();  // 登録データ送信
+  Serial.println("Ambientにデータを送信しました");
 }
+//}
+
+//emlist{
+Waiting for Wi-Fi connection....
+Waiting for Wi-Fi connection....
+Waiting for Wi-Fi connection....
+Waiting for Wi-Fi connection....
+Waiting for Wi-Fi connection....
+Connected to Wi-Fi
+温度: 24.70℃ 湿度: 63.00% 体感温度: 19.83℃
+Ambientにデータを送信しました
+温度: 24.70℃ 湿度: 61.00% 体感温度: 19.74℃
+Ambientにデータを送信しました
+温度: 24.70℃ 湿度: 61.00% 体感温度: 19.74℃
+Ambientにデータを送信しました
+温度: 24.60℃ 湿度: 61.00% 体感温度: 19.63℃
+Ambientにデータを送信しました
+温度: 24.50℃ 湿度: 61.00% 体感温度: 19.52℃
+Ambientにデータを送信しました
+温度: 24.40℃ 湿度: 61.00% 体感温度: 19.41℃
+Ambientにデータを送信しました
+温度: 24.40℃ 湿度: 61.00% 体感温度: 19.41℃
+Ambientにデータを送信しました
 //}
