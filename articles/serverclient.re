@@ -441,22 +441,15 @@ Saitama
 ここで、取得した情報を手軽に確認するためにディスプレイを使ってみます。
 今回使うディスプレイはESP32との通信にI2Cという通信方式を利用しているので、ますそちらを紹介します。
 
-=== I2Cとは
+=== I2C（Inter-Integrated Circuit）とは
+I2Cはフィリップ社が開発したシリアル通信方式です。
+I2Cに必要な通信戦は4本で使用目的は電源（Vdd）、GND、SDA（シリアルデータ）、SCL（シリアルクロック）です。
+SDAはデータの書き込みと読み込みを行い、SCLは通信先との同期をとる際に使用されます。
+I2Cでは通信するデバイスはマスタとスレーブに分類され、マスタがスレーブとの通信を管理します。
+ここではESP32がマスタに相当し、ディスプレイがスレーブに相当します。
+また、マスタがスレーブを認識するためにスレーブにはそれぞれ認識アドレスが割り当てられます。
 
-4本の線を接続するだけでセンサーや表示デバイスを手軽に利用できる
-I2C（Inter Integrated Circuit）
-IC間で通信することを目的に、フィリップ社が開発したシリアル通信方式
-データのやり取りをするSDA（シリアルデータ）と、
-IC間でタイミングを合わせるのに利用するSCL（シリアルクロック）
-2本の線をつなげることで、互いにデータのやり取りえをするようになっている
-GNDと電源にもつなげるので4本必要
-I2Cは各種デバイスを制御するマスターと、マスターからの命令によって制御されるスレーブに分かれる
-マスターはマイコンに当たる
-デバイスを制御する場合に、対象デバイスを指定する必要がある
-各I2CデバイスにはI2Cアドレスが割り当てられている
-アドレスは16進数表記で0x03から0x77までの117個のアドレスが利用できる
-大体は製品出荷時にアドレスが割り当てられている
-
+プルアップ抵抗
 
 ==== ライブラリのインストール
 ディスプレイをESP32上で使うためにライブラリをArduino IDEにインストールします。
@@ -468,9 +461,14 @@ I2Cは各種デバイスを制御するマスターと、マスターからの�
 //image[10][SSD1306用ライブラリのインストール]{
 //}
 
+=== ディスプレイの表示
+ここで実際にディスプレイを表示させてみましょう。
+今回はHello,Worldを表示させてみたいと思います。
+回路図（@<img>{oled}）を参考に電子回路を組み、プログラム（@<list>{oled}）を書き込んでください。
+
 ==== 回路図
 
-//image[oled][ディスプレイ表示回路図]{
+//image[oled][ディスプレイ表示回路図][scale=1.3]{
 //}
 
 //list[oled][ディスプレイ表示プログラム]{
@@ -484,21 +482,22 @@ void setup()
 {
   display.init();  // ディスプレイの初期化
   display.setFont(ArialMT_Plain_24);  // フォントサイズ24pxで表示
-  display.drawString(0, 0, "Hello,World");  // 左上を原点とした座標で（0,0）に"Hello,World"表示
+  display.drawString(0, 0, "Hello,World");  // 左上を原点とした座標で
+                                            // （0,0）に"Hello,World"表示
   display.display();  // 指定した文字列を表示させる
 }
 
 void loop(){}
 //}
 
-//image[oled1][SSD1306用ライブラリのインストール]{
+//image[P_20210807_121205][P_20210807_121205][scale=0.8]{
 //}
 //image[P_20210807_121228][P_20210807_121228][scale=0.8]{
 //}
-//image[P_20210807_121205][P_20210807_121205][scale=0.8]{
-//}
 
-//emlist{
+=== DHT11で得たデータをディスプレイに表示
+
+//list[dht_ssd][DHT11のデータをディスプレイに表示プログラム]{
 #include "DHT.h"
 
 #include <Wire.h>  // I2Cを利用するためのライブラリ
@@ -560,139 +559,241 @@ void loop() {
 //image[P_20210809_140907][P_20210809_140907][scale=0.8]{
 //}
 
-//list[weather_api][weather_api]{
-#include <ArduinoJson.h>
+Weather api は15分に一回更新される
+
+//emlist{
+
 #include <WiFi.h>
-#include <WiFiMulti.h>
-
 #include <HTTPClient.h>
+#include <ArduinoJson.h>
 
-#define USE_SERIAL Serial
+#include <Wire.h>  // I2Cを利用するためのライブラリ
+#include "SSD1306.h" // ディスプレイのライブラリ
 
-WiFiMulti wifiMulti;
+SSD1306 display(0x3c, 21, 22);  // ディスプレイのインスタンスを作成する。
+// アドレス、SDA、SCLを指定
+
+// WiFi接続用変数
+const char *ssid = "elecom-b2809f-g";
+const char *password = "fapd4rpfac3u";
+
+// WeatherAPI用変数
+const String api_key = "ffe99ee9ec094d3681d74132211106";
+const String location = "Saitama";
+
+struct Weather {
+  const char *region;
+  float temperature;
+  int humidity;
+  const char *last_updated;
+};
 
 void setup()
 {
+  Serial.begin(115200);
+  WiFi.begin(ssid, password);  // Wi-Fi接続開始
 
-    USE_SERIAL.begin(115200);
+  while (WiFi.status() != WL_CONNECTED) // Wi-Fiアクセスポイントへ接続するまで待機
+  {
+    Serial.println("Waiting for Wi-Fi connection....");
+    delay(500);
+  }
+  Serial.println("Connected to Wi-Fi");
 
-    USE_SERIAL.println();
-    USE_SERIAL.println();
-    USE_SERIAL.println();
-
-    for (uint8_t t = 4; t > 0; t--)
-    {
-        USE_SERIAL.printf("[SETUP] WAIT %d...\n", t);
-        USE_SERIAL.flush();
-        delay(1000);
-    }
-
-    wifiMulti.addAP("elecom-b2809f-g", "fapd4rpfac3u");
+  display.init(); // ディスプレイの初期化
 }
 
 void loop()
 {
-    // wait for WiFi connection
-    if ((wifiMulti.run() == WL_CONNECTED))
+  display.clear(); // ディスプレイの文字をすべて消す
+
+  HTTPClient http;
+  String target_url = "https://api.weatherapi.com/v1/current.json?key=" + api_key + "&q=" + location + "&aqi=no";
+  http.begin(target_url);  // HTTP通信を開始する
+
+  int http_code = http.GET();  // HTTP通信でGETする
+
+  Serial.printf("status code : %d\n", http_code);
+  if (http_code > 0)  // HTTP通信が失敗すると負値になる
+  {
+    if (http_code == HTTP_CODE_OK)  // HTTPコードが200の場合成功
     {
- 
-      HTTPClient http;
+      String payload = http.getString();  // HTTPのレスポンスボディを取得
+      Serial.println(payload);
+      Weather weather = parse(payload);  // WeatherAPIのJSONをパースする
+      Serial.println("------weather--------");
+      Serial.println(weather.region);
+      Serial.println(weather.temperature);
+      Serial.println(weather.humidity);
+      Serial.println(weather.last_updated);
+      // char [100]
+      display.setFont(ArialMT_Plain_10);  // フォントサイズを10pxに設定
+      display.drawString(0, 0, "region:");  // （x座標, y座標, 表示したい文字列）
+      display.drawString(0, 12, "temperature:");
+      display.drawString(0, 24, "humididity:");
+      display.drawString(0, 36, "last_updated:");
+      display.drawString(65, 0, weather.region);
+      display.drawString(65, 12, String(weather.temperature) + "°C");  // String()で文字列に変換
+      display.drawString(65, 24, String(weather.humidity) + "%");
+      display.drawString(30, 48, weather.last_updated);
+      
 
-      USE_SERIAL.print("[HTTP] begin...\n");
-      // configure traged server and url
-      //http.begin("https://www.howsmyssl.com/a/check", ca); //HTTPS
-      http.begin("https://api.weatherapi.com/v1/current.json?key=ffe99ee9ec094d3681d74132211106&q=Saitama&aqi=no"); //HTTP
-
-      USE_SERIAL.print("[HTTP] GET...\n");
-      // start connection and send HTTP header
-      int httpCode = http.GET();
-
-        // httpCode will be negative on error
-        if (httpCode > 0)
-        {
-            // HTTP header has been send and Server response header has been handled
-            USE_SERIAL.printf("[HTTP] GET... code: %d\n", httpCode);
-
-            // file found at server
-            if (httpCode == HTTP_CODE_OK)
-            {
-                String payload = http.getString();
-                USE_SERIAL.println(payload);
-                parse(payload);
-            }
-        }
-        else
-        {
-            USE_SERIAL.printf("[HTTP] GET... failed, error: %s\n", http.errorToString(httpCode).c_str());
-        }
-
-        http.end();
+      display.display();  // 設定した文字列をディスプレイに表示させる
     }
-
-    delay(50000);
+    else if (http_code > 500) {
+      Serial.printf("Server Error: %d", http_code);
+    }
+    else if (http_code > 400) {
+      Serial.printf("Client Error: %d", http_code);
+    }
+  }
+  else
+  {
+    Serial.println(http.errorToString(http_code).c_str());
+  }
+  http.end();  // HTTP通信の終了
+  delay(60000);
 }
 
-void parse(String input)
+Weather parse(String input)
 {
-    USE_SERIAL.println("parse");
-    USE_SERIAL.println("=====");
-    StaticJsonDocument<1536> doc;
+  Serial.println("parse.......");
+  StaticJsonDocument<1536> doc;  // JSONをパースするための領域を作成
+  DeserializationError error = deserializeJson(doc, input);  // JSONをパースする
 
-      DeserializationError error = deserializeJson(doc, input);
-  
-      if (error)
-      {
-          USE_SERIAL.print(F("deserializeJson() failed: "));
-          USE_SERIAL.println(error.f_str());
-          return;
-      }
-  
-      JsonObject location = doc["location"];
-      const char *location_name = location["name"];                // "Saitama"
-      const char *location_region = location["region"];            // "Saitama"
-      const char *location_country = location["country"];          // "Japan"
-      float location_lat = location["lat"];                        // 35.91
-      float location_lon = location["lon"];                        // 139.66
-      const char *location_tz_id = location["tz_id"];              // "Asia/Tokyo"
-      long location_localtime_epoch = location["localtime_epoch"]; // 1626533912
-      const char *location_localtime = location["localtime"];      // "2021-07-17 23:58"
-      USE_SERIAL.println(location_country);
-  
-      JsonObject current = doc["current"];
-      long current_last_updated_epoch = current["last_updated_epoch"]; // 1626533100
-      const char *current_last_updated = current["last_updated"];      // "2021-07-17 23:45"
-      float current_temp_c = current["temp_c"];                        // 23.3
-      float current_temp_f = current["temp_f"];                        // 73.9
-      int current_is_day = current["is_day"];                          // 0
-  
-      JsonObject current_condition = current["condition"];
-      const char *current_condition_text = current_condition["text"]; // "Clear"
-      const char *current_condition_icon = current_condition["icon"];
-      int current_condition_code = current_condition["code"]; // 1000
-  
-      float current_wind_mph = current["wind_mph"];       // 3.8
-      float current_wind_kph = current["wind_kph"];       // 6.1
-      int current_wind_degree = current["wind_degree"];   // 250
-      const char *current_wind_dir = current["wind_dir"]; // "WSW"
-      int current_pressure_mb = current["pressure_mb"];   // 1019
-      float current_pressure_in = current["pressure_in"]; // 30.6
-      int current_precip_mm = current["precip_mm"];       // 0
-      int current_precip_in = current["precip_in"];       // 0
-      int current_humidity = current["humidity"];         // 88
-      int current_cloud = current["cloud"];               // 0
-      float current_feelslike_c = current["feelslike_c"]; // 24.9
-      float current_feelslike_f = current["feelslike_f"]; // 76.9
-      int current_vis_km = current["vis_km"];             // 16
-      int current_vis_miles = current["vis_miles"];       // 9
-      int current_uv = current["uv"];                     // 1
-      float current_gust_mph = current["gust_mph"];       // 13.9
-      float current_gust_kph = current["gust_kph"];       // 22.3
-      return;
+  if (error)  // パースに失敗すると呼ばれる
+  {
+    Serial.print(F("deserializeJson() failed: "));  // F()マクロは、指定した文字列分がSRAMからFlashメモリに移動する。
+    Serial.println(error.f_str());
+    Weather weather = {"", 0, 0};
+    return weather;
   }
+
+  JsonObject location = doc["location"];
+  const char *location_region = location["region"];  // "Saitama"
+
+  JsonObject current = doc["current"];
+  const char *current_last_updated = current["last_updated"]; //  "2021-07-17 23:45"
+  float current_temp = current["temp_c"];  // 23.3℃
+  int current_humidity = current["humidity"];  // 88％
+
+  Weather weather = {location_region, current_temp, current_humidity, current_last_updated};
+
+  return weather;
+}
 //}
 
-Weather api は15分に一回更新される
+//emlist{
+#include <WiFi.h>
 
+#include <Wire.h>  // I2Cを利用するためのライブラリ
+#include "SSD1306.h" // ディスプレイのライブラリ
+
+SSD1306 display(0x3c, 21, 22);  // ディスプレイのインスタンスを作成する。
+// アドレス、SDA、SCLを指定
+
+// WiFi接続用変数
+const char *ssid = "elecom-b2809f-g";
+const char *password = "fapd4rpfac3u";
+
+int JST = 3600 * 9;
+
+void setup() {
+  Serial.begin(115200);
+  WiFi.begin(ssid, password);  // Wi-Fi接続開始
+
+  while (WiFi.status() != WL_CONNECTED) // Wi-Fiアクセスポイントへ接続するまで待機
+  {
+    Serial.println("Waiting for Wi-Fi connection....");
+    delay(500);
+  }
+  Serial.println("Connected to Wi-Fi");
+
+  configTime(JST, 0, "ntp.nict.jp", "0.jp.pool.ntp.org", "time1.google.com");  // 標準時間, サマータイム, ntpサーバ
+  display.init(); // ディスプレイの初期化
+}
+
+struct tm timeInfo;//時刻を格納するオブジェクト
+
+void loop() {
+  delay(1000);
+
+  display.clear(); // ディスプレイの文字をすべて消す
+
+  getLocalTime(&timeInfo);//tmオブジェクトのtimeInfoに現在時刻を入れ込む
+
+  char date[12], now_time[7];
+  sprintf(date, "%04d/%02d/%02d", timeInfo.tm_year + 1900, timeInfo.tm_mon + 1, timeInfo.tm_mday);
+  sprintf(now_time, "%02d:%02d", timeInfo.tm_hour, timeInfo.tm_min);
+  Serial.println(date);
+
+  display.setFont(ArialMT_Plain_16);  // フォントサイズを10pxに設定
+  display.drawString(2, 2, String(date));
+  display.setFont(ArialMT_Plain_24);  // フォントサイズを24pxに設定
+  display.drawString(35, 25, String(now_time));
+
+  display.display();  // 設定した文字列をディスプレイに表示させる
+}
+//}
+
+//emlist{
+#include "DHT.h"
+
+#include <Wire.h>  // I2Cを利用するためのライブラリ
+#include "SSD1306.h" // ディスプレイのライブラリ
+
+#define DHTPIN 4  // センサのデータを読み取るGPIOの番号を指定する
+// DHTライブラリはDHT22/DHT11に対応しているので
+// 使用するセンサを指定する　
+#define DHTTYPE DHT11
+
+SSD1306 display(0x3c, 21, 22);  // ディスプレイのインスタンスを作成する。
+// アドレス、SDA、SCLを指定
+DHT dht11(DHTPIN, DHTTYPE);  // DHT11のインスタンスを作成する
+
+void setup()
+{
+  Serial.begin(115200);
+  dht11.begin();  // DHT11を始動させる
+  display.init(); // ディスプレイの初期化
+}
+
+void loop() {
+  // DHT11のサンプリング間隔が2秒なので
+  // センサが値を読むまで2秒待機
+  delay(2000);
+  display.clear(); // ディスプレイの文字をすべて消す
+
+  float humidity = dht11.readHumidity();  // 湿度取得
+  float temperature = dht11.readTemperature();  // 温度取得（デフォルトでは摂氏=℃）
+
+  // NaN（Not a Number）つまり数字を読み取れなかった場合再取得する
+  // returnした場合loop()の最初に戻る
+  if (isnan(humidity) || isnan(temperature)) {
+    Serial.println("値が読み取れませんでした");
+    return;
+  }
+
+  // 体感温度（湿度を含めた体感の温度指数）を計算する
+  float apparent_temperature = dht11.computeHeatIndex(temperature, humidity);
+
+  Serial.printf("温度: %.3lf ℃\n", temperature);
+  Serial.printf("湿度: %.3lf ％\n", humidity);
+  Serial.printf("体感温度: %.3lf ℃\n", apparent_temperature);
+
+  display.setFont(ArialMT_Plain_10);  // フォントサイズを10pxに設定
+  display.drawString(0, 0, "temperature");  // （x座標, y座標, 表示したい文字列）
+  display.drawString(0, 25, "humididity");
+  display.setFont(ArialMT_Plain_24);  // フォントサイズを24pxに設定
+  display.drawString(50, 10, String(temperature));  // String()で文字列に変換
+  display.drawString(50, 30, String(humidity));
+  display.setFont(ArialMT_Plain_10);  // フォントサイズを10pxに設定
+  display.drawString(110, 22, "°C");
+  display.drawString(110, 42, "%");
+
+  display.display();  // 設定した文字列をディスプレイに表示させる
+}
+//}
 ==[column] サーバクライアント
 サーバ？クライアント？とは何
 
