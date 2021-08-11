@@ -1,45 +1,68 @@
 = センサのデータをWeb上に公開しよう
 
-今回は温湿度センサで得たデータをWeb上に公開することが目標です。
-
-//image[6][今回の目標画面]{
-//}
+この章ではIoTの定番であるセンサを使ってデータを取得します。
+目標として、温湿度センサで得たデータをWeb上に公開します。
 
 == センサを使おう
+センサとは温度や湿度、匂いなどの様々な情報を信号化して機械が使いやすいようにするものです。
+この章では、手軽で身近である温湿度を計測できる温湿度センサを使用します。
 
 ==== 温湿度センサ
-//table[DHT11][DHT11データシート]{
-温度範囲	-20~℃
-湿度範囲	-20~℃
+温湿度センサはその字の通り温度と湿度を計測してくれます。
+使用するセンサはDHT11（@<img>{dht11_1}）というもので、取得した温湿度データをデジタル出力をしてくれます。
+//image[dht11_1][DHT11][scale=0.9]{
+//}
+DHT11の主な仕様は以下の通りです（@<table>{DHT11}）。
+
+//table[DHT11][DHT11の主な仕様]{
+温度範囲	-20 ~ - ℃
+湿度範囲	5 ~ 95 ％
 サンプリング間隔	2秒に一回
 //}
 
-//image[dht11_1][dhtの概要]{
-//}
-//table[DHT11_pin][DHT11のピンについて]{
-ピンの番号	ピンの内容
-1	VDD power supply 3.3 ~ 5.5V DC
-2	DATA serial DATA, single bus
-3	NC empty feet
-4	GND grounding, power supply negative
-//}
-==== DHT11用ライブラリのインストール
-次にESP32用のライブラリをArduino IDEにインストールします。
+4本あるピン（@<img>{dht11_1}）はそれぞれ@<table>{DHT11_pin}のような用途で使われます。
 
-@<img>{15-1}のように スケッチ＞ライブラリのインクルード＞ライブラリを管理 を選択してください。
+//table[DHT11_pin][DHT11のピンについて]{
+ピンの番号	ピンの用途
+1	Vdd 3.3 ~ 5.5V の直流を流す
+2	データ出力用ピン
+3	なにも接続しない
+4	GND
+//}
+
+==== DHT11用ライブラリのインストール
+DHT11をESP32上で使うためにDHT11ライブラリをArduino IDEにインストールします。
+
+@<img>{15-1}のように（スケッチ＞ライブラリのインクルード＞ライブラリを管理）を選択してください。
+
 //image[15-1][ライブラリの管理の選択][scale=0.8]{
 //}
-//image[9][DHT11用ライブラリのインストール]{
+
+選択するとライブラリマネージャーが開かれるので、検索窓に「DHT11」を入力してください（@<img>{9}）。
+その後、DHT sensor library をインストールしてください。
+
+//image[9][DHT11用ライブラリのインストール][scale=0.8]{
 //}
-//image[8][依存ライブラリのインストール]{
+
+インストールを選択すると依存ライブラリの追加インストールについて聞かれるので@<strong>{Install all}を
+選択してください（@<img>{8}）。
+
+//image[8][依存ライブラリのインストール][scale=0.8]{
 //}
 
 ==== DHT11を使って温湿度を測る
+ここで実際にDHT11を使ってみましょう。
+@<img>{dht11}と@<img>{P_20210805_184541}また@<img>{P_20210805_184615}を参考に回路を組んでください。抵抗は10kΩを使用しています。
 
-//image[dht11][dht11回路図]{
+//image[dht11][DHT11回路図][scale=1.5]{
 //}
 
-//list[dht11][dht11]{
+//image[P_20210805_184541][DHT11回路配置図][scale=0.7]{
+//}
+//image[P_20210805_184615][DHT11アップ図][scale=0.7]{
+//}
+
+//list[dht11][DHT11実行プログラム]{
 #include "DHT.h"
 #define DHTPIN 4  // センサのデータを読み取るGPIOの番号を指定する
 
@@ -72,13 +95,16 @@ void loop() {
   // 体感温度（湿度を含めた体感の温度指数）を計算する
   float apparent_temperature = dht11.computeHeatIndex(temperature, humidity);
 
-  Serial.print("温度: "); Serial.print(temperature); Serial.print("℃ ");
-  Serial.print("湿度: "); Serial.print(humidity); Serial.print("% ");
-  Serial.print("体感温度: "); Serial.print(apparent_temperature); Serial.println("℃");
+  Serial.printf("温度: %.3lf ℃\n", temperature);
+  Serial.printf("湿度: %.3lf ％\n", humidity);
+  Serial.printf("体感温度: %.3lf ℃\n", apparent_temperature)
 }
 //}
 
-//list[tmp][tmp]{
+プログラムの書き込みと、回路の配置に成功するとシリアルモニタにデータが送られてきます。
+「値が読み取れませんでした」が表示されている部分は試しにセンサを抜いたためです。
+
+//list[tmp][シリアルモニタ]{
 温度: 24.00℃ 湿度: 59.00% 体感温度: 18.87℃
 温度: 23.80℃ 湿度: 58.00% 体感温度: 18.61℃
 温度: 23.80℃ 湿度: 59.00% 体感温度: 18.65℃
@@ -98,44 +124,93 @@ void loop() {
 温度: 24.80℃ 湿度: 61.00% 体感温度: 19.85℃
 温度: 24.90℃ 湿度: 59.00% 体感温度: 19.86℃
 温度: 24.80℃ 湿度: 58.00% 体感温度: 19.71℃
-
 //}
 
 == Webに公開しよう
+外出時に自分の部屋の温湿度を知りたいことはありませんか？
+外部のサーバにデータを送信することで、外出時も自宅のデータをWebで見ることができます。
 
 === Wi-FIと接続する
-==== SSIDとは
+外部のサーバに接続するために、まずWi-Fiに接続します。
+Wi-Fiに接続するために必要な情報は以下の二つです。
+プログラムを書き込む際に必要になるので準備をしておいてください。
 
-アクセスポイントの名前
-SSID（Service Set Identifier）とはIEEE802.11（Wi-Fi　無線LANの通信規格）で定められているアクセスポイントの識別子のこと
-混線を避けるため名付けられている
-長さは最大32文字
+ * SSID（Service Set Identifier）
+ ** SSIDとはWi-Fi、無線LANの通信規格（IEEE802.11）で定められているアクセスポイントのを識別するための名称。芝浦で言うところの「SRAS-WPA」など。
+ * パスワード
+ ** 指定したSSIDのアクセスポイントに接続する際に必要なパスワード1
 
-=== ambientについて
+=== Ambient
+外出時に自宅のセンサのデータをWeb上で見るために、
+センサから取得したデータを外部のサーバに送信しますが、
+その外部のサーバとしてAmbientを使用します。
 
 AmbientはIoTデータの可視化サービスです。
-https://ambidata.io/
-//image[1][ambientのトップページ]{
+データをグラフとして表示してくれるだけでなく、データを利用した
+様々なカスタマイズができます。
+
+以下のリンクにアクセスしてAmbientのトップページに移動してください（@<img>{1}）。
+
+@<href>{https://ambidata.io/}
+
+//image[1][Ambientのトップページ]{
 //}
+
+Ambientを利用するために、まずユーザ登録をします。
+@<strong>{ユーザ登録（無料）}を選択してユーザ登録画面に移動してください（@<img>{2}）。
+その後、メールアドレスとパスワードを入力してユーザ登録をしてください。
+
 //image[2][ユーザ登録]{
 //}
+
+ユーザ登録をすると登録したメールアドレスに登録完了メールが届きます（@<img>{3}）。
+このメールに添付してあるリンクにアクセスすることユーザ登録完了です。
+
 //image[3][登録完了メール]{
 //}
+
+ユーザ登録完了後、ログイン画面にアクセスしログインしてください（@<img>{4}）。
+
 //image[4][ログイン画面]{
 //}
-チャネルを作成します。
+
+ログイン後、@<strong>{チャネルを作る}を選択し、チャネルを作成することでAmbientの設定は完了です。
+
 //image[5][チャネル作成完了画面]{
 //}
-//image[7][ambient用ライブラリのインストール]{
-//}
+
+プログラムを書き込む際に必要な情報として以下の二つがあるので、メモをしておいてください。
+
+ * チャネルID
+ * ライトキー
 
 ==== ライブラリのインストール
+AmbientをESP32上で使うためにAmbientライブラリをArduino IDEにインストールします。
 
-==== 回路図
+@<img>{15-1}のように（スケッチ＞ライブラリのインクルード＞ライブラリを管理）を選択してください
 
-==== コーディング
+ライブラリマネージャーの検索窓に「Ambient」と入力し、候補に出てくる「Ambient ESP32 ESP8266 lib」をインストールしてください。
 
-//list[amibient][amibient]{
+//image[7][ambient用ライブラリのインストール][scale=0.8]{
+//}
+
+=== Ambientにデータを送る
+ここで実際にAmbientにデータを送ります。
+DHT11を使用するので回路図は@<img>{P_20210805_184541}を利用してください。
+プログラムは@<list>{amibient}を書き込んでください。
+各々の環境に合わせて変数を書き換える必要があります。
+以下の変数を書き換えてください。
+
+ * SSID
+ ** 変数名: ssid
+ * パスワード
+ ** 変数名: password
+ * チャネルID
+ ** 変数名: channel_id
+ * ライトキー
+ ** 変数名: write_key
+
+//list[amibient][Ambient利用プログラム]{
 #include <WiFi.h>
 #include "DHT.h"
 #include "Ambient.h"
@@ -190,9 +265,9 @@ void loop() {
   // 体感温度（湿度を含めた体感の温度指数）を計算する
   float apparent_temperature = dht11.computeHeatIndex(temperature, humidity);
 
-  Serial.print("温度: "); Serial.print(temperature); Serial.print("℃ ");
-  Serial.print("湿度: "); Serial.print(humidity); Serial.print("% ");
-  Serial.print("体感温度: "); Serial.print(apparent_temperature); Serial.println("℃");
+  Serial.printf("温度: %.3lf ℃\n", temperature);
+  Serial.printf("湿度: %.3lf ％\n", humidity);
+  Serial.printf("体感温度: %.3lf ℃\n", apparent_temperature)
 
   ambient.set(1, temperature);  // チャート1に温度データ登録
   ambient.set(2, humidity);  // チャート2に湿度データ登録
@@ -203,7 +278,10 @@ void loop() {
 }
 //}
 
-//emlist{
+プログラムの実行に成功するとシリアルモニタに以下のように表示されます（@<list>{ambient_console}）。
+Wi-Fiのコネクションが完了した後、5秒ごとにDHT11より取得したデータをAmbientに送信します。
+
+//list[ambient_console][シリアルモニタ画面]{
 Waiting for Wi-Fi connection....
 Waiting for Wi-Fi connection....
 Waiting for Wi-Fi connection....
@@ -224,4 +302,10 @@ Ambientにデータを送信しました
 Ambientにデータを送信しました
 温度: 24.40℃ 湿度: 61.00% 体感温度: 19.41℃
 Ambientにデータを送信しました
+//}
+
+Ambientとの通信に成功していると@<img>{graph}のように表示されます。
+ただし@<img>{graph}はプログラムを開始してから数分経過後のグラフです。
+
+//image[graph][Ambientに表示されるグラフ]{
 //}

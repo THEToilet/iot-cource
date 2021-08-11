@@ -1,28 +1,59 @@
 = WebAPIを使おう
 
 === WebAPIとは？
+Application Programming Interface
+コンテキストによって様々な使い方がされている
+Twitter
 
 == Weather APIを使う
+天気を知れるAPIが様々ありますが、ここでは「Weather API」というものを利用します。
+以下のリンクにアクセスしてWeather APIのトップページに移動してください（@<img>{1}）。
+
+Weather API: @<href>{https://www.weatherapi.com/}
 
 //image[1][WeatherAPIのトップページ]{
 //}
+
+Weather APIを利用するためにまず、ユーザ登録をします。
+@<strong>{Signup}を選択してユーザ登録画面に移動してください（@<img>{2}）。
+登録をするために、メールアドレスとパスワードを入力し@<strong>{Sign up}を選択してください。
+
 //image[2][登録画面]{
 //}
-//image[3][ログイン画面]{
-//}
-//image[4][マイページ]{
-//}
-//image[5][APIの試行ページ]{
+
+ユーザ登録が完了すると登録メールアドレスに認証メールが届くので（@<img>{11}）
+リンク先にアクセスをしてユーザ登録を完了してください。
+
+//image[11][認証メール]{
 //}
 
-Weather API
-@<href>{https://www.weatherapi.com/}
+その後、登録情報をもとにログインをしてください（@<img>{3}）。
+
+//image[3][ログイン画面]{
+//}
+
+ログイン後はマイページに遷移します（@<img>{4}）。
+この際ページ上部の
+
+ * API key
+
+はWeather APIを使用する際の認証に使うのでメモをしておいてください。
+次にWeather APIの仕様を確認するために@<strong>{API Explorer}を選択してください。
+
+//image[4][マイページ]{
+//}
+
+@<img>{5}
+
+//image[5][APIの試行ページ]{
+//}
 
 Call
 @<href>{https://api.weatherapi.com/v1/current.json?key=********&q=Saitama&aqi=no}
 
-ResponeseCode
+//list[ResponesCod][ResponesCode]{
 200
+//}
 
 //list[ResponesHeader][ResponesHeader]{
 {
@@ -90,12 +121,98 @@ ResponeseCode
 //}
 
 この形式をJSON（JavaScript Object Node）と言います。
+
+=== HTTPとは
+@<href>{http://den3.net/activity_diary/2021/02/01/2718/}
+
+このブログを見ている時点であなたはHTTPを使用していることになります。
+![](http://den3.net/wp-content/uploads/2021/01/スクリーンショット-2021-01-25-173558.png)
+電算のホームページにアクセスした際に行われている通信内容。
+
+![](http://den3.net/wp-content/uploads/2021/01/20191025011652-300x300.png)
+このサイトがhttpsじゃない点については早急に対応したいと思います。
+
+### HTTPとは
+TCP/IPをベースにしたアプリケーション層のプロトコルです。
+HTTPはリクエスト/レスポンス型のプロトコルであり、クライアントはリクエストを出した場合レスポンスが返ってくるまで待機します。
+あとステートレスなのが特徴です。
+
+### HTTPメッセージ
+リクエストメッセージとレスポンスメッセージのことはまとめてHTTPメッセージと呼ばれます。
+![](http://den3.net/wp-content/uploads/2021/01/スクリーンショット-2021-01-31-235422.png)
+
+#### スタートライン
+　ここではリクエストメッセージとレスポンスメッセージで書かれている内容が異なり総称としてスタートラインと呼ばれています。
+　リクエストメッセージではリクエストラインを用います。内容としては、メソッド(後述),リクエストURI,プロトコルバージョン(HTTP/1.1)が書かれており、
+  レスポンスメッセージではステータスラインを用いステータスコード(後述)などが書かれています。
+#### ヘッダ
+　メッセージのメタデータについて書いています(データについての付加情報)
+#### ボディ
+　メッセージが入ります　よくあるのがJson化したデータやHTMLなどがここに入っています。
+### HTTPメソッド
+前述したようにHTTPにはメソッドと呼ばれているHTTPリクエストの種類を表すものがあります。
+本当は8つのメソッドがあるのですが今回は
+CURD(Create, Update, Read, Delete)と呼ばれる性質を満たす代表的なメソッド
+
+ * GET
+ * POST
+ * PUT
+ * DELETE
+
+の四つを紹介したいと思います。
+
+##### GET
+リソースの取得
+
+ブログの記事を取得した例
+![](http://den3.net/wp-content/uploads/2021/02/スクリーンショット-2021-02-01-004533.png)
+##### POST
+
+リソースの追加、作成
+ブログなどを投稿するときにはこのメソッドが呼ばれます。
+
+コメントを投稿した際の例
+![](http://den3.net/wp-content/uploads/2021/02/スクリーンショット-2021-02-01-004715.png)
+![](http://den3.net/wp-content/uploads/2021/02/スクリーンショット-2021-02-01-004705.png)
+![](http://den3.net/wp-content/uploads/2021/02/スクリーンショット-2021-02-01-004631.png)
+
+ * PUT
+ ** リソースの作成、更新
+ ** ブログを更新したいときに使います。
+ * DELETE
+ ** リソースの削除
+ ** 投稿などを削除した時に使われます。
+
+
+
+### ステータスコード
+前述したとおりHTTPはリクエスト/レスポンス型のプロトコルなので
+リクエストを送るとレスポンスが返ってきます代表的なのは下の画像に書いてあるStatus Codeに書いてある200 OKとかです
+
+![](http://den3.net/wp-content/uploads/2021/01/スクリーンショット-2021-01-31-234745.png)
+意味としては
+ * 2xx
+ ** リクエスト成功
+ ** ex: 200 OK
+ * 3xx
+ ** リダイレクトを行うときに返ってくる
+ * 4xx
+ ** クライアントエラー
+ ** クライアントが送った処理が間違っている
+ ** ex: 404 not found
+ * 5xx
+ ** サーバエラー
+ ** サーバ内でエラーが発生している
+ ** ex: 500 Internal Server Error
+などがあります
+
+### 参照
+山本 陽平. Webを支える技術 ―― HTTP，URI，HTML，そしてREST WEB+DB PRESS plus  株式会社技術評論社.
+
+=== ESP32でJSONを利用する
 これらの形式が、WeatherAPIから帰ってくるため、ESP32側で使えるようにしなければなりません
 そこで、公開されているライブラリであるarduinoJSONを利用します。
 
-==== ライブラリのインストール
-
- [** arduinoJSON]
  JSONドキュメントを作る時にキャパシティを計算する必要がある
  ArduinoJson Assistant
  https://arduinojson.org/v6/assistant/
@@ -106,22 +223,21 @@ ResponeseCode
 //}
 //image[8][JSONのサイズ確認画面]{
 //}
-//image[9][ArduinoJson用ライブラリのインストール]{
-//}
+
 
 //list[world][最初のプログラム]{
 // String input;
-  
+
   StaticJsonDocument<1536> doc;
-  
+
   DeserializationError error = deserializeJson(doc, input);
-  
+
   if (error) {
     Serial.print(F("deserializeJson() failed: "));
     Serial.println(error.f_str());
     return;
   }
-  
+
   JsonObject location = doc["location"];
   const char* location_name = location["name"]; // "Saitama"
   const char* location_region = location["region"]; // "Saitama"
@@ -131,19 +247,19 @@ ResponeseCode
   const char* location_tz_id = location["tz_id"]; // "Asia/Tokyo"
   long location_localtime_epoch = location["localtime_epoch"]; // 1626533912
   const char* location_localtime = location["localtime"]; // "2021-07-17 23:58"
-  
+
   JsonObject current = doc["current"];
   long current_last_updated_epoch = current["last_updated_epoch"]; // 1626533100
   const char* current_last_updated = current["last_updated"]; // "2021-07-17 23:45"
   float current_temp_c = current["temp_c"]; // 23.3
   float current_temp_f = current["temp_f"]; // 73.9
   int current_is_day = current["is_day"]; // 0
-  
+
   JsonObject current_condition = current["condition"];
   const char* current_condition_text = current_condition["text"]; // "Clear"
   const char* current_condition_icon = current_condition["icon"];
   int current_condition_code = current_condition["code"]; // 1000
-  
+
   float current_wind_mph = current["wind_mph"]; // 3.8
   float current_wind_kph = current["wind_kph"]; // 6.1
   int current_wind_degree = current["wind_degree"]; // 250
@@ -161,21 +277,56 @@ ResponeseCode
   int current_uv = current["uv"]; // 1
   float current_gust_mph = current["gust_mph"]; // 13.9
   float current_gust_kph = current["gust_kph"]; // 22.3
-//} 
+//}
 
+==== JSONのライブラリをインストールする
+JSONをESP32上で使うためにライブラリをArduino IDEにインストールします。
 
-データを取得する
-//emlist{
-#include <ArduinoJson.h>
+@<img>{15-1}のように（スケッチ＞ライブラリのインクルード＞ライブラリを管理）を選択してください。
+
+//image[15-1][ライブラリの管理の選択][scale=0.8]{
+//}
+
+選択するとライブラリマネージャーが開かれるので、検索窓に「ArduinoJSON」を入力してください（@<img>{9}）。
+その後、「ArduinoJson」をインストールしてください
+//image[9][ArduinoJson用ライブラリのインストール]{
+//}
+
+=== Weather APIからデータを取得する
+ここで、実際にWeatherAPIからデータを取得してみます。
+@<list>{w}のプログラムをESP32に書き込んでください。
+各々の環境に合わせて変数を書き換える必要があります。
+以下の変数を書き換えてください。
+
+ * SSID
+ ** 変数名: ssid
+ * パスワード
+ ** 変数名: password
+ * API Key
+ ** Weaher APIに用いるAPI Key
+ ** 変数名: api_key
+ * 地名
+ ** Weather APIで取得したい地名
+ ** 変数名: location
+
+//list[w][Weaher APIとの通信]{
 #include <WiFi.h>
 #include <HTTPClient.h>
+#include <ArduinoJson.h>
 
 // WiFi接続用変数
 const char *ssid = "elecom-b2809f-g";
 const char *password = "fapd4rpfac3u";
 
+// WeatherAPI用変数
 const String api_key = "ffe99ee9ec094d3681d74132211106";
 const String location = "Saitama";
+
+struct Weather {
+  const char *region;
+  float temperature;
+  int humidity;
+};
 
 void setup()
 {
@@ -194,55 +345,101 @@ void loop()
 {
   HTTPClient http;
   String target_url = "https://api.weatherapi.com/v1/current.json?key=" + api_key + "&q=" + location + "&aqi=no";
-  http.begin(target_url);
+  http.begin(target_url);  // HTTP通信を開始する
 
-  int http_code = http.GET();
+  int http_code = http.GET();  // HTTP通信でGETする
 
-  if (http_code > 0)
+  Serial.printf("status code : %d\n", http_code);
+  if (http_code > 0)  // HTTP通信が失敗すると負値になる
   {
-    if (http_code == HTTP_CODE_OK)
+    if (http_code == HTTP_CODE_OK)  // HTTPコードが200の場合成功
     {
-      String payload = http.getString();
+      String payload = http.getString();  // HTTPのレスポンスボディを取得
       Serial.println(payload);
-      parse(payload);
+      Weather weather = parse(payload);  // WeatherAPIのJSONをパースする
+      Serial.println("------weather--------");
+      Serial.println(weather.region);
+      Serial.println(weather.temperature);
+      Serial.println(weather.humidity);
+    }
+    else if (http_code > 500) {
+      Serial.printf("Server Error: %d", http_code);
+    }
+    else if (http_code > 400) {
+      Serial.printf("Client Error: %d", http_code);
     }
   }
   else
   {
     Serial.println(http.errorToString(http_code).c_str());
   }
-  http.end();
-  delay(50000);
+  http.end();  // HTTP通信の終了
+  delay(60000);
 }
 
-void parse(String input)
+Weather parse(String input)
 {
-  Serial.println("parse");
-  Serial.println("=====");
-  StaticJsonDocument<1536> doc;
-  DeserializationError error = deserializeJson(doc, input);
+  Serial.println("parse.......");
+  StaticJsonDocument<1536> doc;  // JSONをパースするための領域を作成
+  DeserializationError error = deserializeJson(doc, input);  // JSONをパースする
 
-  if (error)
+  if (error)  // パースに失敗すると呼ばれる
   {
-    Serial.print(F("deserializeJson() failed: "));
+    Serial.print(F("deserializeJson() failed: "));  // F()マクロは、指定した文字列分がSRAMからFlashメモリに移動する。
     Serial.println(error.f_str());
-    return;
+    Weather weather = {"", 0, 0};
+    return weather;
   }
 
   JsonObject location = doc["location"];
-  const char *location_region = location["region"];            // "Saitama"
-  const char *location_localtime = location["localtime"];      // "2021-07-17 23:58"
-  Serial.println(location_region);
+  const char *location_region = location["region"];  // "Saitama"
 
   JsonObject current = doc["current"];
-  float current_temp_c = current["temp_c"];                        // 23.3
-  int current_humidity = current["humidity"];         // 88
+  float current_temp = current["temp_c"];  // 23.3℃
+  int current_humidity = current["humidity"];  // 88％
 
-  return;
+  Weather weather = {location_region, current_temp, current_humidity};
+
+  return weather;
 }
 //}
 
+一分ごとにWeather APIにアクセスし情報を取得しています。
+取得した情報をパースした後に@<list>{we_se}のように表示しています。
+
+//list[we_se][Weather APIとの通信をシリアルモニタに表示]{
+Waiting for Wi-Fi connection....
+Connected to Wi-Fi
+status code : 200
+{"location":{"name":"Saitama","region":"Saitama","country":"Japan","lat":35.91,"lon":139.66,"tz_id":"Asia/Tokyo","localtime_epoch":1628673297,"localtime":"2021-08-11 18:14"},"current":{"last_updated_epoch":1628668800,"last_updated":"2021-08-11 17:00","temp_c":30.0,"temp_f":86.0,"is_day":1,"condition":{"text":"Partly cloudy","icon":"//cdn.weatherapi.com/weather/64x64/day/116.png","code":1003},"wind_mph":9.4,"wind_kph":15.1,"wind_degree":180,"wind_dir":"S","pressure_mb":1011.0,"pressure_in":29.85,"precip_mm":0.0,"precip_in":0.0,"humidity":59,"cloud":25,"feelslike_c":31.0,"feelslike_f":87.9,"vis_km":10.0,"vis_miles":6.0,"uv":8.0,"gust_mph":12.5,"gust_kph":20.2}}
+parse.......
+------weather--------
+Saitama
+30.00
+59
+2021-08-11 17:00
+status code : 200
+{"location":{"name":"Saitama","region":"Saitama","country":"Japan","lat":35.91,"lon":139.66,"tz_id":"Asia/Tokyo","localtime_epoch":1628673297,"localtime":"2021-08-11 18:14"},"current":{"last_updated_epoch":1628668800,"last_updated":"2021-08-11 17:00","temp_c":30.0,"temp_f":86.0,"is_day":1,"condition":{"text":"Partly cloudy","icon":"//cdn.weatherapi.com/weather/64x64/day/116.png","code":1003},"wind_mph":9.4,"wind_kph":15.1,"wind_degree":180,"wind_dir":"S","pressure_mb":1011.0,"pressure_in":29.85,"precip_mm":0.0,"precip_in":0.0,"humidity":59,"cloud":25,"feelslike_c":31.0,"feelslike_f":87.9,"vis_km":10.0,"vis_miles":6.0,"uv":8.0,"gust_mph":12.5,"gust_kph":20.2}}
+parse.......
+------weather--------
+Saitama
+30.00
+59
+2021-08-11 17:00
+status code : 200
+{"location":{"name":"Saitama","region":"Saitama","country":"Japan","lat":35.91,"lon":139.66,"tz_id":"Asia/Tokyo","localtime_epoch":1628673514,"localtime":"2021-08-11 18:18"},"current":{"last_updated_epoch":1628673300,"last_updated":"2021-08-11 18:15","temp_c":30.0,"temp_f":86.0,"is_day":1,"condition":{"text":"Partly cloudy","icon":"//cdn.weatherapi.com/weather/64x64/day/116.png","code":1003},"wind_mph":9.4,"wind_kph":15.1,"wind_degree":180,"wind_dir":"S","pressure_mb":1011.0,"pressure_in":29.85,"precip_mm":0.0,"precip_in":0.0,"humidity":59,"cloud":25,"feelslike_c":31.0,"feelslike_f":87.9,"vis_km":10.0,"vis_miles":6.0,"uv":8.0,"gust_mph":12.5,"gust_kph":20.2}}
+parse.......
+------weather--------
+Saitama
+30.00
+59
+2021-08-11 18:15
+
+//}
+
 == ディスプレイを使う
+ここで、取得した情報を手軽に確認するためにディスプレイを使ってみます。
+今回使うディスプレイはESP32との通信にI2Cという通信方式を利用しているので、ますそちらを紹介します。
 
 === I2Cとは
 
@@ -260,28 +457,45 @@ I2Cは各種デバイスを制御するマスターと、マスターからの�
 アドレスは16進数表記で0x03から0x77までの117個のアドレスが利用できる
 大体は製品出荷時にアドレスが割り当てられている
 
-//image[oled][oled]{
-//}
+
+==== ライブラリのインストール
+ディスプレイをESP32上で使うためにライブラリをArduino IDEにインストールします。
+
+@<img>{15-1}のように（スケッチ＞ライブラリのインクルード＞ライブラリを管理）を選択してください。
+
+選択するとライブラリマネージャーが開かれるので、検索窓に「ssd1306 esp32」を入力してください（@<img>{9}）。
+その後、「ESP8266 ans ESP32 OLED driver for SSD1306 displays」をインストールしてください
 //image[10][SSD1306用ライブラリのインストール]{
 //}
-//list[oled][oled]{
-#include <Wire.h>
+
+==== 回路図
+
+//image[oled][ディスプレイ表示回路図]{
+//}
+
+//list[oled][ディスプレイ表示プログラム]{
+#include <Wire.h>  // I2Cを利用するためのライブラリ
 #include "SSD1306.h"
 
-SSD1306 display(0x3c, 21, 22);
+SSD1306 display(0x3c, 21, 22);  // ディスプレイのインスタンスを作成する。
+                                // アドレス、 SDA、 SCLを指定
 
 void setup()
 {
-  display.init();
-  display.setFont(ArialMT_Plain_24);  // 24pxで表示
-  display.drawString(0, 0, "Hello,World");  // (0,0)左上を原点とした座標でに"Hello,World"表示
-  display.display();
+  display.init();  // ディスプレイの初期化
+  display.setFont(ArialMT_Plain_24);  // フォントサイズ24pxで表示
+  display.drawString(0, 0, "Hello,World");  // 左上を原点とした座標で（0,0）に"Hello,World"表示
+  display.display();  // 指定した文字列を表示させる
 }
 
 void loop(){}
 //}
 
 //image[oled1][SSD1306用ライブラリのインストール]{
+//}
+//image[P_20210807_121228][P_20210807_121228][scale=0.8]{
+//}
+//image[P_20210807_121205][P_20210807_121205][scale=0.8]{
 //}
 
 //emlist{
@@ -296,13 +510,13 @@ void loop(){}
 #define DHTTYPE DHT11
 
 SSD1306 display(0x3c, 21, 22);  // ディスプレイのインスタンスを作成する。
-                                // アドレス、SDA、SCLを指定
+                                // I2Cアドレス、SDA、SCLを指定
 DHT dht11(DHTPIN, DHTTYPE);  // DHT11のインスタンスを作成する
 
 void setup()
 {
   Serial.begin(115200);
-  dht11.begin();  // DHT11を始動させ
+  dht11.begin();  // DHT11を始動させる
   display.init(); // ディスプレイの初期化
 }
 
@@ -338,16 +552,15 @@ void loop() {
   display.setFont(ArialMT_Plain_10);  // フォントサイズを10pxに設定
   display.drawString(110, 22, "°C");
   display.drawString(110, 42, "%");
-  
+
   display.display();  // 設定した文字列をディスプレイに表示させる
 }
 //}
 
+//image[P_20210809_140907][P_20210809_140907][scale=0.8]{
+//}
 
 //list[weather_api][weather_api]{
-#include <Arduino.h>
-
-//#include <Arduino_JSON.h>
 #include <ArduinoJson.h>
 #include <WiFi.h>
 #include <WiFiMulti.h>
@@ -478,10 +691,9 @@ void parse(String input)
   }
 //}
 
-Weather api は一時間に一回更新される
+Weather api は15分に一回更新される
 
-==[column] コラム: サーバクライアント
+==[column] サーバクライアント
 サーバ？クライアント？とは何
-
 
 == 応用問題: WebサーバからのLチカ

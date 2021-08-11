@@ -131,6 +131,8 @@ Arduino IDE側では、（ファイル＞環境設定）を選択してくださ
 //image[breadboard][ブレッドボード][scale=0.8]{
 //}
 
+#@# 繋がっていないところ追記
+
 === PCとの接続
 
 つぎに、ESP32をPCと接続します。まずmicroUSB Type-Bの差し込み口に（@<img>{usb1}）microUSB Type-B端子を差し込んでください。
