@@ -1,7 +1,9 @@
 = WebAPIを使おう
+この章ではWebAPIを利用して天気情報をディスプレイに表示することを目的としてます。
 
 === WebAPIとは？
-Application Programming Interface
+まずWebAPI（Web Application Programming Interface）についての説明を行います。
+
 コンテキストによって様々な使い方がされている
 Twitter
 
@@ -126,30 +128,33 @@ Call
 @<href>{http://den3.net/activity_diary/2021/02/01/2718/}
 
 このブログを見ている時点であなたはHTTPを使用していることになります。
-![](http://den3.net/wp-content/uploads/2021/01/スクリーンショット-2021-01-25-173558.png)
+//image[スクリーンショット-2021-01-25-173558][スクリーンショット-2021-01-25-173558]{
+//}
 電算のホームページにアクセスした際に行われている通信内容。
 
-![](http://den3.net/wp-content/uploads/2021/01/20191025011652-300x300.png)
 このサイトがhttpsじゃない点については早急に対応したいと思います。
 
-### HTTPとは
 TCP/IPをベースにしたアプリケーション層のプロトコルです。
 HTTPはリクエスト/レスポンス型のプロトコルであり、クライアントはリクエストを出した場合レスポンスが返ってくるまで待機します。
 あとステートレスなのが特徴です。
 
-### HTTPメッセージ
+==== HTTPメッセージ
 リクエストメッセージとレスポンスメッセージのことはまとめてHTTPメッセージと呼ばれます。
-![](http://den3.net/wp-content/uploads/2021/01/スクリーンショット-2021-01-31-235422.png)
+//image[スクリーンショット-2021-01-31-235422][スクリーンショット-2021-01-31-235422]{
+//}
 
-#### スタートライン
-　ここではリクエストメッセージとレスポンスメッセージで書かれている内容が異なり総称としてスタートラインと呼ばれています。
-　リクエストメッセージではリクエストラインを用います。内容としては、メソッド(後述),リクエストURI,プロトコルバージョン(HTTP/1.1)が書かれており、
-  レスポンスメッセージではステータスラインを用いステータスコード(後述)などが書かれています。
-#### ヘッダ
-　メッセージのメタデータについて書いています(データについての付加情報)
-#### ボディ
-　メッセージが入ります　よくあるのがJson化したデータやHTMLなどがここに入っています。
-### HTTPメソッド
+==== スタートライン
+ここではリクエストメッセージとレスポンスメッセージで書かれている内容が異なり総称としてスタートラインと呼ばれています。
+リクエストメッセージではリクエストラインを用います。内容としては、メソッド(後述),リクエストURI,プロトコルバージョン(HTTP/1.1)が書かれており、
+レスポンスメッセージではステータスラインを用いステータスコード(後述)などが書かれています。
+
+==== ヘッダ
+メッセージのメタデータについて書いています(データについての付加情報)
+
+==== ボディ
+メッセージが入ります　よくあるのがJson化したデータやHTMLなどがここに入っています。
+
+==== HTTPメソッド
 前述したようにHTTPにはメソッドと呼ばれているHTTPリクエストの種類を表すものがあります。
 本当は8つのメソッドがあるのですが今回は
 CURD(Create, Update, Read, Delete)と呼ばれる性質を満たす代表的なメソッド
@@ -161,20 +166,25 @@ CURD(Create, Update, Read, Delete)と呼ばれる性質を満たす代表的な�
 
 の四つを紹介したいと思います。
 
-##### GET
+==== GET
 リソースの取得
 
 ブログの記事を取得した例
-![](http://den3.net/wp-content/uploads/2021/02/スクリーンショット-2021-02-01-004533.png)
-##### POST
+//image[スクリーンショット-2021-02-01-004533][スクリーンショット-2021-02-01-004533]{
+//}
+
+==== POST
 
 リソースの追加、作成
 ブログなどを投稿するときにはこのメソッドが呼ばれます。
 
 コメントを投稿した際の例
-![](http://den3.net/wp-content/uploads/2021/02/スクリーンショット-2021-02-01-004715.png)
-![](http://den3.net/wp-content/uploads/2021/02/スクリーンショット-2021-02-01-004705.png)
-![](http://den3.net/wp-content/uploads/2021/02/スクリーンショット-2021-02-01-004631.png)
+//image[スクリーンショット-2021-02-01-004715][スクリーンショット-2021-02-01-004715]{
+//}
+//image[スクリーンショット-2021-02-01-004705][スクリーンショット-2021-02-01-004705]{
+//}
+//image[スクリーンショット-2021-02-01-004631][スクリーンショット-2021-02-01-004631]{
+//}
 
  * PUT
  ** リソースの作成、更新
@@ -183,14 +193,14 @@ CURD(Create, Update, Read, Delete)と呼ばれる性質を満たす代表的な�
  ** リソースの削除
  ** 投稿などを削除した時に使われます。
 
-
-
-### ステータスコード
+==== ステータスコード
 前述したとおりHTTPはリクエスト/レスポンス型のプロトコルなので
 リクエストを送るとレスポンスが返ってきます代表的なのは下の画像に書いてあるStatus Codeに書いてある200 OKとかです
 
-![](http://den3.net/wp-content/uploads/2021/01/スクリーンショット-2021-01-31-234745.png)
+//image[スクリーンショット-2021-01-31-234745][スクリーンショット-2021-01-31-234745]{
+//}
 意味としては
+
  * 2xx
  ** リクエスト成功
  ** ex: 200 OK
@@ -204,9 +214,10 @@ CURD(Create, Update, Read, Delete)と呼ばれる性質を満たす代表的な�
  ** サーバエラー
  ** サーバ内でエラーが発生している
  ** ex: 500 Internal Server Error
+
 などがあります
 
-### 参照
+==== 参照
 山本 陽平. Webを支える技術 ―― HTTP，URI，HTML，そしてREST WEB+DB PRESS plus  株式会社技術評論社.
 
 === ESP32でJSONを利用する
@@ -344,7 +355,8 @@ void setup()
 void loop()
 {
   HTTPClient http;
-  String target_url = "https://api.weatherapi.com/v1/current.json?key=" + api_key + "&q=" + location + "&aqi=no";
+  String target_url = "https://api.weatherapi.com/v1/current.json?key=";
+  target_url += (api_key + "&q=" + location + "&aqi=no");
   http.begin(target_url);  // HTTP通信を開始する
 
   int http_code = http.GET();  // HTTP通信でGETする
@@ -385,7 +397,8 @@ Weather parse(String input)
 
   if (error)  // パースに失敗すると呼ばれる
   {
-    Serial.print(F("deserializeJson() failed: "));  // F()マクロは、指定した文字列分がSRAMからFlashメモリに移動する。
+    Serial.print(F("deserializeJson() failed: "));
+    // F()マクロは、指定した文字列分がSRAMからFlashメモリに移動する。
     Serial.println(error.f_str());
     Weather weather = {"", 0, 0};
     return weather;
@@ -441,6 +454,9 @@ Saitama
 ここで、取得した情報を手軽に確認するためにディスプレイを使ってみます。
 今回使うディスプレイはESP32との通信にI2Cという通信方式を利用しているので、ますそちらを紹介します。
 
+//image[P_20210811_184332][P_20210811_184332]{
+//}
+
 === I2C（Inter-Integrated Circuit）とは
 I2Cはフィリップ社が開発したシリアル通信方式です。
 I2Cに必要な通信戦は4本で使用目的は電源（Vdd）、GND、SDA（シリアルデータ）、SCL（シリアルクロック）です。
@@ -467,6 +483,8 @@ I2Cでは通信するデバイスはマスタとスレーブに分類され、�
 回路図（@<img>{oled}）を参考に電子回路を組み、プログラム（@<list>{oled}）を書き込んでください。
 
 ==== 回路図
+
+必要材料みたいな感じで表示出来たら良さそう
 
 //image[oled][ディスプレイ表示回路図][scale=1.3]{
 //}
@@ -495,7 +513,137 @@ void loop(){}
 //image[P_20210807_121228][P_20210807_121228][scale=0.8]{
 //}
 
-=== DHT11で得たデータをディスプレイに表示
+== Weather APIから得たデータをディスプレイに表示
+//emlist{
+
+#include <WiFi.h>
+#include <HTTPClient.h>
+#include <ArduinoJson.h>
+
+#include <Wire.h>  // I2Cを利用するためのライブラリ
+#include "SSD1306.h" // ディスプレイのライブラリ
+
+SSD1306 display(0x3c, 21, 22);  // ディスプレイのインスタンスを作成する。
+// アドレス、SDA、SCLを指定
+
+// WiFi接続用変数
+const char *ssid = "elecom-b2809f-g";
+const char *password = "fapd4rpfac3u";
+
+// WeatherAPI用変数
+const String api_key = "ffe99ee9ec094d3681d74132211106";
+const String location = "Saitama";
+
+struct Weather {
+  const char *region;
+  float temperature;
+  int humidity;
+  const char *last_updated;
+};
+
+void setup()
+{
+  Serial.begin(115200);
+  WiFi.begin(ssid, password);  // Wi-Fi接続開始
+
+  while (WiFi.status() != WL_CONNECTED) // Wi-Fiアクセスポイントへ接続するまで待機
+  {
+    Serial.println("Waiting for Wi-Fi connection....");
+    delay(500);
+  }
+  Serial.println("Connected to Wi-Fi");
+
+  display.init(); // ディスプレイの初期化
+}
+
+void loop()
+{
+  display.clear(); // ディスプレイの文字をすべて消す
+
+  HTTPClient http;
+  String target_url = "https://api.weatherapi.com/v1/current.json?key=";
+  target_url += (api_key + "&q=" + location + "&aqi=no");
+  http.begin(target_url);  // HTTP通信を開始する
+
+  int http_code = http.GET();  // HTTP通信でGETする
+
+  Serial.printf("status code : %d\n", http_code);
+  if (http_code > 0)  // HTTP通信が失敗すると負値になる
+  {
+    if (http_code == HTTP_CODE_OK)  // HTTPコードが200の場合成功
+    {
+      String payload = http.getString();  // HTTPのレスポンスボディを取得
+      Serial.println(payload);
+      Weather weather = parse(payload);  // WeatherAPIのJSONをパースする
+      Serial.println("------weather--------");
+      Serial.println(weather.region);
+      Serial.println(weather.temperature);
+      Serial.println(weather.humidity);
+      Serial.println(weather.last_updated);
+      // char [100]
+      display.setFont(ArialMT_Plain_10);  // フォントサイズを10pxに設定
+      display.drawString(0, 0, "region:");  // （x座標, y座標, 表示したい文字列）
+      display.drawString(0, 12, "temperature:");
+      display.drawString(0, 24, "humididity:");
+      display.drawString(0, 36, "last_updated:");
+      display.drawString(65, 0, weather.region);
+      display.drawString(65, 12, String(weather.temperature) + "°C");
+      display.drawString(65, 24, String(weather.humidity) + "%");
+      display.drawString(30, 48, weather.last_updated);
+
+      display.display();  // 設定した文字列をディスプレイに表示させる
+    }
+    else if (http_code > 500) {
+      Serial.printf("Server Error: %d", http_code);
+    }
+    else if (http_code > 400) {
+      Serial.printf("Client Error: %d", http_code);
+    }
+  }
+  else
+  {
+    Serial.println(http.errorToString(http_code).c_str());
+  }
+  http.end();  // HTTP通信の終了
+  delay(60000);
+}
+
+Weather parse(String input)
+{
+  Serial.println("parse.......");
+  StaticJsonDocument<1536> doc;  // JSONをパースするための領域を作成
+  DeserializationError error = deserializeJson(doc, input);  // JSONをパースする
+
+  if (error)  // パースに失敗すると呼ばれる
+  {
+    Serial.print(F("deserializeJson() failed: "));
+    // F()マクロは、指定した文字列分がSRAMからFlashメモリに移動する。
+    Serial.println(error.f_str());
+    Weather weather = {"", 0, 0};
+    return weather;
+  }
+
+  JsonObject location = doc["location"];
+  const char *location_region = location["region"];  // "Saitama"
+
+  JsonObject current = doc["current"];
+  const char *current_last_updated = current["last_updated"]; //  "2021-07-17 23:45"
+  float current_temp = current["temp_c"];  // 23.3℃
+  int current_humidity = current["humidity"];  // 88％
+
+  Weather weather =
+  {location_region, current_temp, current_humidity, current_last_updated};
+
+  return weather;
+}
+//}
+
+//image[P_20210811_231214][P_20210811_231214]{
+//}
+
+Weather api は15分に一回更新される
+
+== DHT11で得たデータをディスプレイに表示
 
 //list[dht_ssd][DHT11のデータをディスプレイに表示プログラム]{
 #include "DHT.h"
@@ -559,129 +707,9 @@ void loop() {
 //image[P_20210809_140907][P_20210809_140907][scale=0.8]{
 //}
 
-Weather api は15分に一回更新される
 
-//emlist{
 
-#include <WiFi.h>
-#include <HTTPClient.h>
-#include <ArduinoJson.h>
-
-#include <Wire.h>  // I2Cを利用するためのライブラリ
-#include "SSD1306.h" // ディスプレイのライブラリ
-
-SSD1306 display(0x3c, 21, 22);  // ディスプレイのインスタンスを作成する。
-// アドレス、SDA、SCLを指定
-
-// WiFi接続用変数
-const char *ssid = "elecom-b2809f-g";
-const char *password = "fapd4rpfac3u";
-
-// WeatherAPI用変数
-const String api_key = "ffe99ee9ec094d3681d74132211106";
-const String location = "Saitama";
-
-struct Weather {
-  const char *region;
-  float temperature;
-  int humidity;
-  const char *last_updated;
-};
-
-void setup()
-{
-  Serial.begin(115200);
-  WiFi.begin(ssid, password);  // Wi-Fi接続開始
-
-  while (WiFi.status() != WL_CONNECTED) // Wi-Fiアクセスポイントへ接続するまで待機
-  {
-    Serial.println("Waiting for Wi-Fi connection....");
-    delay(500);
-  }
-  Serial.println("Connected to Wi-Fi");
-
-  display.init(); // ディスプレイの初期化
-}
-
-void loop()
-{
-  display.clear(); // ディスプレイの文字をすべて消す
-
-  HTTPClient http;
-  String target_url = "https://api.weatherapi.com/v1/current.json?key=" + api_key + "&q=" + location + "&aqi=no";
-  http.begin(target_url);  // HTTP通信を開始する
-
-  int http_code = http.GET();  // HTTP通信でGETする
-
-  Serial.printf("status code : %d\n", http_code);
-  if (http_code > 0)  // HTTP通信が失敗すると負値になる
-  {
-    if (http_code == HTTP_CODE_OK)  // HTTPコードが200の場合成功
-    {
-      String payload = http.getString();  // HTTPのレスポンスボディを取得
-      Serial.println(payload);
-      Weather weather = parse(payload);  // WeatherAPIのJSONをパースする
-      Serial.println("------weather--------");
-      Serial.println(weather.region);
-      Serial.println(weather.temperature);
-      Serial.println(weather.humidity);
-      Serial.println(weather.last_updated);
-      // char [100]
-      display.setFont(ArialMT_Plain_10);  // フォントサイズを10pxに設定
-      display.drawString(0, 0, "region:");  // （x座標, y座標, 表示したい文字列）
-      display.drawString(0, 12, "temperature:");
-      display.drawString(0, 24, "humididity:");
-      display.drawString(0, 36, "last_updated:");
-      display.drawString(65, 0, weather.region);
-      display.drawString(65, 12, String(weather.temperature) + "°C");  // String()で文字列に変換
-      display.drawString(65, 24, String(weather.humidity) + "%");
-      display.drawString(30, 48, weather.last_updated);
-      
-
-      display.display();  // 設定した文字列をディスプレイに表示させる
-    }
-    else if (http_code > 500) {
-      Serial.printf("Server Error: %d", http_code);
-    }
-    else if (http_code > 400) {
-      Serial.printf("Client Error: %d", http_code);
-    }
-  }
-  else
-  {
-    Serial.println(http.errorToString(http_code).c_str());
-  }
-  http.end();  // HTTP通信の終了
-  delay(60000);
-}
-
-Weather parse(String input)
-{
-  Serial.println("parse.......");
-  StaticJsonDocument<1536> doc;  // JSONをパースするための領域を作成
-  DeserializationError error = deserializeJson(doc, input);  // JSONをパースする
-
-  if (error)  // パースに失敗すると呼ばれる
-  {
-    Serial.print(F("deserializeJson() failed: "));  // F()マクロは、指定した文字列分がSRAMからFlashメモリに移動する。
-    Serial.println(error.f_str());
-    Weather weather = {"", 0, 0};
-    return weather;
-  }
-
-  JsonObject location = doc["location"];
-  const char *location_region = location["region"];  // "Saitama"
-
-  JsonObject current = doc["current"];
-  const char *current_last_updated = current["last_updated"]; //  "2021-07-17 23:45"
-  float current_temp = current["temp_c"];  // 23.3℃
-  int current_humidity = current["humidity"];  // 88％
-
-  Weather weather = {location_region, current_temp, current_humidity, current_last_updated};
-
-  return weather;
-}
-//}
+== 応用問題: 時計を表示してみる
 
 //emlist{
 #include <WiFi.h>
@@ -709,7 +737,8 @@ void setup() {
   }
   Serial.println("Connected to Wi-Fi");
 
-  configTime(JST, 0, "ntp.nict.jp", "0.jp.pool.ntp.org", "time1.google.com");  // 標準時間, サマータイム, ntpサーバ
+  configTime(JST, 0, "ntp.nict.jp", "0.jp.pool.ntp.org", "time1.google.com");
+  // 標準時間, サマータイム, ntpサーバ
   display.init(); // ディスプレイの初期化
 }
 
@@ -723,7 +752,8 @@ void loop() {
   getLocalTime(&timeInfo);//tmオブジェクトのtimeInfoに現在時刻を入れ込む
 
   char date[12], now_time[7];
-  sprintf(date, "%04d/%02d/%02d", timeInfo.tm_year + 1900, timeInfo.tm_mon + 1, timeInfo.tm_mday);
+  sprintf(date, "%04d/%02d/%02d",
+  timeInfo.tm_year + 1900, timeInfo.tm_mon + 1, timeInfo.tm_mday);
   sprintf(now_time, "%02d:%02d", timeInfo.tm_hour, timeInfo.tm_min);
   Serial.println(date);
 
@@ -736,65 +766,5 @@ void loop() {
 }
 //}
 
-//emlist{
-#include "DHT.h"
-
-#include <Wire.h>  // I2Cを利用するためのライブラリ
-#include "SSD1306.h" // ディスプレイのライブラリ
-
-#define DHTPIN 4  // センサのデータを読み取るGPIOの番号を指定する
-// DHTライブラリはDHT22/DHT11に対応しているので
-// 使用するセンサを指定する　
-#define DHTTYPE DHT11
-
-SSD1306 display(0x3c, 21, 22);  // ディスプレイのインスタンスを作成する。
-// アドレス、SDA、SCLを指定
-DHT dht11(DHTPIN, DHTTYPE);  // DHT11のインスタンスを作成する
-
-void setup()
-{
-  Serial.begin(115200);
-  dht11.begin();  // DHT11を始動させる
-  display.init(); // ディスプレイの初期化
-}
-
-void loop() {
-  // DHT11のサンプリング間隔が2秒なので
-  // センサが値を読むまで2秒待機
-  delay(2000);
-  display.clear(); // ディスプレイの文字をすべて消す
-
-  float humidity = dht11.readHumidity();  // 湿度取得
-  float temperature = dht11.readTemperature();  // 温度取得（デフォルトでは摂氏=℃）
-
-  // NaN（Not a Number）つまり数字を読み取れなかった場合再取得する
-  // returnした場合loop()の最初に戻る
-  if (isnan(humidity) || isnan(temperature)) {
-    Serial.println("値が読み取れませんでした");
-    return;
-  }
-
-  // 体感温度（湿度を含めた体感の温度指数）を計算する
-  float apparent_temperature = dht11.computeHeatIndex(temperature, humidity);
-
-  Serial.printf("温度: %.3lf ℃\n", temperature);
-  Serial.printf("湿度: %.3lf ％\n", humidity);
-  Serial.printf("体感温度: %.3lf ℃\n", apparent_temperature);
-
-  display.setFont(ArialMT_Plain_10);  // フォントサイズを10pxに設定
-  display.drawString(0, 0, "temperature");  // （x座標, y座標, 表示したい文字列）
-  display.drawString(0, 25, "humididity");
-  display.setFont(ArialMT_Plain_24);  // フォントサイズを24pxに設定
-  display.drawString(50, 10, String(temperature));  // String()で文字列に変換
-  display.drawString(50, 30, String(humidity));
-  display.setFont(ArialMT_Plain_10);  // フォントサイズを10pxに設定
-  display.drawString(110, 22, "°C");
-  display.drawString(110, 42, "%");
-
-  display.display();  // 設定した文字列をディスプレイに表示させる
-}
+//image[P_20210811_224508][P_20210811_224508]{
 //}
-==[column] サーバクライアント
-サーバ？クライアント？とは何
-
-== 応用問題: WebサーバからのLチカ
