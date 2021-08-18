@@ -4,11 +4,11 @@
 目標として、温湿度センサで得たデータをWeb上に公開します。
 
 == センサを使おう
-センサとは温度や湿度、匂いなどの様々な情報を信号化して機械が使いやすいようにするものです。
-この章では、手軽で身近である温湿度を計測できる温湿度センサを使用します。
+センサとは温度や湿度、匂いなどの様々な情報を信号化して機械が使いやすいようにしてくれるモノです。
+この章では、身近な温湿度を手軽に計測できる温湿度センサを使用します。
 
 ==== 温湿度センサ
-温湿度センサはその字の通り温度と湿度を計測してくれます。
+温湿度センサはその名の通り温度と湿度を計測してくれます。
 使用するセンサはDHT11（@<img>{dht11_1}）というもので、取得した温湿度データをデジタル出力をしてくれます。
 //image[dht11_1][DHT11][scale=0.9]{
 //}
@@ -24,7 +24,7 @@ DHT11の主な仕様は以下の通りです（@<table>{DHT11}）。
 
 //table[DHT11_pin][DHT11のピンについて]{
 ピンの番号	ピンの用途
-1	Vdd 3.3 ~ 5.5V の直流を流す
+1	Vdd: 3.3 ~ 5.5V の直流を流す
 2	データ出力用ピン
 3	なにも接続しない
 4	GND
@@ -97,7 +97,7 @@ void loop() {
 
   Serial.printf("温度: %.3lf ℃\n", temperature);
   Serial.printf("湿度: %.3lf ％\n", humidity);
-  Serial.printf("体感温度: %.3lf ℃\n", apparent_temperature)
+  Serial.printf("体感温度: %.3lf ℃\n", apparent_temperature);
 }
 //}
 
@@ -138,7 +138,7 @@ Wi-Fiに接続するために必要な情報は以下の二つです。
  * SSID（Service Set Identifier）
  ** SSIDとはWi-Fi、無線LANの通信規格（IEEE802.11）で定められているアクセスポイントのを識別するための名称。芝浦で言うところの「SRAS-WPA」など。
  * パスワード
- ** 指定したSSIDのアクセスポイントに接続する際に必要なパスワード1
+ ** 指定したSSIDのアクセスポイントに接続する際に必要なパスワード。
 
 === Ambient
 外出時に自宅のセンサのデータをWeb上で見るために、
@@ -221,12 +221,12 @@ DHT11を使用するので回路図は@<img>{P_20210805_184541}を利用して�
 #define DHTTYPE DHT11
 
 // Ambient用変数
-unsigned int channel_id = 40076;
-const char *write_key = "b94c1123733aec95";
+unsigned int channel_id = 111111;
+const char *write_key = "b7471121723ae295";
 
 // WiFi接続用変数
-const char *ssid = "elecom-b2809f-g";
-const char *password = "fapd4rpfac3u";
+const char *ssid = "elecom-b3506f-g";
+const char *password = "*********";
 
 DHT dht11(DHTPIN, DHTTYPE);  // DHT11のインスタンスを作成する
 Ambient ambient;  // Ambientのインスタンスを作成する
@@ -249,7 +249,7 @@ void setup() {
 void loop() {
   // DHT11のサンプリング間隔は2秒ですが
   // Amibentのデータ送信間隔は最低でも5秒間隔を開ける
-  // 必要があるので5秒待機
+  // 必要があるので30秒待機
   delay(30000);
 
   float humidity = dht11.readHumidity();  // 湿度取得
@@ -267,7 +267,7 @@ void loop() {
 
   Serial.printf("温度: %.3lf ℃\n", temperature);
   Serial.printf("湿度: %.3lf ％\n", humidity);
-  Serial.printf("体感温度: %.3lf ℃\n", apparent_temperature)
+  Serial.printf("体感温度: %.3lf ℃\n", apparent_temperature);
 
   ambient.set(1, temperature);  // チャート1に温度データ登録
   ambient.set(2, humidity);  // チャート2に湿度データ登録
@@ -279,7 +279,7 @@ void loop() {
 //}
 
 プログラムの実行に成功するとシリアルモニタに以下のように表示されます（@<list>{ambient_console}）。
-Wi-Fiのコネクションが完了した後、5秒ごとにDHT11より取得したデータをAmbientに送信します。
+Wi-Fiのコネクションが完了した後、30秒ごとにDHT11より取得したデータをAmbientに送信します。
 
 //list[ambient_console][シリアルモニタ画面]{
 Waiting for Wi-Fi connection....
