@@ -22,7 +22,7 @@ language: ja
 
 # 書名
 # 読みを入れる例 booktitle: {name: "Re:VIEW EPUBサンプル", file-as: "リビューイーパブサンプル"}
-booktitle: ESP32ではじめる初めてのIoT
+booktitle: ESP32ではじめる初めてのIoT講座
 
 # 著者名。「, 」で区切って複数指定できる
 # 読みを入れる例 aut: [{name: "青木峰郎", file-as: "アオキミネロウ"}, {name: "武藤健志", file-as: "ムトウケンシ"}, {name: "高橋征義", file-as: "タカハシマサヨシ"}, {name: "角征典", file-as: "カドマサノリ"}]
@@ -67,12 +67,12 @@ aut: ["THEToilet"]
 # contact: 連絡先
 
 # 刊行日(省略した場合は実行時の日付)
-# date: 2021-07-12
+date: 2021-08-18
 # 発行年月。YYYY-MM-DD形式による配列指定。省略した場合はdateを使用する
 # 複数指定する場合は次のように記述する
 # [["初版第1刷の日付", "初版第2刷の日付"], ["第2版第1刷の日付"]]
 # 日付の後ろを空白文字で区切り、任意の文字列を置くことも可能。
-history: [["2021-07-12"]]
+history: [["2021-08-18"]]
 # 権利表記(配列で複数指定可)
 # rights: (C) 2016-2020 Re:VIEW Developers
 # description: 説明
@@ -99,7 +99,7 @@ debug: null
 # htmlext: html
 #
 # CSSファイル(配列で複数指定可)
-stylesheet: ["epub_style.css"]
+stylesheet: ["style.css"]
 
 # ePUBのバージョン (2か3)
 # epubversion: 3
@@ -108,8 +108,7 @@ stylesheet: ["epub_style.css"]
 # htmlversion: 5
 
 # 目次として抽出する見出しレベル
-#toclevel: 3
-toclevel: 2
+toclevel: 3
 
 # 採番の設定。採番させたくない見出しには「==[nonum]」のようにnonum指定をする
 #
@@ -124,11 +123,11 @@ toc: true
 # mytoc: true
 
 # 表紙にするファイル。ファイル名を指定すると表紙として入る (PDFMaker向けにはLaTeXソース断片、EPUBMaker向けにはHTMLファイル)
-cover: null
+# cover: null
 #
 # 表紙に配置し、書籍の影絵にも利用する画像ファイル。省略した場合はnull (画像を使わない)。画像ディレクトリ内に置いてもディレクトリ名は不要(例: cover.jpg)
 # PDFMaker 固有の表紙設定は pdfmaker セクション内で上書き可能
-#coverimage: cover.jpg
+coverimage: cover.jpg
 #
 # 表紙の後に大扉ページを作成するか。省略した場合はtrue (作成する)
 # titlepage: true
@@ -158,7 +157,6 @@ cover: null
 
 # 広告ファイル。ファイル名を指定すると広告として入る (PDFMaker向けにはLaTeXソース断片、EPUBMaker向けにはHTMLファイル)
 # advfile: null
-
 # 取り込む画像が格納されているディレクトリ。省略した場合は以下
 # imagedir: images
 
@@ -172,9 +170,9 @@ cover: null
 # font_ext: ["ttf", "woff", "otf"]
 
 # ソースコードハイライトを利用する (rouge,pygmentsには外部gemが必要)
-# highlight:
-#   html: "rouge"
-#   latex: "listings"
+#highlight:
+  #html: "rouge"
+#  latex: "listings"
 
 # カタログファイル名を指定する
 # catalogfile: catalog.yml
@@ -347,17 +345,14 @@ epubmaker:
   # epubmaker:階層を使うものはここまで
 
 # LaTeX用のスタイルファイル(styディレクトリ以下に置くこと)
-#texstyle: ["reviewmacro"]
-#texstyle: ["tatsumacro"]
+texstyle: ["reviewmacro"]
 #
 # LaTeX用のdocumentclassを指定する
 # オプションについてはsty/README.mdを参照
 # デフォルトは印刷用。電子配布版を作るには media=ebook とする
-#texdocumentclass: ["review-jsbook", "media=ebook,oneside,14pt"]
-texdocumentclass: ["review-jsbook", "media=ebook,oneside,14pt"]
-#tatsumacro利用の場合はこちら
-#texdocumentclass: ["jsbook", "oneside,14pt,uplatex"]
+texdocumentclass: ["review-jlreq", "media=ebook,paper=b5,line_length=38zw,number_of_lines=35,openany,serial_pagination=true"]
 
+#
 # LaTeX用のコマンドを指定する
 # texcommand: "uplatex"
 #

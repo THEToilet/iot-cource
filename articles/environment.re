@@ -91,8 +91,7 @@ Arduino IDEにてESP32を使うために必要なボードマネージャーの�
 手順に従い以下のリンクをコピーしてください（@<list>{esp32-board-link}）。以下のリンクには、@<img>{11}のような情報が記載されています。
 以下のリンクでは改行をしていますが実際は一文のため注意してください。
 //list[esp32-board-link][ボードマネージャーのリンク]{
-https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/⏎
-package_esp32_index.json
+https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json
 //}
 //image[11][ESP32用のボードマネージャ情報][scale=0.7]{
 //}

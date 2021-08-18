@@ -5,8 +5,8 @@ CHAPS:
   - environment.re
   - electronic.re
   - sensor.re
-  #- serverclient.re
-  #- pratical.re
+  - serverclient.re
+  - pratical.re
 APPENDIX:
   - troubleshooting.re
 POSTDEF:
