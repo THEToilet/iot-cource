@@ -280,12 +280,12 @@
 }
 
 % シンプルな通しノンブル
-\ifrecls@serialpage
-  \jlreqsetup{frontmatter_pagination=continuous}
-  \if@openright\else\jlreqsetup{mainmatter_pagebreak=clearpage}\fi
-\fi
+%\ifrecls@serialpage
+%  \jlreqsetup{frontmatter_pagination=continuous}
+  %\if@openright\else\jlreqsetup{mainmatter_pagebreak=clearpage}\fi
+%\fi
 
-% 開始ページを変更
+%% 開始ページを変更
 \let\recls@frontmatterorg\frontmatter
 \renewcommand*{\frontmatter}{
   \recls@frontmatterorg

@@ -201,7 +201,7 @@ coverimage: cover.jpg
 # review-toc向けのヒント情報
 # (文字幅を考慮した行数計測には、別途unicode-eaw gemファイルが必要)
 # ページあたりの行数文字数を用紙サイズで指定する(A5 or B5)
-# page_metric: A5
+page_metric: B5
 #
 # あるいは、配列で指定することもできる
 # 各数字の意味は、順にリストの行数、リストの1行字数、テキストの行数、テキストの1行字数
@@ -282,8 +282,9 @@ epubmaker:
   #
   # NCX目次の見出しレベルごとの飾り(配列で設定)。EPUB3ではNCXは作られない
   # ncxindent:
-  #- 
-  #- - 
+  #-
+  #-
+  #-
   # フックは、各段階で介入したいときのプログラムを指定する。自動で適切な引数が渡される
   # プログラムには実行権限が必要
   # ファイル変換処理の前に実行するプログラム。スタイルシートのコンパイルをしたいときなどに利用する。
@@ -350,7 +351,7 @@ texstyle: ["reviewmacro"]
 # LaTeX用のdocumentclassを指定する
 # オプションについてはsty/README.mdを参照
 # デフォルトは印刷用。電子配布版を作るには media=ebook とする
-texdocumentclass: ["review-jlreq", "media=ebook,paper=b5,line_length=38zw,number_of_lines=35,openany,serial_pagination=true"]
+texdocumentclass: ["review-jlreq", "media=ebook,paper=b5,line_length=38zw,number_of_lines=35,openany,serial_pagination=true,font-size=30pt"]
 
 #
 # LaTeX用のコマンドを指定する
