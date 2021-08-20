@@ -1,15 +1,16 @@
-% Re:VIEW 2互換のlayout.tex.erb記載相当の内容
-\RequirePackage{review-base}
+% 基本定義
+\usepackage{review-base}
 
-% Re:VIEW 2互換のreviewmacro.sty(装飾カスタマイズ)内容
-\RequirePackage{review-style}
+% スタイル装飾
+\usepackage{review-style}
 
+% 囲み飾りの設定
 \ifdefined\reviewboxsetting%
   \RequirePackage{review-tcbox}
 \fi
 
 % ユーザー固有の定義
-\RequirePackage{review-custom}
+\usepackage{review-custom}
 
 %% run \@endofreviewmacrohook at the end of reviewmacro style
 \@ifundefined{@endofreviewmacrohook}{}{%

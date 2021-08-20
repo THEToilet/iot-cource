@@ -28,7 +28,11 @@ ESP32の開発環境には主に以下の3つが挙げられます。
 
 Arduino IDEをインストールするために以下のリンクにアクセスしてください。
 
-@<href>{https://www.arduino.cc/en/software}
+//embed[latex]{
+\begin{center}
+Arduino IDE Download: https://www.arduino.cc/en/software
+\end{center}
+//}
 
 ダウンロード画面（@<img>{1}）ではご自身のPC環境にあったダウンロードリンクを選択してください。
 ここからの手順では、Windows10でのダウンロードを想定しています。
@@ -90,9 +94,13 @@ Arduino IDEにてESP32を使うために必要なボードマネージャーの�
 //}
 手順に従い以下のリンクをコピーしてください（@<list>{esp32-board-link}）。以下のリンクには、@<img>{11}のような情報が記載されています。
 以下のリンクでは改行をしていますが実際は一文のため注意してください。
+
+
 //list[esp32-board-link][ボードマネージャーのリンク]{
-https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json
+https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32→
+_index.json
 //}
+
 //image[11][ESP32用のボードマネージャ情報][scale=0.7]{
 //}
 Arduino IDE側では、（ファイル＞環境設定）を選択してください（@<img>{12-1}）。

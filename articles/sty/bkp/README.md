@@ -1,31 +1,29 @@
-review-jsbook.cls Users Guide
+review-jlreq.cls Users Guide (実験版)
 ====================
 
-現時点における最新版 `jsbook.cls  2018/06/23 jsclasses (okumura, texjporg)` をベースに、Re:VIEW 向け review-jsbook.cls を実装しました。
+[jlreq](https://github.com/abenori/jlreq) は、 [日本語組版処理の要件](https://www.w3.org/TR/jlreq/ja/) の実装を試みた LaTeX クラスファイルです。
 
-過去の Re:VIEW 2 で jsbook.cls で作っていた資産を、ほとんどそのまま Re:VIEW 3 でも利用できます。
+Re:VIEW 向けの本テンプレートは、この jlreq クラスを使用し、これまで広く使われてきた jsbook に代わってユーザーが比較的カスタマイズしやすいものを提供することを目的としています。
 
-## 特徴
+## 注意!
+- 現時点でこのテンプレートは実験段階 (experimental) です。今後の更新でファイルの内容、ファイル名、および紙面表現が大きく変わる可能性が常にあります。
+- Re:VIEW の一部の命令に対応する紙面表現はまだ実装されていません。
+- LaTeX の知識が十分でないと感じるなら、デフォルトの review-jsbook テンプレートを利用することをお勧めします。
+- jlreq クラスファイル自体、現在も開発段階にあります。本ドキュメントとともに配布している review-jlreq.cls は、jlreq 2018年11月13日時点の abenori_dev ブランチにあるもの (85a9e5b5813325ea905240b145fc93e4a6a8f245) に従っています。
 
- * クラスオプション `media` により、「印刷用」「電子用」の用途を明示的な意思表示として与えることで、用途に応じた PDF ファイル生成を行えます。
- * （基本的に）クラスオプションを `<key>=<value>` で与えられます。
- * クラスオプション内で、用紙サイズや基本版面を設計できます。
+## セットアップ
+1. jlreq クラスを TeXLive 環境にインストールします。`tlmgr install jlreq` あるいはGitHub https://github.com/abenori/jlreq の clone を実行してください。jlreq 自体も開発段階であり、GitHub 上で頻繁に更新されています。
+2. `review-init --latex-template review-jlreq プロジェクト名` を実行して新しいプロジェクトを作成します。
 
-ここで、クラスオプションとは、親 LaTeX 文章ファイルにおいて、以下のような位置にカンマ（,）区切りで記述するオプションです。
+既存のプロジェクトを置き換えるには、プロジェクトの `sty` フォルダに `review-jlreq` フォルダ内のファイルを上書きコピーしてください。
 
-```latex
-\documentclass[クラスオプションたち（省略可能）]{review-jsbook}
-```
-
-## Re:VIEW で利用する
+## 利用可能なクラスオプションたち
 
 クラスオプションオプションたちは、Re:VIEW 設定ファイル config.yml 内の texdocumentclass において、以下のような位置に記述します。
 
 ```yaml
-texdocumentclass: ["review-jsbook", "クラスオプションたち（省略可能）"]
+texdocumentclass: ["review-jlreq", "クラスオプションたち（省略可能）"]
 ```
-
-## 利用可能なクラスオプションたち
 
 ### 用途別 PDF データ作成 `media=<用途名>`
 
@@ -46,20 +44,18 @@ texdocumentclass: ["review-jsbook", "クラスオプションたち（省略可�
 
 ### 特定の用紙サイズ `paper=<用紙サイズ>`
 
-利用可能な特定の用紙サイズを指定できます。
+利用可能な特定の用紙サイズを指定できます。［デフォルト］は a5 です。
 
- * `a3`
- * `a4` ［デフォルト］
- * `a5`
- * `a6`
- * `b4`：JIS B4
- * `b5`：JIS B5
- * `b6`：JIS B6
+ * `a0` 〜 `a10`：A 列
+ * `b0` 〜 `b10`：JIS B 列
+ * `c0` 〜 `c8`：C 列
  * `a4var`：210mm x 283mm
  * `b5var`：182mm x 230mm
- * `letter`
- * `legal`
- * `executive`
+ * `letter`：レター、8.5in x 11in
+ * `legal`：リーガル、8.5in x 14in
+ * `executive`：エグゼクティブ、7.25in x 10.5in
+ * `hagaki`：葉書き、100mm x 148mm
+ * `{横幅,縦幅}`：任意の指定サイズ
 
 ### トンボ用紙サイズ `tombopaper=<用紙サイズ>` および塗り足し幅 `bleed_margin=<幅>`
 
@@ -69,31 +65,27 @@ texdocumentclass: ["review-jsbook", "クラスオプションたち（省略可�
 `bleed_margin` では塗り足し領域の幅を指定できます。
 ［デフォルト］3mm になります。
 
-### カスタム用紙サイズ `paperwidth=<用紙横幅>`, `paperheight=<用紙縦幅>`
-
-カスタム用紙サイズ `paperwidth=<用紙横幅>`, `paperheight=<用紙縦幅>` （両方とも与える必要があります）を与えることで、特定の用紙サイズで設定できない用紙サイズを与えられます。
-
-たとえば、B5変形 `paperwidth=182mm`, `paperheight=235mm`。
-
-### 基本版面設計 `fontsize=<文字サイズ>`, `baselineskip=<行送り>`, `line_length=<字詰>`, `number_of_lines=<行数>`, `head_space=<天>`, `gutter=<ノド>`, `linegap=<幅>`, `headheight=<幅>`, `headsep=<幅>`, `footskip=<幅>`
+### 基本版面設計 `fontsize=<文字サイズ>`, `baselineskip=<行送り>`, `line_length=<字詰>`, `number_of_lines=<行数>`, `head_space=<天>`, `foot_space=<地>`, `gutter=<ノド>`, `fore_edge=<小口>`, `linegap=<幅>`, `headheight=<幅>`, `headsep=<幅>`, `footskip=<幅>`
 
 基本版面情報を与えます。
 天、ノドをそれぞれ与えない場合、それぞれ天地、左右中央になります。
 
- * `fontsize=10pt`［デフォルト］：標準の文字（normalfontsize）の文字サイズを与えます。pt のほか、Q や mm といった単位も指定可能です。ただし、文字サイズは jsbook の挙動に合わせるために 8pt, 9pt, 10pt, 11pt, 12pt, 14pt, 17pt, 20pt, 21pt, 25pt, 30pt, 36pt, 43pt のいずれか近いサイズに丸められます。
- * `baselineskip=16pt`［デフォルト］：行送りを与えます。
- * `line_length=<字詰め幅>`：1行字詰めを与えます。字詰め幅には単位を付ける必要があります。文字数であれば「zw」を使うとよいでしょう（例：35zw＝35文字）。デフォルトでは jsbook の挙動に従い、紙サイズに基いて決定します。
- * `number_of_lines=<行数>`：行数を与えます。デフォルトでは jsbook の挙動に従い、紙サイズに基いて決定します。
+ * `fontsize=10pt`［デフォルト］：標準の文字（normalfontsize）の文字サイズを与えます。pt のほか、Q や mm といった単位も指定可能です。
+ * `baselineskip=高さ`：行送りを与えます。［デフォルト］は fontsize の1.7倍です（10pt の場合 17pt）。
+ * `line_length=<字詰め幅>`：1行字詰めを与えます。字詰め幅には単位を付ける必要があります。文字数であれば「zw」を使うとよいでしょう（例：35zw＝35文字）。［デフォルト］は紙サイズの 0.75 倍です。
+ * `number_of_lines=<行数>`：行数を与えます。［デフォルト］は紙サイズの 0.75 倍です。
  * `head_space=<幅>`：天を与えます。［デフォルト］は天地中央です。
+ * `foot_space=<幅>`：地を与えます。［デフォルト］は天地中央です。
  * `gutter=<幅>`：ノドを与えます。［デフォルト］は左右中央です。
+ * `fore_edge=<幅>`：小口を与えます。［デフォルト］は左右中央です。
  * `linegap=<幅>`：行送りを baselineskip で指定する代わりに、通常の文字の高さにこのオプションで指定する幅を加えたものを行送りとします。
 
-例をいくつか挙げます。
+版面設計の基本としては、以下のどちらかとなります。
 
- * `paper=a5, fontsize=10pt, line_length=35zw, number_of_lines=32, baselineskip=16pt,`
- * `paper=b5, fontsize=13Q, baselineskip=20.5H, head_space=20mm, gutter=20mm,`
+ * 文字サイズ・行送り・字詰め・行数から設計：`fontsize` + `baselineskip` + `line_length` + `number_of_lines` + `head_space` + `gutter`
+ * 天・地・ノド・小口から設計：（`fontsize` + `baselineskip`） + `head_space` + `foot_space` + `gutter` + `fore_edge`
 
-さらに、ヘッダー、フッターに関する位置調整は、TeX のパラメータ `\headheight`, `\headsep`, `\footskip` に対応しており、それぞれ `headheight`, `headsep`, `footskip` を与えられます。
+ほかにもいくつか jlreq 固有の版面設計オプションがあります。詳細については jlreq の README-ja.md を参照してください。
 
 ## 開始ページ番号 `startpage=<ページ番号>`
 
@@ -118,51 +110,6 @@ texdocumentclass: ["review-jsbook", "クラスオプションたち（省略可�
  * `marusho-ink`（丸正インキ）：塗り足し幅を5mmに設定、ノド中央にページ番号を入れます。
  * `nikko-pc`（日光企画）, `shippo`（ねこのしっぽ）：ノド中央にページ番号を入れます。
 
-独自の設定を追加したいときには、review-jsbook.cls の実装を参照してください。
+独自の設定を追加したいときには、review-jlreq.cls の実装を参照してください。
 
 ページ番号は紙面に入れるものと同じものが入ります。アラビア数字で通したいときには、上記の `serial_pagination=true` も指定してください。
-
-## 標準で review-jsbook.cls を実行したときの jsbook.cls との違い
-
- * jsbook.cls のクラスオプション `uplatex`：これまで texdocumentclass に指定が必要だった `uplatex` オプションは不要となっています。
- * jsbook.cls のクラスオプション `nomag`：用紙サイズや版面設計は、review-jsbook.cls 側で行います。
- * hyperref パッケージ：あらかじめ hyperref パッケージを組み込んでおり、`media` オプションにより用途別で挙動を制御します。
-
-### 既存の jsbook.cls のオプションの扱い
-
-review-jsbook.cls は jsbook.cls を包んでおり、一部の jsbook.cls のクラスオプションはそのまま指定可能です。
-
- * `oneside`: 奇数ページ・偶数ページで柱やページ番号などを同じ体裁にします。review-jsbook.cls にも有効ですが、review-style.sty でこれを打ち消し奇数・偶数で別の見た目にするデザイン (fancyhdr) が定義されているので、review-style.sty も調整する必要があります。
- * `twoside`: 奇数ページ・偶数ページで柱やページ番号などを別の体裁にします (デフォルト)。
- * `vartwoside`: twoside とおおむね同じですが、傍注が小口ではなく常に右側になります。Re:VIEW のデフォルトでは傍注は使用していないので、効果は通常表れません。
- * `onecolumn`: 1段組の体裁にします (デフォルト)。
- * `twocolumn`: 2段組の体裁にします。
- * `openright`: 章の始まりを右ページ (奇数ページ) にします (デフォルト)。前の章が右ページで終わった場合には、白紙のページが1ページ挿入されます。
- * `openleft`: 章の始まりを左ページ (偶数ページ) にします。前の章が左ページで終わった場合には、白紙のページが1ページ挿入されます。
- * `openany`: 章の始まりを左右どちらのページからでも始めます。
- * `draft`: 確認作業のために、overfull box が起きた箇所の行末に罫線を引き、画像は実際に貼り付けずにボックスとファイル名だけを表記するようにします。
- * `final`: 上記の draft の処理を行いません (デフォルト)。
- * `leqno`: 数式の番号を右ではなく左側に置きます。ただし Re:VIEW では LaTeX のやり方での採番付き数式を作っていないので、効果は通常表れません。
- * `fleqn`: 数式をデフォルトの左右中央ではなく、左側に配置します。
- * `english`: 英語ドキュメント向けに、字下げをなくしたり、「章」や「目次」などの定型の文字列を英語化します。しかし、Re:VIEW では定型文字列はロケールファイルで処理しており、ほとんどは無視されます。
- * `jslogo`: 「LaTeX」等のロゴを置き換えます (デフォルト)。
- * `nojslogo`: ロゴを置き換えません。
- * `report`: oneside と openany の両方と同じ効果を持ちます。
- * `landscape`: 用紙を横長で使います。review-jsbook.cls のクラスオプションで基本版面設計をやり直す必要があることに注意してください。
-
-jsbook.cls の以下のクラスオプションは挙動が異なります。代わりに review-jsbook.cls のクラスオプションを利用してください。
-
- * `8pt`・`9pt`・`10pt`・`11pt`・`12pt`・`14pt`・`17pt`・`20pt`・`21pt`・`25pt`・`30pt`・`36pt`・`43pt`・`12Q`・`14Q`・`10ptj`・`10.5ptj`・`11ptj`・`12ptj`: 基本文字のサイズを指定します。そのまま review-jsbook.cls の fontsize に渡されますが、上記の fontsize クラスオプションの説明にあるとおり丸められます。
- * `tombow`・`tombo`・`mentuke`: トンボや塗り足しを作成しますが、これらは PDF 入稿に求められる正しいデジタルトンボ情報を入れないので使用してはなりません。review-jsbook.cls の `media=print` を使ってください。
- * `a4paper`・`a5paper`・`b5paper`・`b4paper`・`letterpaper`: 紙サイズを指定します。誤りではありませんが、review-jsbook.cls の paper クラスオプションを使うほうが妥当です。
-
-jsbook.cls の以下のクラスオプションは無視またはエラーになります。
-
- * `uplatex`: 暗黙に指定されるので無視されます。
- * `autodetect-engine`: pLaTeX/upLaTeX を自動判別するオプションですが、Re:VIEW では review-jsbook 利用時に upLaTeX を暗黙に前提としているので無視されます。
- * `papersize`: dvips などに紙サイズ情報を与えるオプションですが、Re:VIEW ではこれを利用しないので、結果的に無視されます。
- * `titlepage`・`notitlepage`: 表題の独立ページ化の有無ですが、Re:VIEW では表題を利用していないため、結果的に無視されます。
- * `usemag`・`nomag`・`nomag*`: 用紙サイズと版面設計は review-jsbook.cls のクラスオプションを使うため、無視されます。
- * `a4j`・`a5j`・`b4j`・`b5j`・`winjis`・`mingoth`: これらは無効としており、エラーになります。review-jsbook.cls のクラスオプションを利用してください。
- * `jis`: jis フォントメトリックスを使う指定ですが、通常の環境ではコンパイルエラーになります。
- * `disablejfam`: 数式内の利用フォント数を増やすために、数式内の日本語文字を使わないようにする指定ですが、Re:VIEW を利用する上では単にエラーを誘発するだけでしょう。

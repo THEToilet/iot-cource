@@ -12,7 +12,11 @@ APIとはApplication Programming Interfaceの略でコンテキストによっ�
 天気を知れるAPIは複数ありますが、ここでは「Weather API」というものを利用します。
 以下のリンクにアクセスしてWeather APIのトップページに移動してください（@<img>{1}）。
 
-Weather API: @<href>{https://www.weatherapi.com/}
+//embed[latex]{
+\begin{center}
+Weather API: https://www.weatherapi.com/
+\end{center}
+//}
 
 //image[1][WeatherAPIのトップページ]{
 //}
@@ -46,13 +50,21 @@ Weather APIを利用するためにまず、ユーザ登録をします。
 //image[4][マイページ]{
 //}
 
-@<img>{5}
+選択した後、@<img>{5}のような画面に遷移します。
+
+ * Your API Key
+ ** 先ほどメモしたAPI key
+ * Protocol
+ ** HTTP
+ * Format
+ ** JSON
 
 //image[5][APIの試行ページ]{
 //}
 
-Call
-@<href>{https://api.weatherapi.com/v1/current.json?key=********&q=Saitama&aqi=no}
+//list[Call][Call]{
+http://api.weatherapi.com/v1/current.json?key=********&q=Saitama&aqi=no
+//}
 
 //list[ResponesCod][ResponesCode]{
 200
@@ -123,15 +135,8 @@ Call
 }
 //}
 
-この形式をJSON（JavaScript Object Node）と言います。
 
-=== HTTPとは
-@<href>{http://den3.net/activity_diary/2021/02/01/2718/}
-
-//image[2021-01-25-173558][2021-01-25-173558]{
-//}
-電算のホームページにアクセスした際に行われている通信内容。
-
+=== HTTP
 TCP/IPをベースにしたアプリケーション層のプロトコルです。
 HTTPはリクエスト/レスポンス型のプロトコルであり、クライアントはリクエストを出した場合レスポンスが返ってくるまで待機します。
 あとステートレスなのが特徴です。
@@ -215,16 +220,21 @@ CURD(Create, Update, Read, Delete)と呼ばれる性質を満たす代表的な�
 
 などがあります
 
-==== 参照
-山本 陽平. Webを支える技術 ―― HTTP，URI，HTML，そしてREST WEB+DB PRESS plus  株式会社技術評論社.
+#@#山本 陽平. Webを支える技術 ―― HTTP，URI，HTML，そしてREST WEB+DB PRESS plus  株式会社技術評論社.
+
+=== JSON
+この形式をJSON（JavaScript Object Node）と言います。
 
 === ESP32でJSONを利用する
 これらの形式が、WeatherAPIから帰ってくるため、ESP32側で使えるようにしなければなりません
 そこで、公開されているライブラリであるarduinoJSONを利用します。
+JSONドキュメントを作る時にキャパシティを計算する必要がある。
 
- JSONドキュメントを作る時にキャパシティを計算する必要がある。
- ArduinoJson Assistant
- https://arduinojson.org/v6/assistant/
+//embed[latex]{
+\begin{center}
+ArduinoJson Assistant: https://arduinojson.org/v6/assistant/
+\end{center}
+//}
 
 //image[6][ArudinoAssistantのトップページ]{
 //}
@@ -318,7 +328,7 @@ JSONをESP32上で使うためにライブラリをArduino IDEにインストー
  ** Weather APIで取得したい地名
  ** 変数名: location
 
-//list[w][Weaher APIとの通信][cpp]{
+//list[w][Weaher APIとの通信]{
 #include <WiFi.h>
 #include <HTTPClient.h>
 #include <ArduinoJson.h>
@@ -422,7 +432,7 @@ Weather parse(String input)
 Waiting for Wi-Fi connection....
 Connected to Wi-Fi
 status code : 200
-{"location":{"name":"Saitama","region":"Saitama","country":"Japan","lat":35.91,"lon":139.66,"tz_id":"Asia/Tokyo","localtime_epoch":1628673297,"localtime":"2021-08-11 18:14"},"current":{"last_updated_epoch":1628668800,"last_updated":"2021-08-11 17:00","temp_c":30.0,"temp_f":86.0,"is_day":1,"condition":{"text":"Partly cloudy","icon":"//cdn.weatherapi.com/weather/64x64/day/116.png","code":1003},"wind_mph":9.4,"wind_kph":15.1,"wind_degree":180,"wind_dir":"S","pressure_mb":1011.0,"pressure_in":29.85,"precip_mm":0.0,"precip_in":0.0,"humidity":59,"cloud":25,"feelslike_c":31.0,"feelslike_f":87.9,"vis_km":10.0,"vis_miles":6.0,"uv":8.0,"gust_mph":12.5,"gust_kph":20.2}}
+{"location":{"name":"Saitama","region":"Saitama","country": ・・・・省略
 parse.......
 ------weather--------
 Saitama
@@ -430,7 +440,7 @@ Saitama
 59
 2021-08-11 17:00
 status code : 200
-{"location":{"name":"Saitama","region":"Saitama","country":"Japan","lat":35.91,"lon":139.66,"tz_id":"Asia/Tokyo","localtime_epoch":1628673297,"localtime":"2021-08-11 18:14"},"current":{"last_updated_epoch":1628668800,"last_updated":"2021-08-11 17:00","temp_c":30.0,"temp_f":86.0,"is_day":1,"condition":{"text":"Partly cloudy","icon":"//cdn.weatherapi.com/weather/64x64/day/116.png","code":1003},"wind_mph":9.4,"wind_kph":15.1,"wind_degree":180,"wind_dir":"S","pressure_mb":1011.0,"pressure_in":29.85,"precip_mm":0.0,"precip_in":0.0,"humidity":59,"cloud":25,"feelslike_c":31.0,"feelslike_f":87.9,"vis_km":10.0,"vis_miles":6.0,"uv":8.0,"gust_mph":12.5,"gust_kph":20.2}}
+{"location":{"name":"Saitama","region":"Saitama","country": ・・・・省略
 parse.......
 ------weather--------
 Saitama
@@ -438,14 +448,13 @@ Saitama
 59
 2021-08-11 17:00
 status code : 200
-{"location":{"name":"Saitama","region":"Saitama","country":"Japan","lat":35.91,"lon":139.66,"tz_id":"Asia/Tokyo","localtime_epoch":1628673514,"localtime":"2021-08-11 18:18"},"current":{"last_updated_epoch":1628673300,"last_updated":"2021-08-11 18:15","temp_c":30.0,"temp_f":86.0,"is_day":1,"condition":{"text":"Partly cloudy","icon":"//cdn.weatherapi.com/weather/64x64/day/116.png","code":1003},"wind_mph":9.4,"wind_kph":15.1,"wind_degree":180,"wind_dir":"S","pressure_mb":1011.0,"pressure_in":29.85,"precip_mm":0.0,"precip_in":0.0,"humidity":59,"cloud":25,"feelslike_c":31.0,"feelslike_f":87.9,"vis_km":10.0,"vis_miles":6.0,"uv":8.0,"gust_mph":12.5,"gust_kph":20.2}}
+{"location":{"name":"Saitama","region":"Saitama","country": ・・・・省略
 parse.......
 ------weather--------
 Saitama
 30.00
 59
 2021-08-11 18:15
-
 //}
 
 == ディスプレイを使う
@@ -506,9 +515,9 @@ void setup()
 void loop(){}
 //}
 
-//image[P_20210807_121205][P_20210807_121205][scale=0.8]{
+//image[P_20210807_121205][P_20210807_121205]{
 //}
-//image[P_20210807_121228][P_20210807_121228][scale=0.8]{
+//image[P_20210807_121228][P_20210807_121228]{
 //}
 
 == Weather APIから得たデータをディスプレイに表示
@@ -643,6 +652,9 @@ Weather api は15分に一回更新される
 
 == DHT11で得たデータをディスプレイに表示
 
+//image[displaydht11][df][scale=1.6]{
+//}
+
 //list[dht_ssd][DHT11のデータをディスプレイに表示プログラム]{
 #include "DHT.h"
 
@@ -702,7 +714,7 @@ void loop() {
 }
 //}
 
-//image[P_20210809_140907][P_20210809_140907][scale=0.8]{
+//image[P_20210809_140907][P_20210809_140907]{
 //}
 
 
