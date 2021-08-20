@@ -52,115 +52,180 @@ Weather APIを利用するためにまず、ユーザ登録をします。
 
 選択した後、@<img>{5}のような画面に遷移します。
 
+//image[5][APIの試行ページ]{
+//}
+
+この画面では以下の5つのパラメータを設定することができます。
+
  * Your API Key
  ** 先ほどメモしたAPI key
  * Protocol
  ** HTTP
  * Format
  ** JSON
+ * Parameter q
+ ** London
+ * Parameter api
+ ** no
 
-//image[5][APIの試行ページ]{
-//}
+ProtocolはAPIとの通信に用いるプロトコルを指定して
+Formatはやり取りをする情報の形式を表しています。
+HTTPとJSONの詳細については後に説明します。
+パラメータを選択したのち@<strong>{Show Response}を選択すると
+以下のレスポンスが帰ってきます。
+@<list>{Call}はAPIを呼び出すときに用いるURLです。
+keyの部分にはWeather APIで得られたAPI Keyを入れてください。
+@<list>{ResponseCode}と@<list>{ResponesHeader}と@<list>{ResponseBody}は
+APIとの通信でHTTPというプロトコルを使用した際に帰ってくるもの（レスポンス）です。
+これについては後に説明します。
+また、@<list>{ResponesHeader}と@<list>{ResponseBody}はAPIで呼び出した
+指定した地域の天気情報です。これは先ほど指定したJSONという形式で送られています。
+これもまた後に説明します。
+
+=== レスポンス
 
 //list[Call][Call]{
 http://api.weatherapi.com/v1/current.json?key=********&q=Saitama&aqi=no
 //}
 
-//list[ResponesCod][ResponesCode]{
+//list[ResponseCode][ResponeseCode]{
 200
 //}
 
 //list[ResponesHeader][ResponesHeader]{
 {
-    "Transfer-Encoding": "chunked",
-    "Connection": "keep-alive",
-    "Vary": "Accept-Encoding",
-    "CDN-PullZone": "93447",
-    "CDN-Uid": "8fa3a04a-75d9-4707-8056-b7b33c8ac7fe",
-    "CDN-RequestCountryCode": "FI",
-    "CDN-EdgeStorageId": "615",
-    "CDN-CachedAt": "2021-07-12 14:05:36",
-    "CDN-RequestPullSuccess": "True",
-    "CDN-RequestPullCode": "200",
-    "CDN-RequestId": "a45be49d32c7a76559a3f3920d337f53",
-    "CDN-Cache": "MISS",
-    "Cache-Control": "public, max-age=180",
-    "Content-Type": "application/json",
-    "Date": "Mon, 12 Jul 2021 12:05:36 GMT",
-    "Server": "BunnyCDN-FI1-615"
+  "Transfer-Encoding": "chunked",
+  "Connection": "keep-alive",
+  "Vary": "Accept-Encoding",
+  "CDN-PullZone": "93447",
+  "CDN-Uid": "8fa3a04a-75d9-4707-8056-b7b33c8ac7fe",
+  "CDN-RequestCountryCode": "FI",
+  "CDN-EdgeStorageId": "615",
+  "CDN-CachedAt": "2021-07-12 14:05:36",
+  "CDN-RequestPullSuccess": "True",
+  "CDN-RequestPullCode": "200",
+  "CDN-RequestId": "a45be49d32c7a76559a3f3920d337f53",
+  "CDN-Cache": "MISS",
+  "Cache-Control": "public, max-age=180",
+  "Content-Type": "application/json",
+  "Date": "Mon, 12 Jul 2021 12:05:36 GMT",
+  "Server": "BunnyCDN-FI1-615"
 }
 //}
 
 //list[ResponseBody][ResponseBody]{
 {
-      "location": {
-          "name": "Saitama",
-          "region": "Saitama",
-          "country": "Japan",
-          "lat": 35.91,
-          "lon": 139.66,
-          "tz_id": "Asia/Tokyo",
-          "localtime_epoch": 1626091536,
-          "localtime": "2021-07-12 21:05"
+  "location": {
+      "name": "Saitama",
+      "region": "Saitama",
+      "country": "Japan",
+      "lat": 35.91,
+      "lon": 139.66,
+      "tz_id": "Asia/Tokyo",
+      "localtime_epoch": 1626091536,
+      "localtime": "2021-07-12 21:05"
+  },
+  "current": {
+      "last_updated_epoch": 1626087600,
+      "last_updated": "2021-07-12 20:00",
+      "temp_c": 29.4,
+      "temp_f": 84.9,
+      "is_day": 0,
+      "condition": {
+          "text": "Partly cloudy",
+          "icon": "//cdn.weatherapi.com/weather/64x64/night/116.png",
+          "code": 1003
       },
-      "current": {
-          "last_updated_epoch": 1626087600,
-          "last_updated": "2021-07-12 20:00",
-          "temp_c": 29.4,
-          "temp_f": 84.9,
-          "is_day": 0,
-          "condition": {
-              "text": "Partly cloudy",
-              "icon": "//cdn.weatherapi.com/weather/64x64/night/116.png",
-              "code": 1003
-          },
-          "wind_mph": 7.6,
-          "wind_kph": 12.2,
-          "wind_degree": 162,
-          "wind_dir": "SSE",
-          "pressure_mb": 1010.0,
-          "pressure_in": 30.3,
-          "precip_mm": 0.0,
-          "precip_in": 0.0,
-          "humidity": 61,
-          "cloud": 47,
-          "feelslike_c": 32.1,
-          "feelslike_f": 89.8,
-          "vis_km": 10.0,
-          "vis_miles": 6.0,
-          "uv": 7.0,
-          "gust_mph": 9.2,
-          "gust_kph": 14.8
-    }
+      "wind_mph": 7.6,
+      "wind_kph": 12.2,
+      "wind_degree": 162,
+      "wind_dir": "SSE",
+      "pressure_mb": 1010.0,
+      "pressure_in": 30.3,
+      "precip_mm": 0.0,
+      "precip_in": 0.0,
+      "humidity": 61,
+      "cloud": 47,
+      "feelslike_c": 32.1,
+      "feelslike_f": 89.8,
+      "vis_km": 10.0,
+      "vis_miles": 6.0,
+      "uv": 7.0,
+      "gust_mph": 9.2,
+      "gust_kph": 14.8
+  }
 }
 //}
 
-
-=== HTTP
-TCP/IPをベースにしたアプリケーション層のプロトコルです。
-HTTPはリクエスト/レスポンス型のプロトコルであり、クライアントはリクエストを出した場合レスポンスが返ってくるまで待機します。
-あとステートレスなのが特徴です。
-
-==== HTTPメッセージ
-リクエストメッセージとレスポンスメッセージのことはまとめてHTTPメッセージと呼ばれます。
-//image[2021-01-31-235422][2021-01-31-235422]{
+=== JSON（JavaScript Object Node）
+JSONはデータを記述する際に用いられる言語の一つで、
+JavaScriptでオブジェクトを記述する際の記法をもとにしています。
+//list[json][JSONの例]{
+{
+  "THEToilet" : unko,
+  "DNE3" : "芝浦"
+}
 //}
+JSONで使えるデータ型は文字列、数値、配列、ブーリアン等が挙げられます。
 
-==== スタートライン
-ここではリクエストメッセージとレスポンスメッセージで書かれている内容が異なり総称としてスタートラインと呼ばれています。
-リクエストメッセージではリクエストラインを用います。内容としては、メソッド(後述),リクエストURI,プロトコルバージョン(HTTP/1.1)が書かれており、
-レスポンスメッセージではステータスラインを用いステータスコード(後述)などが書かれています。
+=== HTTP（Hypertext Transfer Protocol）
+HTTPとはTCP/IPと呼ばれるをインターネットなどのネットワーク上で使われている通信プロトコル上で
+Web情報をやり取りする際に用いられるプロトコルです。
+例えば電子計算機研究会（通称: DEN3）のホームページにアクセスした際も
+@<img>{2021-01-25-173558}のようにHTTP通信が行われています。
+//image[2021-01-25-173558][2021-01-25-173558]{
+//}
+HTTPはリクエスト/レスポンス型の通信プロトコルであり、
+クライアント側は通信相手にリクエスト（要求）を出すと、
+通信相手からのレスポンス（応答）が返ってくるまで待機します。
+ちなみにHTTPSはHTTPの通信を暗号化しているプロトコルです。
+またHTTPの通信のやり取りにはHTTPメッセージというものが使われており
+Weather APIとのやり取りでもでてきた
+
+ * ステータスコード
+ * ヘッダ
+ * ボディ
+
+の3つと
+
+ * HTTPメソッド
+
+が主に重要になるので、これらの紹介を行います。
+
+==== ステータスコード
+ステータスコードとはHTTP通信にてリクエストを送った後、
+そのリクエストが成功したかどうかを表している数字です。
+主に3桁の数字で表され、それぞれの数字の意味としては
+
+ * 2xx 200番台
+ ** リクエストが成功成功したことを表す。
+ ** EX: 200 OK（リクエスト成功）
+ * 3xx 300番台
+ ** リダイレクト（別のアクセスへの転送）を行うときに返ってくる。
+ ** EX: 301 Moved Permanently（アクセス先のURLが変更したため転送する）
+ * 4xx 400番台
+ ** クライアント側のエラーを表す。
+ ** クライアントが送った処理が間違っている時に返ってくる。
+ ** EX: 404 not found（指定したコンテンツが見つかりませんでした）
+ * 5xx 500番台
+ ** サーバ側のエラーを表す。
+ ** サーバ内でエラーが発生している。
+ ** EX: 500 Internal Server Error（サーバ内部エラー）
+
+を表しています。
 
 ==== ヘッダ
-メッセージのメタデータについて書いています(データについての付加情報)
+ヘッダにはHTTPメッセージについてのメタデータ(データについての付加情報)
+が書かれています。例としてはボディに記述されているコンテンツの種類（htmlやJSONなど）や
+コンテンツのサイズ、後述するHTTPメソッド等です。
 
 ==== ボディ
-メッセージが入ります　よくあるのがJson化したデータやHTMLなどがここに入っています。
+やり取りをしたいコンテンツが入っています、
+主にJSON化したデータやHTMLなどです。
 
 ==== HTTPメソッド
-前述したようにHTTPにはメソッドと呼ばれているHTTPリクエストの種類を表すものがあります。
-本当は8つのメソッドがあるのですが今回は
-CURD(Create, Update, Read, Delete)と呼ばれる性質を満たす代表的なメソッド
+HTTP通信にはメソッドと呼ばれているHTTPリクエストの種類を表すものがあります。
+ここではCURD(Create, Update, Read, Delete)と呼ばれる性質を満たす代表的なメソッド
 
  * GET
  * POST
@@ -169,19 +234,22 @@ CURD(Create, Update, Read, Delete)と呼ばれる性質を満たす代表的な�
 
 の四つを紹介したいと思います。
 
-==== GET
-リソースの取得
+===== GET
+コンテンツの取得の際に使われます。
+@<img>{2021-02-01-004533}はブログの記事を取得した例で
+、リクエストメソッドとしてGETが使われています。
 
-ブログの記事を取得した例
 //image[2021-02-01-004533][2021-02-01-004533]{
 //}
 
-==== POST
+===== POST
 
-リソースの追加、作成
-ブログなどを投稿するときにはこのメソッドが呼ばれます。
+コンテンツの追加、作成時に使われます。
 
-コメントを投稿した際の例
+DEN3ブログにコメントを投稿（@<img>{2021-02-01-004715}）した際は、
+リクエストメソッドとしてPOSTが使われ（@<img>{2021-02-01-004705}）、
+HTTPリクエストのボディにはコメントの内容が書かれており（@<img>{2021-02-01-004631}）、コメントの内容とともに
+サーバにリクエストを送信しています。
 //image[2021-02-01-004715][2021-02-01-004715]{
 //}
 //image[2021-02-01-004705][2021-02-01-004705]{
@@ -189,46 +257,23 @@ CURD(Create, Update, Read, Delete)と呼ばれる性質を満たす代表的な�
 //image[2021-02-01-004631][2021-02-01-004631]{
 //}
 
- * PUT
- ** リソースの作成、更新
- ** ブログを更新したいときに使います。
- * DELETE
- ** リソースの削除
- ** 投稿などを削除した時に使われます。
+===== PUT
+コンテンツの作成、更新時に使われ、
+ブログで例えるとブログを更新したいときに使われています。
 
-==== ステータスコード
-前述したとおりHTTPはリクエスト/レスポンス型のプロトコルなので
-リクエストを送るとレスポンスが返ってきます代表的なのは下の画像に書いてあるStatus Codeに書いてある200 OKとかです
-
-//image[2021-01-31-234745][2021-01-31-234745]{
-//}
-意味としては
-
- * 2xx
- ** リクエスト成功
- ** ex: 200 OK
- * 3xx
- ** リダイレクトを行うときに返ってくる
- * 4xx
- ** クライアントエラー
- ** クライアントが送った処理が間違っている
- ** ex: 404 not found
- * 5xx
- ** サーバエラー
- ** サーバ内でエラーが発生している
- ** ex: 500 Internal Server Error
-
-などがあります
-
+===== DELETE
+コンテンツの削除時に使われ、ブログで例えると、
+ブログの投稿などを削除した時に使われます。
 #@#山本 陽平. Webを支える技術 ―― HTTP，URI，HTML，そしてREST WEB+DB PRESS plus  株式会社技術評論社.
 
-=== JSON
-この形式をJSON（JavaScript Object Node）と言います。
-
 === ESP32でJSONを利用する
-これらの形式が、WeatherAPIから帰ってくるため、ESP32側で使えるようにしなければなりません
-そこで、公開されているライブラリであるarduinoJSONを利用します。
-JSONドキュメントを作る時にキャパシティを計算する必要がある。
+JSON形式のデータがWeatherAPIから返ってくるため、これをESP32側で解釈してデータとして
+扱えるようにする必要があります。
+そこで、公開されているライブラリであるArduinoJSONを利用します。
+ArduinoJSONを使用する場合にはJSONデータをESP32で扱えるデータに変換する際に
+キャパシティの計算をする必要があります。そのため以下のリンクにアクセスして
+設定を行ってください。ただし、今回使うWeather API用のキャパシティの計算結果は
+用意してあるので参考として紹介します。
 
 //embed[latex]{
 \begin{center}
@@ -236,15 +281,34 @@ ArduinoJson Assistant: https://arduinojson.org/v6/assistant/
 \end{center}
 //}
 
+リンクにアクセスすると@<img>{6}に遷移します。
 //image[6][ArudinoAssistantのトップページ]{
 //}
+ここで設定には
+
+ * Processor
+ ** ESP32
+ * Mode
+ ** Deserialize（データ構造を復元する処理）
+ * Input Type
+ ** String
+
+を設定してください。
+その後、@<strong>{Next: JSON}を選択してください。
+
+遷移後は@<img>{7}のような画面になるのでInputに
+使用するJSONデータを入力してください。
+次に@<strong>{Next: Size}を選択してください。
 //image[7][JSONの大きさ設定]{
 //}
+遷移後の@<img>{8}でデシリアライズに必要なサイズが分かります。
 //image[8][JSONのサイズ確認画面]{
 //}
 
+@<list>{world}がWeather APIをESP32で使用するためのコードです。
+inputにはWeather APIから送られてきたデータを代入してください。
 
-//list[world][最初のプログラム]{
+//list[world][デシリアライズコード]{
 // String input;
 
   StaticJsonDocument<1536> doc;
@@ -300,10 +364,9 @@ ArduinoJson Assistant: https://arduinojson.org/v6/assistant/
 
 ==== JSONのライブラリをインストールする
 JSONをESP32上で使うためにライブラリをArduino IDEにインストールします。
-
 @<img>{15-1}のように（スケッチ＞ライブラリのインクルード＞ライブラリを管理）を選択してください。
 
-//image[15-1][ライブラリの管理の選択]{
+//image[15-1][ライブラリの管理の選択]{ 
 //}
 
 選択するとライブラリマネージャーが開かれるので、検索窓に「ArduinoJSON」を入力してください（@<img>{9}）。
@@ -324,7 +387,7 @@ JSONをESP32上で使うためにライブラリをArduino IDEにインストー
  * API Key
  ** Weaher APIに用いるAPI Key
  ** 変数名: api_key
- * 地名
+ * Location（地名）
  ** Weather APIで取得したい地名
  ** 変数名: location
 
@@ -338,7 +401,7 @@ const char *ssid = "elecom-b2809f-g";
 const char *password = "fapd4rpfac3u";
 
 // WeatherAPI用変数
-const String api_key = "ffe99ee9ec094d3681d74132211106";
+const String api_key = "ffe91ee9ec094d333681d74332211106";
 const String location = "Saitama";
 
 struct Weather {
@@ -471,8 +534,7 @@ SDAはデータの書き込みと読み込みを行い、SCLは通信先との�
 I2Cでは通信するデバイスはマスタとスレーブに分類され、マスタがスレーブとの通信を管理します。
 ここではESP32がマスタに相当し、ディスプレイがスレーブに相当します。
 また、マスタがスレーブを認識するためにスレーブにはそれぞれ認識アドレスが割り当てられます。
-
-プルアップ抵抗
+#@#プルアップ抵抗
 
 ==== ライブラリのインストール
 ディスプレイをESP32上で使うためにライブラリをArduino IDEにインストールします。
@@ -481,6 +543,7 @@ I2Cでは通信するデバイスはマスタとスレーブに分類され、�
 
 選択するとライブラリマネージャーが開かれるので、検索窓に「ssd1306 esp32」を入力してください（@<img>{9}）。
 その後、「ESP8266 ans ESP32 OLED driver for SSD1306 displays」をインストールしてください
+
 //image[10][SSD1306用ライブラリのインストール]{
 //}
 
