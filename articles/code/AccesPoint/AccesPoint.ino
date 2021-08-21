@@ -4,205 +4,52 @@
 #include <WebServer.h>
 #include <ESPmDNS.h>
 
-// WiFi接続用変数
-const char *ssid = "ssid";
-const char *password = "password";
+// ESP32アクセスポイントのSSIDとパスワード（名称自由）
+const char *ssid = "esp32-ap";
+const char *password = "pass";
 
-
+// ポート80番につなぐWebServerを設定
 WebServer server(80);
 
-void handleNotFound() {
-  server.send(200, "text/plain", "hello from esp32!");
+// エラー時に呼ばれる関数
+void handleNotFound()
+{
+  server.send(400, "text/plain", "not found");
 }
 
-void handleRoot() {
-  String message = "\
-  <!DOCTYPE html>\n\
-<html>\n\
-<head>\n\
-    <meta charset=\"utf-8\" />\n\
-    <title>Toilet Paper</title>\n\
-    <link rel=\"stylesheet\" href=\"stylesheet.css\" />\n\
-    <link rel=\"stylesheet\" type=\"text/css\" href=\"slick/slick.css\" />\n\
-    <link rel=\"stylesheet\" type=\"text/css\" href=\"slick/slick-theme.css\" />\n\
-                   <link rel=\"shortcut icon\" href=\"img/toilet_paper2_sankaku.png\">\n\
-</head>\n\
-<body>\n\
-    <!-----------------------header------------------------------->\n\
-    <header>\n\
-        <div class=\"container\">\n\
-            <div class=\"header-title\">\n\
-                <div id=\"top-btn\" class=\"header-logo\">Toilet Paper</div>\n\
-            </div>\n\
-            <div class=\"header-menu\">\n\
-                <ul class=\"header-menu-right\">\n\
-                    <li><a href=\"/blink\">About Me</a></li>\n\
-                    <li><a href=\"/sensor\">Skill Set</a></li>\n\
-                    <li><a href=\"/weather\">Works</a></li>\n\
-                </ul>\n\
-            </div>\n\
-        </div>\n\
-    </header>\n\
-    <!----------------------------header-end--------------------------->\n\
-    <div class=\"top-wrapper\">\n\
-        <h1>Portfolio</h1>\n\
-        <img src=\"img/toilet_kirei.png\" />\n\
-    </div>\n\
-</body>\n\
-</html>\n\
-\n";
-  server.send(200, "text/plain", message);
-}
-
-void handleLedBlink() {
-  String message = "\
-  <!DOCTYPE html>\n\
-<html>\n\
-<head>\n\
-    <meta charset=\"utf-8\" />\n\
-    <title>Toilet Paper</title>\n\
-    <link rel=\"stylesheet\" href=\"stylesheet.css\" />\n\
-    <link rel=\"stylesheet\" type=\"text/css\" href=\"slick/slick.css\" />\n\
-    <link rel=\"stylesheet\" type=\"text/css\" href=\"slick/slick-theme.css\" />\n
-                   <link rel=\"shortcut icon\" href=\"img/toilet_paper2_sankaku.png\">\n\
-</head>\n\
-<body>\n\
-    <!-----------------------header------------------------------->\n\
-    <header>\n\
-        <div class=\"container\">\n\
-            <div class=\"header-title\">\n\
-                <div id=\"top-btn\" class=\"header-logo\">Toilet Paper</div>\n\
-            </div>\n\
-            <div class=\"header-menu\">\n\
-                <ul class=\"header-menu-right\">\n\
-                    <li><a href=\"/blink\">About Me</a></li>\n\
-                    <li><a href=\"/sensor\">Skill Set</a></li>\n\
-                    <li><a href=\"/weather\">Works</a></li>\n\
-                </ul>\n\
-            </div>\n\
-        </div>\n\
-    </header>\n\
-    <!----------------------------header-end--------------------------->\n\
-    <div class=\"top-wrapper\">\n\
-        <h1>Portfolio</h1>\n\
-        <img src=\"img/toilet_kirei.png\" />\n\
-    </div>\n\
-</body>\n\
-</html>\n\
-\n";
-  server.send(200, "text/plain", message);
-}
-void handleDHT11() {
-  String message = "\
-  <!DOCTYPE html>\n\
-<html>\n\
-<head>\n\
-    <meta charset=\"utf-8\" />\n\
-    <title>Toilet Paper</title>\n\
-    <link rel=\"stylesheet\" href=\"stylesheet.css\" />\n\
-    <link rel=\"stylesheet\" type=\"text/css\" href=\"slick/slick.css\" />\n\
-    <link rel=\"stylesheet\" type=\"text/css\" href=\"slick/slick-theme.css\" />\n
-                   <link rel=\"shortcut icon\" href=\"img/toilet_paper2_sankaku.png\">\n\
-</head>\n\
-<body>\n\
-    <!-----------------------header------------------------------->\n\
-    <header>\n\
-        <div class=\"container\">\n\
-            <div class=\"header-title\">\n\
-                <div id=\"top-btn\" class=\"header-logo\">Toilet Paper</div>\n\
-            </div>\n\
-            <div class=\"header-menu\">\n\
-                <ul class=\"header-menu-right\">\n\
-                    <li><a href=\"/blink\">About Me</a></li>\n\
-                    <li><a href=\"/sensor\">Skill Set</a></li>\n\
-                    <li><a href=\"/weather\">Works</a></li>\n\
-                </ul>\n\
-            </div>\n\
-        </div>\n\
-    </header>\n\
-    <!----------------------------header-end--------------------------->\n\
-    <div class=\"top-wrapper\">\n\
-        <h1>Portfolio</h1>\n\
-        <img src=\"img/toilet_kirei.png\" />\n\
-    </div>\n\
-</body>\n\
-</html>\n\
-\n";
-  server.send(200, "text/plain", message);
-}
-
-void handleWeatherAPI() {
-  String message = "\
-  <!DOCTYPE html>\n\
-<html>\n\
-<head>\n\
-    <meta charset=\"utf-8\" />\n\
-    <title>Toilet Paper</title>\n\
-    <link rel=\"stylesheet\" href=\"stylesheet.css\" />\n\
-    <link rel=\"stylesheet\" type=\"text/css\" href=\"slick/slick.css\" />\n\
-    <link rel=\"stylesheet\" type=\"text/css\" href=\"slick/slick-theme.css\" />\n
-                   <link rel=\"shortcut icon\" href=\"img/toilet_paper2_sankaku.png\">\n\
-</head>\n\
-<body>\n\
-    <!-----------------------header------------------------------->\n\
-    <header>\n\
-        <div class=\"container\">\n\
-            <div class=\"header-title\">\n\
-                <div id=\"top-btn\" class=\"header-logo\">Toilet Paper</div>\n\
-            </div>\n\
-            <div class=\"header-menu\">\n\
-                <ul class=\"header-menu-right\">\n\
-                    <li><a href=\"/blink\">About Me</a></li>\n\
-                    <li><a href=\"/sensor\">Skill Set</a></li>\n\
-                    <li><a href=\"/weather\">Works</a></li>\n\
-                </ul>\n\
-            </div>\n\
-        </div>\n\
-    </header>\n\
-    <!----------------------------header-end--------------------------->\n\
-    <div class=\"top-wrapper\">\n\
-        <h1>Portfolio</h1>\n\
-        <img src=\"img/toilet_kirei.png\" />\n\
-    </div>\n\
-</body>\n\
-</html>\n\
-\n";
-  server.send(200, "text/plain", "weaher");
-}
-
-void setup() {
+void setup()
+{
   Serial.begin(115200);
-  Serial.println("Configuring access point...");
-
-  // You can remove the password parameter if you want the AP to be open.
-  WiFi.softAP(ssid, password);
+  WiFi.mode(WIFI_AP);          // ESP32をアクセスポイントに設定
+  WiFi.softAP(ssid, password); // アクセスポイントモード設定
   delay(100);
-  IPAddress myIP = WiFi.softAPIP();
-  Serial.print("AP IP address: ");
-  Serial.println(myIP);
-  server.begin();
-  Serial.println("Server started");
 
-  if (MDNS.begin("esp32")) {
-    Serial.println("MDNS responder started");
+  Serial.print("ESP32アクセスポイントのIPアドレスは");
+  Serial.print(WiFi.softAPIP());
+  Serial.println("です。");
+
+  while (!MDNS.begin("esp32"))
+  { // mDNSでESP32という名前を登録する
+    Serial.println("Waiting for mDBS to be configured....");
+    delay(100);
   }
+  Serial.println("Complete mDNS configuration.");
 
-  server.on("/", handleRoot);
-  server.on("/blink", handleLedBlink);
-  server.on("/sensor", handleDHT11);
-  server.on("/weather", handleWeatherAPI);
-
-  /*
-    server.on("/inline", []() {
-      server.send(200, "text/plain", "this works as well");
-    });
-  */
-
+  // WebServerの設定（"/"にアクセスした際の挙動を設定）
+  server.on("/", []()
+  {
+    server.send(200, "text/plain", "ok");
+  });
+  // WebServerの設定（エラー時の挙動を設定）
   server.onNotFound(handleNotFound);
-  server.begin();
+
+  server.begin(); // サーバを起動する
+  Serial.println("WebServerを起動します");
 }
 
-void loop() {
+void loop()
+{
+  // サーバへのアクセスを受け付ける
   server.handleClient();
   delay(5);
 }

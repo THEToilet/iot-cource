@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>ESP32 DashBoard</title>
+    <link rel="stylesheet" href="/stylesheet.css" />
+</head>
+<body>
+    <!-----------------------header------------------------------->
+    <header>
+        <div class="container">
+            <div class="header-title">
+                <div>
+                    <a id="top-btn" class="header-logo" href="/">ESP32 DashBoard</a>
+                </div>
+            </div>
+            <div class="header-menu">
+                <ul class="header-menu-right">
+                    <li><a href="/blink">Blink</a></li>
+                    <li><a href="/sensor">Sensor</a></li>
+                    <li><a href="/weather">Weather</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    <!----------------------------header-end--------------------------->
+    <div class="top-wrapper">
+        <h1>Here is the ESP32 DashBoard</h1>
+    </div>
+
+    <div class="top-wrapper">
+        <h1>LED Blink</h1>
+        <button onclick="location.href='/blink/on'">ON</button>
+        <button onclick="location.href='/blink/off'">OFF</button>
+    </div>
+
+    <div class="top-wrapper">
+        <h1>DHT11 Sensor</h1>
+        <h2>Temperature: 25°C</h2>
+        <h2>Humidity: 60%</h2>
+        <button onclick="location.href='/sensor'">UPDATE</button>
+    </div>
+
+    <div class="top-wrapper">
+        <h1>Weather Information</h1>
+        <h2>Region: Saitama</h2>
+        <h2>Temperature: 25°C</h2>
+        <h2>Humidity: 60%</h2>
+        <h2>LastUpdated: 2021-08-11 12:00</h2>
+        <button onclick="location.href='/weather'">UPDATE</button>
+    </div>
+</body>
+
+</html>

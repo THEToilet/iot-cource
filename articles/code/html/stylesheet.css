@@ -1,0 +1,121 @@
+@charset "UTF-8";
+* {
+  min-height: 0;
+  min-width: 0;
+}
+
+body {
+  margin: 0;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  font-size: 14px;
+  color: #888;
+}
+
+a {
+  text-decoration: none;
+  color: #323a45;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
+
+a a:hover {
+  color: #5983ff;
+  text-decoration: none;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.container {
+  width: 1170px;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-weight: 400;
+}
+
+/*-------  ここからheader  --------*/
+header {
+  height: 50px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: #2489c4;
+  line-height: 50px;
+  -webkit-box-shadow: -1px 1px 1px rgba(0, 0, 0, 0.1);
+          box-shadow: -1px 1px 1px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+}
+
+.header-title {
+  float: left;
+}
+
+.header-logo {
+  color: white;
+  font-weight: 700;
+  font-size: 22px;
+  font-family: "Dosis", sans-serif;
+  cursor: pointer;
+}
+
+.header-menu-right {
+  float: right;
+}
+
+.header-menu-right li {
+  float: left;
+}
+
+.header-menu-right a {
+  color: #ffffff;
+  font-weight: 700;
+  padding: 10px;
+  text-decoration: none;
+}
+
+.header-menu-right a:hover {
+  color: #104600;
+  -webkit-transition: color 0.3s;
+  transition: color 0.3s;
+}
+
+.heading {
+  padding-top: 60px;
+  padding-bottom: 30px;
+  color: #5f5d60;
+  text-align: center;
+}
+
+.heading h2 {
+  font-weight: normal;
+}
+
+/*-------  ここまでheader  --------*/
+.top-wrapper {
+  padding-top: 120px;
+  padding-bottom: 100px;
+  color: #5f5d60;
+  text-align: center;
+}
