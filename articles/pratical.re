@@ -20,22 +20,162 @@ void handleNotFound() {
 
 void handleRoot() {
   String message = "\
-<html lang=\"ja\">\n\
-<meta charset=\"utf-8\">\n\
-<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n\
+  <!DOCTYPE html>\n\
+<html>\n\
 <head>\n\
-  <title>Unko</title>\n\
+    <meta charset=\"utf-8\" />\n\
+    <title>Toilet Paper</title>\n\
+    <link rel=\"stylesheet\" href=\"stylesheet.css\" />\n\
+    <link rel=\"stylesheet\" type=\"text/css\" href=\"slick/slick.css\" />\n\
+    <link rel=\"stylesheet\" type=\"text/css\" href=\"slick/slick-theme.css\" />\n
+    <link rel=\"shortcut icon\" href=\"img/toilet_paper2_sankaku.png\">\n\
 </head>\n\
-<body style=\"font-family: sans-serif; background-color: #ffeeaa;\" >\n\
-  <h1>UnkoServer</h1>\n\
+<body>\n\
+    <!-----------------------header------------------------------->\n\
+    <header>\n\
+        <div class=\"container\">\n\
+            <div class=\"header-title\">\n\
+                <div id=\"top-btn\" class=\"header-logo\">Toilet Paper</div>\n\
+            </div>\n\
+            <div class=\"header-menu\">\n\
+                <ul class=\"header-menu-right\">\n\
+                    <li><a href=\"/blink\">About Me</a></li>\n\
+                    <li><a href=\"/sensor\">Skill Set</a></li>\n\
+                    <li><a href=\"/weather\">Works</a></li>\n\
+                </ul>\n\
+            </div>\n\
+        </div>\n\
+    </header>\n\
+    <!----------------------------header-end--------------------------->\n\
+    <div class=\"top-wrapper\">\n\
+        <h1>Portfolio</h1>\n\
+        <img src=\"img/toilet_kirei.png\" />\n\
+    </div>\n\
 </body>\n\
-</html>\n";
+</html>\n\
+\n";
+server.send(200, "text/plain", message);
+}
+
+void handleLedBlink(){
+  String message = "\
+  <!DOCTYPE html>\n\
+<html>\n\
+<head>\n\
+    <meta charset=\"utf-8\" />\n\
+    <title>Toilet Paper</title>\n\
+    <link rel=\"stylesheet\" href=\"stylesheet.css\" />\n\
+    <link rel=\"stylesheet\" type=\"text/css\" href=\"slick/slick.css\" />\n\
+    <link rel=\"stylesheet\" type=\"text/css\" href=\"slick/slick-theme.css\" />\n
+    <link rel=\"shortcut icon\" href=\"img/toilet_paper2_sankaku.png\">\n\
+</head>\n\
+<body>\n\
+    <!-----------------------header------------------------------->\n\
+    <header>\n\
+        <div class=\"container\">\n\
+            <div class=\"header-title\">\n\
+                <div id=\"top-btn\" class=\"header-logo\">Toilet Paper</div>\n\
+            </div>\n\
+            <div class=\"header-menu\">\n\
+                <ul class=\"header-menu-right\">\n\
+                    <li><a href=\"/blink\">About Me</a></li>\n\
+                    <li><a href=\"/sensor\">Skill Set</a></li>\n\
+                    <li><a href=\"/weather\">Works</a></li>\n\
+                </ul>\n\
+            </div>\n\
+        </div>\n\
+    </header>\n\
+    <!----------------------------header-end--------------------------->\n\
+    <div class=\"top-wrapper\">\n\
+        <h1>Portfolio</h1>\n\
+        <img src=\"img/toilet_kirei.png\" />\n\
+    </div>\n\
+</body>\n\
+</html>\n\
+\n";
   server.send(200, "text/plain", message);
+}
+void handleDHT11(){
+  String message = "\
+  <!DOCTYPE html>\n\
+<html>\n\
+<head>\n\
+    <meta charset=\"utf-8\" />\n\
+    <title>Toilet Paper</title>\n\
+    <link rel=\"stylesheet\" href=\"stylesheet.css\" />\n\
+    <link rel=\"stylesheet\" type=\"text/css\" href=\"slick/slick.css\" />\n\
+    <link rel=\"stylesheet\" type=\"text/css\" href=\"slick/slick-theme.css\" />\n
+    <link rel=\"shortcut icon\" href=\"img/toilet_paper2_sankaku.png\">\n\
+</head>\n\
+<body>\n\
+    <!-----------------------header------------------------------->\n\
+    <header>\n\
+        <div class=\"container\">\n\
+            <div class=\"header-title\">\n\
+                <div id=\"top-btn\" class=\"header-logo\">Toilet Paper</div>\n\
+            </div>\n\
+            <div class=\"header-menu\">\n\
+                <ul class=\"header-menu-right\">\n\
+                    <li><a href=\"/blink\">About Me</a></li>\n\
+                    <li><a href=\"/sensor\">Skill Set</a></li>\n\
+                    <li><a href=\"/weather\">Works</a></li>\n\
+                </ul>\n\
+            </div>\n\
+        </div>\n\
+    </header>\n\
+    <!----------------------------header-end--------------------------->\n\
+    <div class=\"top-wrapper\">\n\
+        <h1>Portfolio</h1>\n\
+        <img src=\"img/toilet_kirei.png\" />\n\
+    </div>\n\
+</body>\n\
+</html>\n\
+\n";
+  server.send(200, "text/plain", message);
+}
+
+void handleWeatherAPI(){
+  String message = "\
+  <!DOCTYPE html>\n\
+<html>\n\
+<head>\n\
+    <meta charset=\"utf-8\" />\n\
+    <title>Toilet Paper</title>\n\
+    <link rel=\"stylesheet\" href=\"stylesheet.css\" />\n\
+    <link rel=\"stylesheet\" type=\"text/css\" href=\"slick/slick.css\" />\n\
+    <link rel=\"stylesheet\" type=\"text/css\" href=\"slick/slick-theme.css\" />\n
+    <link rel=\"shortcut icon\" href=\"img/toilet_paper2_sankaku.png\">\n\
+</head>\n\
+<body>\n\
+    <!-----------------------header------------------------------->\n\
+    <header>\n\
+        <div class=\"container\">\n\
+            <div class=\"header-title\">\n\
+                <div id=\"top-btn\" class=\"header-logo\">Toilet Paper</div>\n\
+            </div>\n\
+            <div class=\"header-menu\">\n\
+                <ul class=\"header-menu-right\">\n\
+                    <li><a href=\"/blink\">About Me</a></li>\n\
+                    <li><a href=\"/sensor\">Skill Set</a></li>\n\
+                    <li><a href=\"/weather\">Works</a></li>\n\
+                </ul>\n\
+            </div>\n\
+        </div>\n\
+    </header>\n\
+    <!----------------------------header-end--------------------------->\n\
+    <div class=\"top-wrapper\">\n\
+        <h1>Portfolio</h1>\n\
+        <img src=\"img/toilet_kirei.png\" />\n\
+    </div>\n\
+</body>\n\
+</html>\n\
+\n";
+  server.send(200, "text/plain", "weaher");
 }
 
 void setup() {
   Serial.begin(115200);
-  WiFi.mode(WIFI_STA);
+//  WiFi.mode(WIFI_STA);
   WiFi.begin(ssid, password); // Wi-Fi接続開始
   while (WiFi.status() != WL_CONNECTED) // Wi-Fiアクセスポイントへ接続するまで待機
   {
@@ -57,13 +197,17 @@ void setup() {
   }
 
   server.on("/", handleRoot);
+  server.on("/blink", handleLedBlink);
+  server.on("/sensor", handleDHT11);
+  server.on("/weather", handleWeatherAPI);
 
+/*
   server.on("/inline", []() {
     server.send(200, "text/plain", "this works as well");
   });
+  */
 
   server.onNotFound(handleNotFound);
-
   server.begin();
 }
 
@@ -93,12 +237,174 @@ https://en.wikipedia.org/wiki/.local
 #include <WiFi.h>
 #include <WiFiClient.h>
 #include <WiFiAP.h>
+#include <WebServer.h>
+#include <ESPmDNS.h>
 
 // WiFi接続用変数
 const char *ssid = "ssid";
 const char *password = "password";
 
-WiFiServer server(80);
+
+WebServer server(80);
+
+void handleNotFound() {
+  server.send(200, "text/plain", "hello from esp32!");
+}
+
+void handleRoot() {
+  String message = "\
+  <!DOCTYPE html>\n\
+<html>\n\
+<head>\n\
+    <meta charset=\"utf-8\" />\n\
+    <title>Toilet Paper</title>\n\
+    <link rel=\"stylesheet\" href=\"stylesheet.css\" />\n\
+    <link rel=\"stylesheet\" type=\"text/css\" href=\"slick/slick.css\" />\n\
+    <link rel=\"stylesheet\" type=\"text/css\" href=\"slick/slick-theme.css\" />\n
+    <link rel=\"shortcut icon\" href=\"img/toilet_paper2_sankaku.png\">\n\
+</head>\n\
+<body>\n\
+    <!-----------------------header------------------------------->\n\
+    <header>\n\
+        <div class=\"container\">\n\
+            <div class=\"header-title\">\n\
+                <div id=\"top-btn\" class=\"header-logo\">Toilet Paper</div>\n\
+            </div>\n\
+            <div class=\"header-menu\">\n\
+                <ul class=\"header-menu-right\">\n\
+                    <li><a href=\"/blink\">About Me</a></li>\n\
+                    <li><a href=\"/sensor\">Skill Set</a></li>\n\
+                    <li><a href=\"/weather\">Works</a></li>\n\
+                </ul>\n\
+            </div>\n\
+        </div>\n\
+    </header>\n\
+    <!----------------------------header-end--------------------------->\n\
+    <div class=\"top-wrapper\">\n\
+        <h1>Portfolio</h1>\n\
+        <img src=\"img/toilet_kirei.png\" />\n\
+    </div>\n\
+</body>\n\
+</html>\n\
+\n";
+server.send(200, "text/plain", message);
+}
+
+void handleLedBlink(){
+  String message = "\
+  <!DOCTYPE html>\n\
+<html>\n\
+<head>\n\
+    <meta charset=\"utf-8\" />\n\
+    <title>Toilet Paper</title>\n\
+    <link rel=\"stylesheet\" href=\"stylesheet.css\" />\n\
+    <link rel=\"stylesheet\" type=\"text/css\" href=\"slick/slick.css\" />\n\
+    <link rel=\"stylesheet\" type=\"text/css\" href=\"slick/slick-theme.css\" />\n
+    <link rel=\"shortcut icon\" href=\"img/toilet_paper2_sankaku.png\">\n\
+</head>\n\
+<body>\n\
+    <!-----------------------header------------------------------->\n\
+    <header>\n\
+        <div class=\"container\">\n\
+            <div class=\"header-title\">\n\
+                <div id=\"top-btn\" class=\"header-logo\">Toilet Paper</div>\n\
+            </div>\n\
+            <div class=\"header-menu\">\n\
+                <ul class=\"header-menu-right\">\n\
+                    <li><a href=\"/blink\">About Me</a></li>\n\
+                    <li><a href=\"/sensor\">Skill Set</a></li>\n\
+                    <li><a href=\"/weather\">Works</a></li>\n\
+                </ul>\n\
+            </div>\n\
+        </div>\n\
+    </header>\n\
+    <!----------------------------header-end--------------------------->\n\
+    <div class=\"top-wrapper\">\n\
+        <h1>Portfolio</h1>\n\
+        <img src=\"img/toilet_kirei.png\" />\n\
+    </div>\n\
+</body>\n\
+</html>\n\
+\n";
+  server.send(200, "text/plain", message);
+}
+void handleDHT11(){
+  String message = "\
+  <!DOCTYPE html>\n\
+<html>\n\
+<head>\n\
+    <meta charset=\"utf-8\" />\n\
+    <title>Toilet Paper</title>\n\
+    <link rel=\"stylesheet\" href=\"stylesheet.css\" />\n\
+    <link rel=\"stylesheet\" type=\"text/css\" href=\"slick/slick.css\" />\n\
+    <link rel=\"stylesheet\" type=\"text/css\" href=\"slick/slick-theme.css\" />\n
+    <link rel=\"shortcut icon\" href=\"img/toilet_paper2_sankaku.png\">\n\
+</head>\n\
+<body>\n\
+    <!-----------------------header------------------------------->\n\
+    <header>\n\
+        <div class=\"container\">\n\
+            <div class=\"header-title\">\n\
+                <div id=\"top-btn\" class=\"header-logo\">Toilet Paper</div>\n\
+            </div>\n\
+            <div class=\"header-menu\">\n\
+                <ul class=\"header-menu-right\">\n\
+                    <li><a href=\"/blink\">About Me</a></li>\n\
+                    <li><a href=\"/sensor\">Skill Set</a></li>\n\
+                    <li><a href=\"/weather\">Works</a></li>\n\
+                </ul>\n\
+            </div>\n\
+        </div>\n\
+    </header>\n\
+    <!----------------------------header-end--------------------------->\n\
+    <div class=\"top-wrapper\">\n\
+        <h1>Portfolio</h1>\n\
+        <img src=\"img/toilet_kirei.png\" />\n\
+    </div>\n\
+</body>\n\
+</html>\n\
+\n";
+  server.send(200, "text/plain", message);
+}
+
+void handleWeatherAPI(){
+  String message = "\
+  <!DOCTYPE html>\n\
+<html>\n\
+<head>\n\
+    <meta charset=\"utf-8\" />\n\
+    <title>Toilet Paper</title>\n\
+    <link rel=\"stylesheet\" href=\"stylesheet.css\" />\n\
+    <link rel=\"stylesheet\" type=\"text/css\" href=\"slick/slick.css\" />\n\
+    <link rel=\"stylesheet\" type=\"text/css\" href=\"slick/slick-theme.css\" />\n
+    <link rel=\"shortcut icon\" href=\"img/toilet_paper2_sankaku.png\">\n\
+</head>\n\
+<body>\n\
+    <!-----------------------header------------------------------->\n\
+    <header>\n\
+        <div class=\"container\">\n\
+            <div class=\"header-title\">\n\
+                <div id=\"top-btn\" class=\"header-logo\">Toilet Paper</div>\n\
+            </div>\n\
+            <div class=\"header-menu\">\n\
+                <ul class=\"header-menu-right\">\n\
+                    <li><a href=\"/blink\">About Me</a></li>\n\
+                    <li><a href=\"/sensor\">Skill Set</a></li>\n\
+                    <li><a href=\"/weather\">Works</a></li>\n\
+                </ul>\n\
+            </div>\n\
+        </div>\n\
+    </header>\n\
+    <!----------------------------header-end--------------------------->\n\
+    <div class=\"top-wrapper\">\n\
+        <h1>Portfolio</h1>\n\
+        <img src=\"img/toilet_kirei.png\" />\n\
+    </div>\n\
+</body>\n\
+</html>\n\
+\n";
+  server.send(200, "text/plain", "weaher");
+}
 
 void setup() {
   Serial.begin(115200);
@@ -106,63 +412,35 @@ void setup() {
 
   // You can remove the password parameter if you want the AP to be open.
   WiFi.softAP(ssid, password);
+  delay(100);
   IPAddress myIP = WiFi.softAPIP();
   Serial.print("AP IP address: ");
   Serial.println(myIP);
   server.begin();
-
   Serial.println("Server started");
+
+   if (MDNS.begin("esp32")) {
+    Serial.println("MDNS responder started");
+  }
+
+  server.on("/", handleRoot);
+  server.on("/blink", handleLedBlink);
+  server.on("/sensor", handleDHT11);
+  server.on("/weather", handleWeatherAPI);
+
+/*
+  server.on("/inline", []() {
+    server.send(200, "text/plain", "this works as well");
+  });
+  */
+
+  server.onNotFound(handleNotFound);
+  server.begin();
 }
 
 void loop() {
-  WiFiClient client = server.available();   // listen for incoming clients
-
-  if (client) {                             // if you get a client,
-    Serial.println("New Client.");           // print a message out the serial port
-    String currentLine = "";                // make a String to hold incoming data from the client
-    while (client.connected()) {            // loop while the client's connected
-      if (client.available()) {             // if there's bytes to read from the client,
-        char c = client.read();             // read a byte, then
-        Serial.write(c);                    // print it out the serial monitor
-        if (c == '\n') {                    // if the byte is a newline character
-
-          // if the current line is blank, you got two newline characters in a row.
-          // that's the end of the client HTTP request, so send a response:
-          if (currentLine.length() == 0) {
-            // HTTP headers always start with a response code (e.g. HTTP/1.1 200 OK)
-            // and a content-type so the client knows what's coming, then a blank line:
-            client.println("HTTP/1.1 200 OK");
-            client.println("Content-type:text/html");
-            client.println();
-
-            // the content of the HTTP response follows the header:
-            client.print("Click <a href=\"/H\">here</a> to turn ON the LED.<br>");
-            client.print("Click <a href=\"/L\">here</a> to turn OFF the LED.<br>");
-
-            // The HTTP response ends with another blank line:
-            client.println();
-            // break out of the while loop:
-            break;
-          } else {    // if you got a newline, then clear currentLine:
-            currentLine = "";
-          }
-        } else if (c != '\r') {  // if you got anything else but a carriage return character,
-          currentLine += c;      // add it to the end of the currentLine
-        }
-
-        // Check to see if the client request was "GET /H" or "GET /L":
-        if (currentLine.endsWith("GET /H")) {
-          digitalWrite(LED_BUILTIN, HIGH);               // GET /H turns the LED on
-        }
-        if (currentLine.endsWith("GET /L")) {
-          digitalWrite(LED_BUILTIN, LOW);                // GET /L turns the LED off
-        }
-      }
-    }
-    // close the connection:
-    client.stop();
-    Serial.println("Client Disconnected.");
-  }
+  server.handleClient();
+  delay(5);
 }
 //}
 == VScodeからESP32にスケッチを書き込む
