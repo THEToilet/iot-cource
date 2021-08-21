@@ -5,8 +5,8 @@
 #include <ESPmDNS.h>
 
 // ESP32アクセスポイントのSSIDとパスワード（名称自由）
-const char *ssid = "esp32-ap";
-const char *password = "pass";
+const char *ssid = "ssid";
+const char *password = "password";
 
 // ポート80番につなぐWebServerを設定
 WebServer server(80);
@@ -38,7 +38,7 @@ void setup()
   // WebServerの設定（"/"にアクセスした際の挙動を設定）
   server.on("/", []()
   {
-    server.send(200, "text/plain", "ok");
+    server.send(200, "text/plain", "hello!esp32");
   });
   // WebServerの設定（エラー時の挙動を設定）
   server.onNotFound(handleNotFound);

@@ -2,6 +2,13 @@
 
 == WebサーバからのLチカ
 
+//image[dht11][DHT11回路図][scale=1.5]{
+//}
+
+//image[P_20210805_184534][DHT11回路配置図]{
+//}
+//image[P_20210805_184615][DHT11アップ図]{
+//}
 //list[d][d]{
 #include <WiFi.h>
 #include <WiFiClient.h>
@@ -141,45 +148,6 @@ void handleCSS() {
   server.send(200, "text/css", message);
 }
 
-void handleWeatherAPI(){
-  String message = "\
-  <!DOCTYPE html>\n\
-<html>\n\
-<head>\n\
-    <meta charset=\"utf-8\" />\n\
-    <title>Toilet Paper</title>\n\
-    <link rel=\"stylesheet\" href=\"stylesheet.css\" />\n\
-    <link rel=\"stylesheet\" type=\"text/css\" href=\"slick/slick.css\" />\n\
-    <link rel=\"stylesheet\" type=\"text/css\" href=\"slick/slick-theme.css\" />\n
-    <link rel=\"shortcut icon\" href=\"img/toilet_paper2_sankaku.png\">\n\
-</head>\n\
-<body>\n\
-    <!-----------------------header------------------------------->\n\
-    <header>\n\
-        <div class=\"container\">\n\
-            <div class=\"header-title\">\n\
-                <div id=\"top-btn\" class=\"header-logo\">Toilet Paper</div>\n\
-            </div>\n\
-            <div class=\"header-menu\">\n\
-                <ul class=\"header-menu-right\">\n\
-                    <li><a href=\"/blink\">About Me</a></li>\n\
-                    <li><a href=\"/sensor\">Skill Set</a></li>\n\
-                    <li><a href=\"/weather\">Works</a></li>\n\
-                </ul>\n\
-            </div>\n\
-        </div>\n\
-    </header>\n\
-    <!----------------------------header-end--------------------------->\n\
-    <div class=\"top-wrapper\">\n\
-        <h1>Portfolio</h1>\n\
-        <img src=\"img/toilet_kirei.png\" />\n\
-    </div>\n\
-</body>\n\
-</html>\n\
-\n";
-  server.send(200, "text/plain", "weaher");
-}
-
 void setup() {
   Serial.begin(115200);
   //  WiFi.mode(WIFI_STA);
@@ -201,7 +169,7 @@ void setup() {
   Serial.print("Network DNS Server IP: ");
   Serial.println(WiFi.dnsIP());
 
-  while (!MDNS.begin("esp32"))
+  while (!MDNS.begin("ESP32"))
   { // mDNSでESP32という名前を登録する
     Serial.println("Waiting for mDBS to be configured....");
     delay(100);
@@ -253,6 +221,13 @@ WebServer 起動
 ESP32アクセスポイントのIPアドレスは192.168.4.1
 //}
 
+//image[202754][ssid]{
+//}
+//image[202816][ssid]{
+//}
+//image[202832][ssid]{
+//}
+
 == ESP32でアクセスポイントを設定
 
  サーバクライアント
@@ -275,8 +250,8 @@ ESP32アクセスポイントのIPアドレスは192.168.4.1
 #include <ESPmDNS.h>
 
 // ESP32アクセスポイントのSSIDとパスワード（名称自由）
-const char *ssid = "esp32-ap";
-const char *password = "pass";
+const char *ssid = "ssid";
+const char *password = "password";
 
 // ポート80番につなぐWebServerを設定
 WebServer server(80);
@@ -331,62 +306,12 @@ Complete mDNS configuration.
 WebServerを起動します
 dhcps: send_nak>>udp_sendto result 0
 //}
-== VScodeからESP32にスケッチを書き込む
 
-まず、拡張機能の検索窓に「Arduino」と入力してArduinoの拡張機能をインストールしてください（@<img>{1}）。
-//image[1][拡張機能でArduinoをInstall]{
+//image[ssid][ssid]{
 //}
-
-つぎにCtrl Shift P
-を押してコマンドパレットを開いてください。
-
-//image[2][2]{
+//image[212841][212841]{
 //}
-
- arduino serial
-//image[3][3]{
+//image[212909][212909]{
 //}
-/mnt/c/Users/Document/Arduino
-
-//image[4][4]{
-//}
-serial port 選択
-//image[5][5]{
-//}
-ボード選択
-
-//image[6][6]{
-//}
-//image[7][7]{
-//}
-//image[8][8]{
-//}
-//list[json][json]{
-"arduino.additionalUrls": [
-  "https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package→
-_esp32_index.json"
-],
-//}
-//image[9][9]{
-//}
-
-//image[10][10]{
-//}
-arduino bord maneger
-//image[11][11]{
-//}
-//image[12][12]{
-//}
-//image[13][13]{
-//}
- Arduino IDEのほうを動かしているとうまくいかない
-
- インクルードパスの設定
- c_cpp_properties.json
-  ctrl shift P
- select sketch
- でビルドしたいファイルを選択
- https://garretlab.web.fc2.com/arduino/introduction/vscode/
-
-//image[14][14]{
+//image[213003][213003]{
 //}
