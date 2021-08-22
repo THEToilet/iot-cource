@@ -1,10 +1,12 @@
 = トラブルシューティング
 
 == シリアルモニタで文字化けがする
+ここでは、筆者がESP32で開発をしていた際に遭遇したエラーとその解決法
+を紹介します。
 
-//image[1][1]{
+//image[1][文字化けしたシリアルモニタ]{
 //}
-//image[2][2]{
+//image[2][Upload Speedを変更する]{
 //}
 Upload speedが間違っている可能性がある
 
@@ -14,7 +16,7 @@ Upload speedが間違っている可能性がある
 
 == プログラムが反映されない
 
-//image[3][3]{
+//image[3][プログラムが保存されていない]{
 //}
 プログラムの保存を忘れている
 Ctrl+Sで保存してから読み込む
@@ -46,21 +48,28 @@ exit status 1
  同じフォルダ内にsetup()とloop()が重複している際に出るエラー
  Arduinoはコンパイルをファルダ単位で行うため、このようなエラーが出る
 
-== 接続ポートにESP32が反映されない
+== 接続ポートにESP32がない
 デバイスマネージャーにESP32の接続ポートが表示されない場合はデバイスドライバをインストールする必要があります。
 以下のリンクにアクセスしてください。
-@<href>{https://jp.silabs.com/developers/usb-to-uart-bridge-vcp-drivers}
 
-//image[7][3]{
-//}
-//image[4][3]{
-//}
-//image[5][3]{
-//}
-//image[6][3]{
+//embed[latex]{
+\begin{center}
+https://jp.silabs.com/developers/usb-to-uart-bridge-vcp-drivers
+\end{center}
 //}
 
-== COMポートがデバイスマネージャーに表示されない
+
+//image[7][デバイスマネージャー]{
+//}
+//image[4][ドライバのインストールページ]{
+//}
+//image[5][インストールしたドライバファイル]{
+//}
+//image[6][デバイスマネージャーの反映が成功]{
+//}
+
+== COMポートが表示されない
+デバイスマネージャー
 USBケーブルに問題があるかも
 デバイスドライバの更新がうまくいっていない
 
@@ -74,7 +83,8 @@ USBケーブルに問題があるかも
 == 回路図どうりなのにつかない
 ジャンプワイヤがつかない可能性あり
 
-== シリアルポート「Failed to execute script esptool」が選択されていますが、
+== Failed to execute script esptool
+シリアルポート「Failed to execute script esptool」が選択されていますが、
 そのポートは存在しないか、ボードが接続されていません。
 
 シリアルモニタを閉じる

@@ -97,8 +97,8 @@ Arduino IDEにてESP32を使うために必要なボードマネージャーの�
 
 
 //list[esp32-board-link][ボードマネージャーのリンク]{
-https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32→
-_index.json
+https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages
+/package_esp32_index.json
 //}
 
 //image[11][ESP32用のボードマネージャ情報][scale=0.7]{
@@ -130,7 +130,7 @@ Arduino IDE側では、（ファイル＞環境設定）を選択してくださ
 
 === ブレッドボード
 これからの作業のためにESP32をブレッドボードにさします。
-@<img>{breadboard}のように、esp32をブレッドボード中央あたりに差し込んでください。
+@<img>{breadboard}のように、ESP32をブレッドボード中央あたりに差し込んでください。
 ブレッドボードの説明をします。ブレッドボードは電子回路を仮組みする際によく使われます。
 ブレッドボードにさした部品は再利用できるため、いろいろな回路を試すことができます。
 ブレッドボードの最大の特徴として@<img>{breadboard}のように、回路的につながっている部分とつながっていない部分に分かれているところがあげられます。
@@ -145,7 +145,7 @@ Arduino IDE側では、（ファイル＞環境設定）を選択してくださ
 つぎに、ESP32をPCと接続します。まずmicroUSB Type-Bの差し込み口に（@<img>{usb1}）microUSB Type-B端子を差し込んでください。
 //image[usb1][microUSB type-B差し込み口][scale=0.5]{
 //}
-その後、PCとesp32を接続してください。接続が完了するとesp32上のLEDが光ります（@<img>{pc}）。
+その後、PCとESP32を接続してください。接続が完了するとesp32上のLEDが光ります（@<img>{pc}）。
 //image[pc][PCとの接続][scale=0.5]{
 //}
 
@@ -155,7 +155,7 @@ Arduino IDE側では、（ファイル＞環境設定）を選択してくださ
 //}
 ESP32はSilicon Labs CP210x USB to UART Bridgeという名前でCOM3につながっていることがわかります(@<img>{19-1}）。
 接続ポートは環境によって異なります。
-接続ポートにESP32にがない場合は@<hd>{troubleshooting|接続ポートにESP32が反映されない}を参照してください。
+接続ポートにESP32にがない場合は@<hd>{troubleshooting|接続ポートにESP32がない}を参照してください。
 //image[19-1][ESP32の接続ポートを調べる][scale=0.8]{
 //}
 先ほど調べた接続ポートを反映するため　ツール＞シリアルポートを選択し変更してください。
@@ -225,7 +225,7 @@ HelloWorldを受信した際に使用したシリアルモニタはESP32から�
 //emlist{
 Serial.begin(115200);
 //}
-もesp32とPCとの間の通信速度を115200bpsとして設定しています。
+もESP32とPCとの間の通信速度を115200bpsとして設定しています。
 ほかにも
 //image[35][UploadSpeedの設定][scale=0.7]{
 //}

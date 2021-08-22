@@ -2,14 +2,16 @@
 この章ではWebAPIを利用して天気情報をディスプレイに表示することを目的としてます。
 
 === WebAPIとは？
-APIとはApplication Programming Interfaceの略でコンテキストによって様々な意味合いがありますが、
+APIとはApplication Programming Interfaceの略です。
+APIはコンテキストによって様々な意味合いで用いられますが、
 主にアプリケーションが何らかの情報を得たり、渡したりする際に用いる窓口を指す際に用いられています。
-そのためWebAPIはWebを通してやり取りを行うAPIを意味しています。
-ゲームなどで「Twitterに共有」というリンクが設置されていることがありますが、これはゲームのアプリケーションがTwitterAPIを通してゲームの内容をTwitterに共有できる機能です。
+そのためWebAPIはWebを通してやり取りを行うAPIを指しています。
+身近な例としては「Twitterに共有」というリンクが設置されていることがありますが、
+これはアプリケーションがTwitterのAPIを通してTwitter側に情報を送っています。
 
 == Weather APIを使う
-先ほどWebAPIの説明を行いますが、なかでも今回は天気を知れるAPIを使います。
-天気を知れるAPIは複数ありますが、ここでは「Weather API」というものを利用します。
+今回はWebAPIの中でも天気を知ることができるWebAPIを用います。
+天気を知ることができるWebAPIは複数ありますが、この章では「Weather API」というものを利用します。
 以下のリンクにアクセスしてWeather APIのトップページに移動してください（@<img>{1}）。
 
 //embed[latex]{
@@ -28,7 +30,7 @@ Weather APIを利用するためにまず、ユーザ登録をします。
 //image[2][登録画面]{
 //}
 
-ユーザ登録が完了すると登録メールアドレスに認証メールが届くので（@<img>{11}）
+ユーザ登録が完了すると登録メールアドレスに認証メールが届くので（@<img>{11}）、
 リンク先にアクセスをしてユーザ登録を完了してください。
 
 //image[11][認証メール]{
@@ -56,6 +58,7 @@ Weather APIを利用するためにまず、ユーザ登録をします。
 //}
 
 この画面では以下の5つのパラメータを設定することができます。
+以下を参考にパラメータを設定してください。
 
  * Your API Key
  ** 先ほどメモしたAPI key
@@ -85,7 +88,8 @@ APIとの通信でHTTPというプロトコルを使用した際に帰ってく�
 === レスポンス
 
 //list[Call][Call]{
-http://api.weatherapi.com/v1/current.json?key=********&q=Saitama&aqi=no
+http://api.weatherapi.com/v1/current.json?key=********&q=Saitama
+&aqi=no
 //}
 
 //list[ResponseCode][ResponeseCode]{
@@ -116,49 +120,49 @@ http://api.weatherapi.com/v1/current.json?key=********&q=Saitama&aqi=no
 //list[ResponseBody][ResponseBody]{
 {
   "location": {
-      "name": "Saitama",
-      "region": "Saitama",
-      "country": "Japan",
-      "lat": 35.91,
-      "lon": 139.66,
-      "tz_id": "Asia/Tokyo",
-      "localtime_epoch": 1626091536,
-      "localtime": "2021-07-12 21:05"
+    "name": "Saitama",
+    "region": "Saitama",
+    "country": "Japan",
+    "lat": 35.91,
+    "lon": 139.66,
+    "tz_id": "Asia/Tokyo",
+    "localtime_epoch": 1626091536,
+    "localtime": "2021-07-12 21:05"
   },
   "current": {
-      "last_updated_epoch": 1626087600,
-      "last_updated": "2021-07-12 20:00",
-      "temp_c": 29.4,
-      "temp_f": 84.9,
-      "is_day": 0,
-      "condition": {
-          "text": "Partly cloudy",
-          "icon": "//cdn.weatherapi.com/weather/64x64/night/116.png",
-          "code": 1003
-      },
-      "wind_mph": 7.6,
-      "wind_kph": 12.2,
-      "wind_degree": 162,
-      "wind_dir": "SSE",
-      "pressure_mb": 1010.0,
-      "pressure_in": 30.3,
-      "precip_mm": 0.0,
-      "precip_in": 0.0,
-      "humidity": 61,
-      "cloud": 47,
-      "feelslike_c": 32.1,
-      "feelslike_f": 89.8,
-      "vis_km": 10.0,
-      "vis_miles": 6.0,
-      "uv": 7.0,
-      "gust_mph": 9.2,
-      "gust_kph": 14.8
+    "last_updated_epoch": 1626087600,
+    "last_updated": "2021-07-12 20:00",
+    "temp_c": 29.4,
+    "temp_f": 84.9,
+    "is_day": 0,
+    "condition": {
+        "text": "Partly cloudy",
+        "icon": "//cdn.weatherapi.com/weather/64x64/night/116.png",
+        "code": 1003
+    },
+    "wind_mph": 7.6,
+    "wind_kph": 12.2,
+    "wind_degree": 162,
+    "wind_dir": "SSE",
+    "pressure_mb": 1010.0,
+    "pressure_in": 30.3,
+    "precip_mm": 0.0,
+    "precip_in": 0.0,
+    "humidity": 61,
+    "cloud": 47,
+    "feelslike_c": 32.1,
+    "feelslike_f": 89.8,
+    "vis_km": 10.0,
+    "vis_miles": 6.0,
+    "uv": 7.0,
+    "gust_mph": 9.2,
+    "gust_kph": 14.8
   }
 }
 //}
 
 === JSON（JavaScript Object Node）
-JSONはデータを記述する際に用いられる言語の一つで、
+JSONはデータを記述する際に用いられるデータ記述言語の一つで、
 JavaScriptでオブジェクトを記述する際の記法をもとにしています。
 //list[json][JSONデータの例]{
 {
@@ -166,11 +170,14 @@ JavaScriptでオブジェクトを記述する際の記法をもとにしてい�
   "DNE3" : "芝浦"
 }
 //}
-JSONで使えるデータ型は文字列、数値、配列、ブーリアン等が挙げられます。
+JSONで使えるデータ型は文字列、数値、配列、Boolean等が挙げられます。
+APIの通信ではデータのやり取りでJSONを使うことが多く、
+またゲームのセーブデータや3Dモデルのデータファイル形式としても
+使われることがあります。
 
 === HTTP（Hypertext Transfer Protocol）
-HTTPとはTCP/IPと呼ばれるをインターネットなどのネットワーク上で使われている通信プロトコル上で
-Web情報をやり取りする際に用いられるプロトコルです。
+HTTPとはTCP/IPと呼ばれるをインターネットなどのネットワークで使われている、
+通信プロトコル上でWeb情報をやり取りする際に用いられるプロトコルです。
 例えば電子計算機研究会（通称: DEN3）のホームページにアクセスした際も
 @<img>{2021-01-25-173558}のようにHTTP通信が行われています。
 //image[2021-01-25-173558][DEN3のホームページにアクセスした際の通信]{
@@ -179,8 +186,8 @@ HTTPはリクエスト/レスポンス型の通信プロトコルであり、
 クライアント側は通信相手にリクエスト（要求）を出すと、
 通信相手からのレスポンス（応答）が返ってくるまで待機します。
 ちなみにHTTPSはHTTPの通信を暗号化しているプロトコルです。
-またHTTPの通信のやり取りにはHTTPメッセージというものが使われており
-Weather APIとのやり取りでもでてきた
+また、HTTPの通信のやり取りにはHTTPメッセージというものが使われており
+Weather APIとのやり取りでも出てきた
 
  * ステータスコード
  * ヘッダ
@@ -198,7 +205,7 @@ Weather APIとのやり取りでもでてきた
 主に3桁の数字で表され、それぞれの数字の意味としては
 
  * 2xx 200番台
- ** リクエストが成功成功したことを表す。
+ ** リクエストが成功したことを表す。
  ** EX: 200 OK（リクエスト成功）
  * 3xx 300番台
  ** リダイレクト（別のアクセスへの転送）を行うときに返ってくる。
@@ -216,16 +223,17 @@ Weather APIとのやり取りでもでてきた
 
 ==== ヘッダ
 ヘッダにはHTTPメッセージについてのメタデータ(データについての付加情報)
-が書かれています。例としてはボディに記述されているコンテンツの種類（htmlやJSONなど）や
-コンテンツのサイズ、後述するHTTPメソッド等です。
+が書かれています。例としてはボディに記述されている
+コンテンツの種類（HTML、CSS（Webページを表しているデータ）やJSONなど）や
+コンテンツのサイズ、後述するHTTPメソッド等が記述されています。
 
 ==== ボディ
-やり取りをしたいコンテンツが入っています、
-主にJSON化したデータやHTMLなどです。
+やり取りを行うコンテンツ（データ）が入っています、
+主にJSON化したデータやHTML、CSSなどです。
 
 ==== HTTPメソッド
 HTTP通信にはメソッドと呼ばれているHTTPリクエストの種類を表すものがあります。
-ここではCURD(Create, Update, Read, Delete)と呼ばれる性質を満たす代表的なメソッド
+ここではCURD（Create, Update, Read, Delete）と呼ばれる性質を満たす代表的なメソッド
 
  * GET
  * POST
@@ -262,15 +270,15 @@ HTTPリクエストのボディにはコメントの内容が書かれており�
 ブログで例えるとブログを更新したいときに使われています。
 
 ===== DELETE
-コンテンツの削除時に使われ、ブログで例えると、
+コンテンツの削除時に使われ、ブログで例えると
 ブログの投稿などを削除した時に使われます。
-#@#山本 陽平. Webを支える技術 ―― HTTP，URI，HTML，そしてREST WEB+DB PRESS plus  株式会社技術評論社.
+
 
 === ESP32でJSONを利用する
 JSON形式のデータがWeatherAPIから返ってくるため、これをESP32側で解釈してデータとして
 扱えるようにする必要があります。
 そこで、公開されているライブラリであるArduinoJSONを利用します。
-ArduinoJSONを使用する場合にはJSONデータをESP32で扱えるデータに変換する際に
+ArduinoJSONを使用する場合にはJSONデータをESP32で扱えるデータに変換する際の
 キャパシティの計算をする必要があります。そのため以下のリンクにアクセスして
 設定を行ってください。ただし、今回使うWeather API用のキャパシティの計算結果は
 用意してあるので参考として紹介します。
@@ -291,7 +299,7 @@ ArduinoJson Assistant: https://arduinojson.org/v6/assistant/
  * Mode
  ** Deserialize（データ構造を復元する処理）
  * Input Type
- ** String
+ ** String（入力時のデータ形式）
 
 を設定してください。
 その後、@<strong>{Next: JSON}を選択してください。
@@ -311,62 +319,65 @@ inputにはWeather APIから送られてきたデータを代入してくださ�
 //list[world][デシリアライズコード]{
 // String input;
 
-  StaticJsonDocument<1536> doc;
+StaticJsonDocument<1536> doc;
 
-  DeserializationError error = deserializeJson(doc, input);
+DeserializationError error = deserializeJson(doc, input);
 
-  if (error) {
-    Serial.print(F("deserializeJson() failed: "));
-    Serial.println(error.f_str());
-    return;
-  }
+if (error) {
+  Serial.print(F("deserializeJson() failed: "));
+  Serial.println(error.f_str());
+  return;
+}
 
-  JsonObject location = doc["location"];
-  const char* location_name = location["name"]; // "Saitama"
-  const char* location_region = location["region"]; // "Saitama"
-  const char* location_country = location["country"]; // "Japan"
-  float location_lat = location["lat"]; // 35.91
-  float location_lon = location["lon"]; // 139.66
-  const char* location_tz_id = location["tz_id"]; // "Asia/Tokyo"
-  long location_localtime_epoch = location["localtime_epoch"]; // 1626533912
-  const char* location_localtime = location["localtime"]; // "2021-07-17 23:58"
+JsonObject location = doc["location"];
+const char* location_name = location["name"]; // "Saitama"
+const char* location_region = location["region"]; // "Saitama"
+const char* location_country = location["country"]; // "Japan"
+float location_lat = location["lat"]; // 35.91
+float location_lon = location["lon"]; // 139.66
+const char* location_tz_id = location["tz_id"]; // "Asia/Tokyo"
+// 1626533912
+long location_localtime_epoch = location["localtime_epoch"];
+// "2021-07-17 23:58"
+const char* location_localtime = location["localtime"];
 
-  JsonObject current = doc["current"];
-  long current_last_updated_epoch = current["last_updated_epoch"]; // 1626533100
-  const char* current_last_updated = current["last_updated"]; // "2021-07-17 23:45"
-  float current_temp_c = current["temp_c"]; // 23.3
-  float current_temp_f = current["temp_f"]; // 73.9
-  int current_is_day = current["is_day"]; // 0
+JsonObject current = doc["current"];
+// 1626533100
+long current_last_updated_epoch = current["last_updated_epoch"];
+// "2021-07-17 23:45"
+const char* current_last_updated = current["last_updated"];
+float current_temp_c = current["temp_c"]; // 23.3
+float current_temp_f = current["temp_f"]; // 73.9
+int current_is_day = current["is_day"]; // 0
 
-  JsonObject current_condition = current["condition"];
-  const char* current_condition_text = current_condition["text"]; // "Clear"
-  const char* current_condition_icon = current_condition["icon"];
-  int current_condition_code = current_condition["code"]; // 1000
+JsonObject current_condition = current["condition"];
+// "Clear"
+const char* current_condition_text = current_condition["text"];
+const char* current_condition_icon = current_condition["icon"];
+int current_condition_code = current_condition["code"]; // 1000
 
-  float current_wind_mph = current["wind_mph"]; // 3.8
-  float current_wind_kph = current["wind_kph"]; // 6.1
-  int current_wind_degree = current["wind_degree"]; // 250
-  const char* current_wind_dir = current["wind_dir"]; // "WSW"
-  int current_pressure_mb = current["pressure_mb"]; // 1019
-  float current_pressure_in = current["pressure_in"]; // 30.6
-  int current_precip_mm = current["precip_mm"]; // 0
-  int current_precip_in = current["precip_in"]; // 0
-  int current_humidity = current["humidity"]; // 88
-  int current_cloud = current["cloud"]; // 0
-  float current_feelslike_c = current["feelslike_c"]; // 24.9
-  float current_feelslike_f = current["feelslike_f"]; // 76.9
-  int current_vis_km = current["vis_km"]; // 16
-  int current_vis_miles = current["vis_miles"]; // 9
-  int current_uv = current["uv"]; // 1
-  float current_gust_mph = current["gust_mph"]; // 13.9
-  float current_gust_kph = current["gust_kph"]; // 22.3
+float current_wind_mph = current["wind_mph"]; // 3.8
+float current_wind_kph = current["wind_kph"]; // 6.1
+int current_wind_degree = current["wind_degree"]; // 250
+const char* current_wind_dir = current["wind_dir"]; // "WSW"
+int current_pressure_mb = current["pressure_mb"]; // 1019
+float current_pressure_in = current["pressure_in"]; // 30.6
+int current_precip_mm = current["precip_mm"]; // 0
+int current_precip_in = current["precip_in"]; // 0
+int current_humidity = current["humidity"]; // 88
+int current_cloud = current["cloud"]; // 0
+float current_feelslike_c = current["feelslike_c"]; // 24.9
+float current_feelslike_f = current["feelslike_f"]; // 76.9
+int current_vis_km = current["vis_km"]; // 16
+float current_gust_mph = current["gust_mph"]; // 13.9
+float current_gust_kph = current["gust_kph"]; // 22.3
 //}
 
 ==== JSONのライブラリをインストールする
 JSONをESP32上で使うためにライブラリをArduino IDEにインストールします。
 @<img>{15-1}のように（スケッチ＞ライブラリのインクルード＞ライブラリを管理）を選択してください。
 
-//image[15-1][ライブラリの管理の選択]{ 
+//image[15-1][ライブラリの管理の選択]{
 //}
 
 選択するとライブラリマネージャーが開かれるので、検索窓に「ArduinoJSON」を入力してください（@<img>{9}）。
@@ -397,11 +408,11 @@ JSONをESP32上で使うためにライブラリをArduino IDEにインストー
 #include <ArduinoJson.h>
 
 // WiFi接続用変数
-const char *ssid = "elecom-b2809f-g";
-const char *password = "fapd4rpfac3u";
+const char *ssid = "elecom-3230d1-s";
+const char *password = "fwp342pf3c3u";
 
 // WeatherAPI用変数
-const String api_key = "ffe91ee9ec094d333681d74332211106";
+const String api_key = "ffe91ee9ec093d313683d74332211106";
 const String location = "Saitama";
 
 struct Weather {
@@ -426,8 +437,8 @@ void setup()
 void loop()
 {
   HTTPClient http;
-  String target_url = "https://api.weatherapi.com/v1/current.json?key=";
-  target_url += (api_key + "&q=" + location + "&aqi=no");
+  String target_url = "https://api.weatherapi.com/v1/current.json";
+  target_url += ("?key=" + api_key + "&q=" + location + "&aqi=no");
   http.begin(target_url);  // HTTP通信を開始する
 
   int http_code = http.GET();  // HTTP通信でGETする
@@ -437,9 +448,11 @@ void loop()
   {
     if (http_code == HTTP_CODE_OK)  // HTTPコードが200の場合成功
     {
-      String payload = http.getString();  // HTTPのレスポンスボディを取得
+      // HTTPのレスポンスボディを取得
+      String payload = http.getString();
       Serial.println(payload);
-      Weather weather = parse(payload);  // WeatherAPIのJSONをパースする
+      // WeatherAPIのJSONをパースする
+      Weather weather = parse(payload);
       Serial.println("------weather--------");
       Serial.println(weather.region);
       Serial.println(weather.temperature);
@@ -463,8 +476,10 @@ void loop()
 Weather parse(String input)
 {
   Serial.println("parse.......");
-  StaticJsonDocument<1536> doc;  // JSONをパースするための領域を作成
-  DeserializationError error = deserializeJson(doc, input);  // JSONをパースする
+  // JSONをパースするための領域を作成
+  StaticJsonDocument<1536> doc;
+  // JSONをパースする
+  DeserializationError error = deserializeJson(doc, input);
 
   if (error)  // パースに失敗すると呼ばれる
   {
@@ -482,7 +497,7 @@ Weather parse(String input)
   float current_temp = current["temp_c"];  // 23.3℃
   int current_humidity = current["humidity"];  // 88％
 
-  Weather weather = {location_region, current_temp, current_humidity};
+  Weather weather={location_region,current_temp,current_humidity};
 
   return weather;
 }
@@ -495,7 +510,7 @@ Weather parse(String input)
 Waiting for Wi-Fi connection....
 Connected to Wi-Fi
 status code : 200
-{"location":{"name":"Saitama","region":"Saitama","country": ・・・・省略
+{"location":{"name":"Saitama","region":"Saitama","country":..省略
 parse.......
 ------weather--------
 Saitama
@@ -503,7 +518,7 @@ Saitama
 59
 2021-08-11 17:00
 status code : 200
-{"location":{"name":"Saitama","region":"Saitama","country": ・・・・省略
+{"location":{"name":"Saitama","region":"Saitama","country":..省略
 parse.......
 ------weather--------
 Saitama
@@ -511,7 +526,7 @@ Saitama
 59
 2021-08-11 17:00
 status code : 200
-{"location":{"name":"Saitama","region":"Saitama","country": ・・・・省略
+{"location":{"name":"Saitama","region":"Saitama","country":..省略
 parse.......
 ------weather--------
 Saitama
@@ -553,7 +568,7 @@ I2Cでは通信するデバイスはマスタとスレーブに分類され、�
 回路図（@<img>{oled}）を参考に電子回路を組み、プログラム（@<list>{oled}）を書き込んでください。
 
 ==== 回路図
- 
+
  * 必要材料
  ** ESP32 × 1
  ** ブレッドボード × 2
@@ -568,15 +583,17 @@ I2Cでは通信するデバイスはマスタとスレーブに分類され、�
 #include <Wire.h>  // I2Cを利用するためのライブラリ
 #include "SSD1306.h"
 
-SSD1306 display(0x3c, 21, 22);  // ディスプレイのインスタンスを作成する。
-                                // アドレス、 SDA、 SCLを指定
+SSD1306 display(0x3c, 21, 22);
+// ディスプレイのインスタンスを作成する。
+// アドレス、 SDA、 SCLを指定
 
 void setup()
 {
   display.init();  // ディスプレイの初期化
   display.setFont(ArialMT_Plain_24);  // フォントサイズ24pxで表示
-  display.drawString(0, 0, "Hello,World");  // 左上を原点とした座標で
-                                            // （0,0）に"Hello,World"表示
+  // 左上を原点とした座標で
+  // （0,0）に"Hello,World"表示
+  display.drawString(0, 0, "Hello,World");
   display.display();  // 指定した文字列を表示させる
 }
 
@@ -590,6 +607,22 @@ void loop(){}
 //}
 
 == Weather APIから得たデータを表示
+先ほど試した、Weather APIからのデータをディスプレイに表示します。
+@<list>{weaher}を参考にしてプログラムを書き込んでください。
+各々の環境に合わせて変数を書き換える必要があります。
+以下の変数を書き換えてください。
+
+ * SSID
+ ** 変数名: ssid
+ * パスワード
+ ** 変数名: password
+ * API Key
+ ** Weaher APIに用いるAPI Key
+ ** 変数名: api_key
+ * Location（地名）
+ ** Weather APIで取得したい地名
+ ** 変数名: location
+
 
 //list[weaher][Iのデータをディスプレイに表示するプログラム]{
 #include <WiFi.h>
@@ -599,15 +632,16 @@ void loop(){}
 #include <Wire.h>  // I2Cを利用するためのライブラリ
 #include "SSD1306.h" // ディスプレイのライブラリ
 
-SSD1306 display(0x3c, 21, 22);  // ディスプレイのインスタンスを作成する。
+SSD1306 display(0x3c, 21, 22);
+// ディスプレイのインスタンスを作成する。
 // アドレス、SDA、SCLを指定
 
 // WiFi接続用変数
-const char *ssid = "elecom-b2809f-g";
-const char *password = "fapd4rpfac3u";
+const char *ssid = "eledom-b2839f-g";
+const char *password = "fad2d42pf313u";
 
 // WeatherAPI用変数
-const String api_key = "ffe99ee9ec094d3681d74132211106";
+const String api_key = "ffe92ee93c394d3681d74133211206";
 const String location = "Saitama";
 
 struct Weather {
@@ -622,7 +656,8 @@ void setup()
   Serial.begin(115200);
   WiFi.begin(ssid, password);  // Wi-Fi接続開始
 
-  while (WiFi.status() != WL_CONNECTED) // Wi-Fiアクセスポイントへ接続するまで待機
+  // Wi-Fiアクセスポイントへ接続するまで待機
+  while (WiFi.status() != WL_CONNECTED)
   {
     Serial.println("Waiting for Wi-Fi connection....");
     delay(500);
@@ -637,8 +672,8 @@ void loop()
   display.clear(); // ディスプレイの文字をすべて消す
 
   HTTPClient http;
-  String target_url = "https://api.weatherapi.com/v1/current.json?key=";
-  target_url += (api_key + "&q=" + location + "&aqi=no");
+  String target_url = "https://api.weatherapi.com/v1/current.json";
+  target_url += ("?key=" + api_key + "&q=" + location + "&aqi=no");
   http.begin(target_url);  // HTTP通信を開始する
 
   int http_code = http.GET();  // HTTP通信でGETする
@@ -646,24 +681,28 @@ void loop()
   Serial.printf("status code : %d\n", http_code);
   if (http_code > 0)  // HTTP通信が失敗すると負値になる
   {
-    if (http_code == HTTP_CODE_OK)  // HTTPコードが200の場合成功
+    // HTTPコードが200の場合成功
+    if (http_code == HTTP_CODE_OK)
     {
-      String payload = http.getString();  // HTTPのレスポンスボディを取得
+      // HTTPのレスポンスボディを取得
+      String payload = http.getString();
       Serial.println(payload);
-      Weather weather = parse(payload);  // WeatherAPIのJSONをパースする
+      // WeatherAPIのJSONをパースする
+      Weather weather = parse(payload);
       Serial.println("------weather--------");
       Serial.println(weather.region);
       Serial.println(weather.temperature);
       Serial.println(weather.humidity);
       Serial.println(weather.last_updated);
-      // char [100]
-      display.setFont(ArialMT_Plain_10);  // フォントサイズを10pxに設定
-      display.drawString(0, 0, "region:");  // （x座標, y座標, 表示したい文字列）
+      // フォントサイズを10pxに設定
+      display.setFont(ArialMT_Plain_10);
+      // （x座標, y座標, 表示したい文字列）
+      display.drawString(0, 0, "region:");
       display.drawString(0, 12, "temperature:");
       display.drawString(0, 24, "humididity:");
       display.drawString(0, 36, "last_updated:");
       display.drawString(65, 0, weather.region);
-      display.drawString(65, 12, String(weather.temperature) + "°C");
+      display.drawString(65,12,String(weather.temperature)+"°C");
       display.drawString(65, 24, String(weather.humidity) + "%");
       display.drawString(30, 48, weather.last_updated);
 
@@ -688,7 +727,8 @@ Weather parse(String input)
 {
   Serial.println("parse.......");
   StaticJsonDocument<1536> doc;  // JSONをパースするための領域を作成
-  DeserializationError error = deserializeJson(doc, input);  // JSONをパースする
+  // JSONをパースする
+  DeserializationError error = deserializeJson(doc, input);
 
   if (error)  // パースに失敗すると呼ばれる
   {
@@ -703,12 +743,13 @@ Weather parse(String input)
   const char *location_region = location["region"];  // "Saitama"
 
   JsonObject current = doc["current"];
-  const char *current_last_updated = current["last_updated"]; //  "2021-07-17 23:45"
+  //  "2021-07-17 23:45"
+  const char *current_last_updated = current["last_updated"];
   float current_temp = current["temp_c"];  // 23.3℃
   int current_humidity = current["humidity"];  // 88％
 
-  Weather weather =
-  {location_region, current_temp, current_humidity, current_last_updated};
+  Weather weather = {location_region, current_temp,
+current_humidity, current_last_updated};
 
   return weather;
 }
@@ -720,9 +761,19 @@ Weather parse(String input)
 Weather APIは15分に一回更新されますが
 ここでは一分間に一回Weather APIへのリクエストを送っています。
 
-== 応用問題1: センサのデータを表示する
+== 応用1: センサのデータを表示する
+応用問題として、温湿度センサで得られた値をディスプレイに表示してみます。
+回路図（@<img>{displaydht11}）とプログラム（@<list>{dht_ssd}）を参考にしてみてください。
 
-//image[displaydht11][温湿度データをディスプレイに表示する回路図][scale=1.8]{
+ * 必要材料
+ ** ESP32 × 1
+ ** ブレッドボード × 2
+ ** 10kΩ × 3
+ ** SSD1306 display × 1
+ ** DHT11 × 1
+ ** ジャンプワイヤ
+
+//image[displaydht11][温湿度データをディスプレイに表示する回路図][scale=1.7]{
 //}
 
 //list[dht_ssd][DHT11のデータをディスプレイに表示すえうプログラム]{
@@ -736,8 +787,10 @@ Weather APIは15分に一回更新されますが
 // 使用するセンサを指定する　
 #define DHTTYPE DHT11
 
-SSD1306 display(0x3c, 21, 22);  // ディスプレイのインスタンスを作成する。
-                                // I2Cアドレス、SDA、SCLを指定
+SSD1306 display(0x3c, 21, 22);
+// ディスプレイのインスタンスを作成する。
+// I2Cアドレス、SDA、SCLを指定
+
 DHT dht11(DHTPIN, DHTTYPE);  // DHT11のインスタンスを作成する
 
 void setup()
@@ -754,7 +807,8 @@ void loop() {
   display.clear(); // ディスプレイの文字をすべて消す
 
   float humidity = dht11.readHumidity();  // 湿度取得
-  float temperature = dht11.readTemperature();  // 温度取得（デフォルトでは摂氏=℃）
+  // 温度取得（デフォルトでは摂氏=℃）
+  float temperature = dht11.readTemperature();
 
   // NaN（Not a Number）つまり数字を読み取れなかった場合再取得する
   // returnした場合loop()の最初に戻る
@@ -764,17 +818,20 @@ void loop() {
   }
 
   // 体感温度（湿度を含めた体感の温度指数）を計算する
-  float apparent_temperature = dht11.computeHeatIndex(temperature, humidity);
+  float apparent_temperature =
+dht11.computeHeatIndex(temperature, humidity);
 
   Serial.printf("温度: %.3lf ℃\n", temperature);
   Serial.printf("湿度: %.3lf ％\n", humidity);
   Serial.printf("体感温度: %.3lf ℃\n", apparent_temperature);
 
   display.setFont(ArialMT_Plain_10);  // フォントサイズを10pxに設定
-  display.drawString(0, 0, "temperature");  // （x座標, y座標, 表示したい文字列）
+  // （x座標, y座標, 表示したい文字列）
+  display.drawString(0, 0, "temperature");
   display.drawString(0, 25, "humididity");
   display.setFont(ArialMT_Plain_24);  // フォントサイズを24pxに設定
-  display.drawString(50, 10, String(temperature));  // String()で文字列に変換
+  // String()で文字列に変換
+  display.drawString(50, 10, String(temperature));
   display.drawString(50, 30, String(humidity));
   display.setFont(ArialMT_Plain_10);  // フォントサイズを10pxに設定
   display.drawString(110, 22, "°C");
@@ -789,9 +846,9 @@ void loop() {
 //image[P_20210809_140907][温湿度をディスプレイに表示]{
 //}
 
-== 応用問題2: 時計を表示してみる
+== 応用2: 時計を表示してみる
 
-応用問題として時計を作成します。
+応用として時計を作成します。
 正確な時刻情報を取得するためは、NTPサーバにアクセスする必要があります。
 そのためまずはNTPサーバについての紹介を行います。
 
@@ -799,6 +856,23 @@ void loop() {
 NTPは時刻の同期に用いられるプロトコルです。
 クライアントは主に原子時計やGPSを用いて時刻を管理している、
 NTPサーバに問い合わせを送ることで時刻を取得することができます。
+以下のプログラム（@<list>{clock}）を参考にしてみてください。
+
+ * 必要材料
+ ** ESP32 × 1
+ ** ブレッドボード × 2
+ ** 10kΩ × 2
+ ** SSD1306 display × 1
+ ** ジャンプワイヤ
+
+各々の環境に合わせて変数を書き換える必要があります。
+以下の変数を書き換えてください。
+
+ * SSID
+ ** 変数名: ssid
+ * パスワード
+ ** 変数名: password
+ * API Key
 
 //list[clock][時刻表示プログラム]{
 #include <WiFi.h>
@@ -806,14 +880,15 @@ NTPサーバに問い合わせを送ることで時刻を取得することが�
 #include <Wire.h>  // I2Cを利用するためのライブラリ
 #include "SSD1306.h" // ディスプレイのライブラリ
 
-SSD1306 display(0x3c, 21, 22);  // ディスプレイのインスタンスを作成する。
+SSD1306 display(0x3c, 21, 22);
+// ディスプレイのインスタンスを作成する。
 // アドレス、SDA、SCLを指定
 
 // WiFi接続用変数
-const char *ssid = "elecom-b2809f-g";
-const char *password = "fapd4rpfac3u";
+const char *ssid = "el3c3m-223033f-g";
+const char *password = "fa2d4rpaa33u";
 
-int JST = 3600 * 9;  // 標準時間
+int JST = 3600 * 9;  // 日本標準時間
 
 void setup() {
   Serial.begin(115200);
@@ -826,19 +901,22 @@ void setup() {
   }
   Serial.println("Connected to Wi-Fi");
 
-  configTime(JST, 0, "ntp.nict.jp", "0.jp.pool.ntp.org", "time1.google.com");
+  configTime(JST, 0, "ntp.nict.jp", "0.jp.pool.ntp.org",
+"time1.google.com");
   // 標準時間, サマータイム, ntpサーバ
   display.init(); // ディスプレイの初期化
 }
 
-struct tm timeInfo;//時刻を格納するオブジェクト
+// 時刻情報を入れる構造体
+struct tm timeInfo;
 
 void loop() {
   delay(1000);
 
   display.clear(); // ディスプレイの文字をすべて消す
 
-  getLocalTime(&timeInfo);  // tmオブジェクトのtimeInfoに現在時刻を入れ込む
+  // 構造体のtimeInfoに時刻情報を書き込む
+  getLocalTime(&timeInfo);
 
   char date[12], now_time[7];
   sprintf(date, "%04d/%02d/%02d",

@@ -93,7 +93,8 @@ void loop() {
   }
 
   // 体感温度（湿度を含めた体感の温度指数）を計算する
-  float apparent_temperature = dht11.computeHeatIndex(temperature, humidity);
+  float apparent_temperature =
+dht11.computeHeatIndex(temperature, humidity);
 
   Serial.printf("温度: %.3lf ℃\n", temperature);
   Serial.printf("湿度: %.3lf ％\n", humidity);
@@ -263,7 +264,8 @@ void loop() {
   }
 
   // 体感温度（湿度を含めた体感の温度指数）を計算する
-  float apparent_temperature = dht11.computeHeatIndex(temperature, humidity);
+  float apparent_temperature =
+dht11.computeHeatIndex(temperature, humidity);
 
   Serial.printf("温度: %.3lf ℃\n", temperature);
   Serial.printf("湿度: %.3lf ％\n", humidity);

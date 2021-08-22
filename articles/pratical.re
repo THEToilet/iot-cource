@@ -1,11 +1,29 @@
 = 応用編
 
-== WebサーバからのLチカ
+== Webサーバからの操作
+ESP32上でWebサーバを起動させて、LEDの操作とセンサの値読み取りを行います。
 
-//image[dht11][DHT11回路図][scale=1.5]{
+ * 必要材料
+ ** ESP32 × 1
+ ** ブレッドボード × 2
+ ** 10kΩ × 1
+ ** 100Ω × 1
+ ** LED × 1
+ ** DHT11 × 1
+ ** ジャンプワイヤ
+
+各々の環境に合わせて変数を書き換える必要があります。
+以下の変数を書き換えてください。
+
+ * SSID
+ ** 変数名: ssid
+ * パスワード
+ ** 変数名: password
+
+//image[dht11_led][回路図][scale=1.6]{
 //}
 
-//image[P_20210805_184534][DHT11回路配置図]{
+//image[171017][回路配置図]{
 //}
 //image[P_20210805_184615][DHT11アップ図]{
 //}
@@ -22,8 +40,8 @@
 DHT dht11(DHTPIN, DHTTYPE); // DHT11のインスタンスを作成する
 
 // WiFi接続用変数
-const char *ssid = "elecom-b2809f-g";
-const char *password = "fapd4rpfac3u";
+const char *ssid = "ele2o3-b2309f-g";
+const char *password = "fedd4123as3u";
 
 String common_html = "\
 <!DOCTYPE html>\n\
@@ -34,21 +52,21 @@ String common_html = "\
     <link rel=\"stylesheet\" href=\"/stylesheet.css\" />\n\
 </head>\n\
 <body>\n\
-    <header>\n\
-        <div class=\"container\">\n\
-            <div class=\"header-title\">\n\
-                <div>\n\
-                    <a id=\"top-btn\" class=\"header-logo\" href=\"/\">ESP32 DashBoard</a>\n\
-                </div>\n\
-            </div>\n\
-            <div class=\"header-menu\">\n\
-                <ul class=\"header-menu-right\">\n\
-                    <li><a href=\"/blink\">Blink</a></li>\n\
-                    <li><a href=\"/sensor\">Sensor</a></li>\n\
-                </ul>\n\
-            </div>\n\
-        </div>\n\
-    </header>\n\
+  <header>\n\
+    <div class=\"container\">\n\
+      <div class=\"header-title\">\n\
+       <div>\n\
+       <a id=\"top-btn\" class=\"header-logo\" href=\"/\">ESP32 DashBoard</a>\n\
+       </div>\n\
+      </div>\n\
+    <div class=\"header-menu\">\n\
+     <ul class=\"header-menu-right\">\n\
+      <li><a href=\"/blink\">Blink</a></li>\n\
+      <li><a href=\"/sensor\">Sensor</a></li>\n\
+     </ul>\n\
+    </div>\n\
+    </div>\n\
+  </header>\n\
 \n";
 
 WebServer server(80);
@@ -206,7 +224,7 @@ void loop() {
 
 https://en.wikipedia.org/wiki/.local
 
-//emlist{
+//list[ss][WebServer起動時のシリアルモニタ]{
 Waiting for Wi-Fi connection....
 Waiting for Wi-Fi connection....
 Waiting for Wi-Fi connection....
@@ -221,28 +239,42 @@ WebServer 起動
 ESP32アクセスポイントのIPアドレスは192.168.4.1
 //}
 
-//image[202754][ssid]{
+http://esp32.local
+
+//image[202754][Webサーバのトップページ]{
 //}
-//image[202816][ssid]{
+//image[202816][LED操作画面]{
 //}
-//image[202832][ssid]{
+//image[202832][センサ読み取り画面]{
 //}
 
 == ESP32でアクセスポイントを設定
 
- サーバクライアント
-  Interface 2018 9より
-  Wi-FIネットワークはアクセス・ポイント（AP）を中心としたネットワーク
-  	アクセスポイントは多くの場合、インターネットなどの他のネットワークに接続しており、その場合はルータとも呼ばれる
-  	アクセス・ポイントに接続する端末をステーション（STA）という
-  ESP32をAPモードするには
-  > WiFi.softAP(ssid, password);
-  STAモードでアクセスポイントに接続するには
-  > WiFi.begin(ssid, password);
+サーバクライアント
+Interface 2018 9より
+Wi-FIネットワークはアクセス・ポイント（AP）を中心としたネットワーク
+アクセスポイントは多くの場合、インターネットなどの他のネットワークに接続しており、その場合はルータとも呼ばれる
+アクセス・ポイントに接続する端末をステーション（STA）という
+ESP32をAPモードするには
+> WiFi.softAP(ssid, password);
+STAモードでアクセスポイントに接続するには
+> WiFi.begin(ssid, password);
 
- WiFiのアクセスポイントがなくてもESP32が2府あれば、片方をアクセスポイントにして通信できる
+WiFiのアクセスポイントがなくてもESP32が2府あれば、片方をアクセスポイントにして通信できる
 
-//list[a][a]{
+ * 必要材料
+ ** ESP32 × 1
+ ** ブレッドボード × 2
+
+各々の環境に合わせて変数を書き換える必要があります。
+以下の変数を書き換えてください。
+
+ * SSID
+ ** 変数名: ssid
+ * パスワード
+ ** 変数名: password
+
+//list[a][アクセスポイントプログラム]{
 #include <WiFi.h>
 #include <WiFiClient.h>
 #include <WiFiAP.h>
@@ -300,18 +332,18 @@ void loop()
 }
 //}
 
-//emlist{
+//list[ds][アクセスポイント起動時のシリアルモニタ]{
 ESP32アクセスポイントのIPアドレスは192.168.4.1です。
 Complete mDNS configuration.
 WebServerを起動します
 dhcps: send_nak>>udp_sendto result 0
 //}
 
-//image[ssid][ssid]{
+//image[ssid][アクセスポイント表示画面]{
 //}
-//image[212841][212841]{
+//image[212841][アクセスポイント接続時画面]{
 //}
-//image[212909][212909]{
+//image[212909][ESP32のアクセスポイント経由で接続]{
 //}
-//image[213003][213003]{
+//image[213003][ESP32のアクセスポイント経由でのエラー画面]{
 //}

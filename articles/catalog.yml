@@ -10,4 +10,5 @@ CHAPS:
 APPENDIX:
   - troubleshooting.re
 POSTDEF:
+  - bib.re
   - contributors.re
