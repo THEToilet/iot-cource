@@ -56,7 +56,7 @@ String common_html = "\
     <div class=\"container\">\n\
       <div class=\"header-title\">\n\
        <div>\n\
-       <a id=\"top-btn\" class=\"header-logo\" href=\"/\">ESP32 DashBoard</a>\n\
+<a id=\"top-btn\" class=\"header-logo\" href=\"/\">ESP32 DashBoard</a>\n\
        </div>\n\
       </div>\n\
     <div class=\"header-menu\">\n\
@@ -78,7 +78,7 @@ void handleNotFound() {
 void handleRoot() {
   String message = "\
      <div class=\"top-wrapper\">\n\
-        <h1>Here is the ESP32 DashBoard</h1>\n\
+<h1>Here is the ESP32 DashBoard</h1>\n\
     </div>\n\
     </body>\n\
     </html>\n\
@@ -88,13 +88,13 @@ void handleRoot() {
 
 void handleLedBlink() {
   String message = "\
-      <div class=\"top-wrapper\">\n\
-        <h1>LED Blink</h1>\n\
-        <button onclick=\"location.href='/blink/on'\">ON</button>\n\
-        <button onclick=\"location.href='/blink/off'\">OFF</button>\n\
-    </div>\n\
-    </body>\n\
-    </html>\n\
+ <div class=\"top-wrapper\">\n\
+ <h1>LED Blink</h1>\n\
+ <button onclick=\"location.href='/blink/on'\">ON</button>\n\
+ <button onclick=\"location.href='/blink/off'\">OFF</button>\n\
+ </div>\n\
+ </body>\n\
+ </html>\n\
   \n";
   server.send(200, "text/html", common_html + message);
 }
@@ -103,7 +103,8 @@ void handleDHT11() {
   // センサが値を読むまで2秒待機
   delay(2000);
   float humidity = dht11.readHumidity(); // 湿度取得
-  float temperature = dht11.readTemperature(); // 温度取得（デフォルトでは摂氏=℃）
+  // 温度取得（デフォルトでは摂氏=℃）
+  float temperature = dht11.readTemperature();
   // NaN（Not a Number）つまり数字を読み取れなかった場合再取得する
   // returnした場合loop()の最初に戻る
   if (isnan(humidity) || isnan(temperature)) {
@@ -113,15 +114,15 @@ void handleDHT11() {
   // 体感温度（湿度を含めた体感の温度指数）を計算する
   float apparent_temperature = dht11.computeHeatIndex(temperature, humidity);
   String message = "\
-      <div class=\"top-wrapper\">\n\
-        <h1>DHT11 Sensor</h1>\n\
-        <h2>Temperature: " + String(temperature) + "°C</h2>\n\
-        <h2>Humidity: " + String(humidity) + "%</h2>\n\
-        <h2>ApparentTemperature: " + String(apparent_temperature) + "%</h2>\n\
-        <button onclick=\"location.href='/sensor'\">UPDATE</button>\n\
-    </div>\n\
-    </body>\n\
-    </html>\n\
+ <div class=\"top-wrapper\">\n\
+ <h1>DHT11 Sensor</h1>\n\
+ <h2>Temperature: " + String(temperature) + "°C</h2>\n\
+ <h2>Humidity: " + String(humidity) + "%</h2>\n\
+ <h2>ApparentTemperature: " + String(apparent_temperature) + "%</h2>\n\
+ <button onclick=\"location.href='/sensor'\">UPDATE</button>\n\
+ </div>\n\
+ </body>\n\
+ </html>\n\
   \n";
   server.send(200, "text/html", common_html + message);
 }
@@ -170,7 +171,8 @@ void setup() {
   Serial.begin(115200);
   //  WiFi.mode(WIFI_STA);
   WiFi.begin(ssid, password); // Wi-Fi接続開始
-  while (WiFi.status() != WL_CONNECTED) // Wi-Fiアクセスポイントへ接続するまで待機
+  // Wi-Fiアクセスポイントへ接続するまで待機
+  while (WiFi.status() != WL_CONNECTED)
   {
     Serial.println("Waiting for Wi-Fi connection....");
     delay(500);
@@ -250,17 +252,9 @@ http://esp32.local
 
 == ESP32でアクセスポイントを設定
 
-サーバクライアント
-Interface 2018 9より
-Wi-FIネットワークはアクセス・ポイント（AP）を中心としたネットワーク
-アクセスポイントは多くの場合、インターネットなどの他のネットワークに接続しており、その場合はルータとも呼ばれる
-アクセス・ポイントに接続する端末をステーション（STA）という
-ESP32をAPモードするには
-> WiFi.softAP(ssid, password);
-STAモードでアクセスポイントに接続するには
-> WiFi.begin(ssid, password);
-
-WiFiのアクセスポイントがなくてもESP32が2府あれば、片方をアクセスポイントにして通信できる
+Wi-Fiはアクセスポイント（AP）を通じて端末にネットワークを提供しています。
+主にアクセスポイントはWi-Fiルータであることが多いですが、ESP32自体を
+アクセスポイントとすることで、ESP32さえあれば、WebServerを起動して閲覧することができます。
 
  * 必要材料
  ** ESP32 × 1
@@ -336,7 +330,6 @@ void loop()
 ESP32アクセスポイントのIPアドレスは192.168.4.1です。
 Complete mDNS configuration.
 WebServerを起動します
-dhcps: send_nak>>udp_sendto result 0
 //}
 
 //image[ssid][アクセスポイント表示画面]{
